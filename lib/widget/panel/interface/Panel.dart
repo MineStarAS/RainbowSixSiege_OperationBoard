@@ -2,7 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 
-import '../../../Main.dart';
+import '../../../main.dart';
 
 abstract class Panel {
   late final MyStatefulWidgetState state;

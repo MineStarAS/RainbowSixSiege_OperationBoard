@@ -10,7 +10,7 @@ import 'package:r6splannerboard/widget/sketch/Square.dart';
 import 'package:r6splannerboard/widget/sketch/SquareBorder.dart';
 import 'package:r6splannerboard/widget/sketch/interface/Sketch.dart';
 
-import '../Main.dart';
+import '../main.dart';
 
 class PlayMapWidget {
   PlayMapWidget(this.state);

@@ -1,5 +1,3 @@
-// ignore_for_file: file_names, must_call_super
-
 import 'package:flutter/material.dart';
 import 'package:r6splannerboard/data/map/PlayMap.dart';
 import 'package:r6splannerboard/data/operator/Operator.dart';
@@ -13,7 +11,8 @@ import 'package:r6splannerboard/widget/panel/SketchButtonPanel.dart';
 import 'package:r6splannerboard/widget/panel/interface/OptionPanel.dart';
 import 'package:r6splannerboard/widget/sketch/SketchMode.dart';
 import 'package:r6splannerboard/widget/sketch/interface/Sketch.dart';
-
+import 'package:unicons/unicons.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'data/map/Floor.dart';
 
 void main() {
@@ -88,7 +87,7 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
   };
 
   ///##### Display List #####
-  List<Widget> _displayList() {
+  _displayList() {
     final List<Widget> list = [PlayMapWidget(this).mapImage()]; //Create List and Add PlayMapWidget Image
 
     //Add Sketch
@@ -209,16 +208,23 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
     final list = <Widget>[];
 
     for (final floor in playMap.hasFloor.values()) {
+      final Color color;
+      if (this.floor == floor) {
+        color = Colors.lightBlue.shade200;
+      } else {
+        color = Colors.white;
+      }
+
       list.add(Builder(
           builder: (context) => TextButton(
-            onPressed: () {
-              setState(() {
-                closeOptionPanel();
-                setFloor(floor);
-              });
-            },
-            child: Text(floor.string, style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w600)),
-          )));
+                onPressed: () {
+                  setState(() {
+                    closeOptionPanel();
+                    setFloor(floor);
+                  });
+                },
+                child: Text(floor.string, style: TextStyle(color: color, fontSize: 18, fontWeight: FontWeight.w600)),
+              )));
     }
 
     //Last Add
@@ -252,12 +258,30 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
     }
   }
 
+  ///##### Leading Function #####
+  _leading() => Builder(
+      builder: (context) => IconButton(
+        onPressed: () {
+          setState(() {
+            closeOptionPanel();
+            launchUrl(Uri.parse('https://github.com/MineStarAS/r6splannerboard'));
+          });
+        },
+        tooltip: "Open browser",
+        icon: const Icon(UniconsLine.github),
+      ));
+
   ///##### Build Function #####
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      appBar: AppBar(title: const Text('Rainbow Six Siege Planner Board'), automaticallyImplyLeading: false, actions: _playMapActions()),
+      appBar: AppBar(
+        title: const Text('Rainbow Six Siege Planner Board'),
+        automaticallyImplyLeading: false,
+        leading: _leading(),
+        actions: _playMapActions(),
+      ),
 
       ///Display
       body: Center(

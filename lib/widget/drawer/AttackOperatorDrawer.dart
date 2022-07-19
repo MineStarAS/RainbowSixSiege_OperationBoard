@@ -1,8 +1,8 @@
-// ignore_for_file: invalid_use_of_protected_member
+// ignore_for_file: invalid_use_of_protected_member, file_names
 
 import 'package:flutter/material.dart';
 
-import '../../Main.dart';
+import '../../main.dart';
 import '../../data/operator/AttackOperator.dart';
 import '../../data/operator/Operator.dart';
 import '../moveicon/OperatorIcon.dart';

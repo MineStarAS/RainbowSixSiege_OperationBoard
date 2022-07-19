@@ -2,7 +2,7 @@
 
 import 'package:arrow_path/arrow_path.dart';
 import 'package:flutter/material.dart';
-import 'package:r6splannerboard/Main.dart';
+import 'package:r6splannerboard/main.dart';
 import 'package:r6splannerboard/widget/sketch/interface/Sketch.dart';
 
 import 'SketchMode.dart';

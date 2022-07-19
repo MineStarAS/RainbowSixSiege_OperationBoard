@@ -3,7 +3,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:r6splannerboard/Main.dart';
+import 'package:r6splannerboard/main.dart';
 import 'package:r6splannerboard/widget/sketch/SketchMode.dart';
 import 'package:r6splannerboard/widget/sketch/interface/Sketch.dart';
 

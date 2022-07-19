@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 
-import '../../../Main.dart';
+import '../../../main.dart';
 
 abstract class Sketch {
 

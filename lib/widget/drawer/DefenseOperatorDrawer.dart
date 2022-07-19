@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:r6splannerboard/data/operator/DefenseOperator.dart';
 
-import '../../Main.dart';
+import '../../main.dart';
 import '../../data/operator/Operator.dart';
 import '../moveicon/OperatorIcon.dart';
 
