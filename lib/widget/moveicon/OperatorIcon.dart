@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:r6splannerboard/data/operator/Operator.dart';
+import 'package:unicons/unicons.dart';
 
 import '../../main.dart';
 import 'MoveIcon.dart';
@@ -29,98 +30,135 @@ class OperatorIcon extends MoveIcon {
   final Operator operator;
 
   @override
-  widget() =>
-      GestureDetector(
-          onPanUpdate: (details) {
-            state.closeOptionPanel();
-            state.setState(() {
-              setPosX(details.localPosition.dx - (size / 2));
-              setPosY(details.localPosition.dy - (size / 2));
-            });
-          },
-          onDoubleTap: () {
-            state.setState(() {
-              state.setOptionPanel(this);
-            });
-          },
-          child: Container(
-            width: size,
-            height: size,
-            margin: EdgeInsets.only(left: posX, top: posY),
-            child: Center(child: SizedBox(height: size, width: size, child: Center(child: Image.asset(operator.path)))),
-          ));
+  widget() => GestureDetector(
+      onPanUpdate: (details) {
+        state.closeOptionPanel();
+        state.setState(() {
+          setPosX(details.localPosition.dx - (size / 2));
+          setPosY(details.localPosition.dy - (size / 2));
+        });
+      },
+      onDoubleTap: () {
+        state.setState(() {
+          state.setOptionPanel(this);
+        });
+      },
+      child: Container(
+        width: size,
+        height: size,
+        margin: EdgeInsets.only(left: posX, top: posY),
+        child: Center(child: SizedBox(height: size, width: size, child: Center(child: Image.asset(operator.path)))),
+      ));
+
+  ///Option Panel
+  final _buttonColor = Colors.lightBlueAccent;
+  final _backGroundColor = Colors.blue.shade100;
+  final _gadgetButtonSize = 50.0;
+
+  _valueIconBox(Icon icon, String text) {
+    return Container(
+      width: 50,
+      height: 50,
+      decoration: BoxDecoration(
+        color: Colors.blue,
+        borderRadius: BorderRadius.circular(5),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Center(child: icon),
+          Center(child: Text(text, style: const TextStyle(fontSize: 10, color: Colors.white, fontWeight: FontWeight.w700))),
+        ],
+      ),
+    );
+  }
 
   @override
-  optionPanel() =>
-      Container(
-          margin: EdgeInsets.only(left: posX, top: posY + maxSize),
-          child: ColoredBox(
-              color: Colors.blue.shade100,
-              child: Container(
-                  width: 122,
-                  height: 132,
-                  padding: const EdgeInsets.all(3),
-                  child: Column(children: [
-                    ColoredBox(color: Colors.blue, child: Center(child: Text("크기 : ${size.toInt()}"))),
-                    offset,
-                    Center(
-                        child: Row(children: [
-                          ElevatedButton(
-                              onPressed: () {
-                                state.setState(() {
-                                  if (size > minSize) setSize(size - 5);
-                                });
-                              },
-                              style: ElevatedButton.styleFrom(fixedSize: const Size(50, 50), primary: Colors.white),
-                              child: const Center(
-                                  child: Icon(
-                                    Icons.remove,
-                                    color: Colors.black,
-                                  ))),
-                          offset,
-                          ElevatedButton(
-                              onPressed: () {
-                                state.setState(() {
-                                  if (size < maxSize) setSize(size + 5);
-                                });
-                              },
-                              style: ElevatedButton.styleFrom(fixedSize: const Size(50, 50), primary: Colors.white),
-                              child: const Center(child: Icon(Icons.add, color: Colors.black)))
-                        ])), //[EditSize]
-                    offset,
-                    Row(
-                      children: [
-                        ElevatedButton(
-                            onPressed: () {
-                              state.setState(() {
-                                state.closeOptionPanel();
-                                state.removeMoveIcon(this);
-                              });
-                            },
-                            style: ElevatedButton.styleFrom(fixedSize: const Size(50, 50), primary: Colors.white),
-                            child: const Center(child: Icon(Icons.delete_forever, color: Colors.black))),
-                        offset,
-                        ElevatedButton(
-                            onPressed: () {
-                              state.setState(() {
-                                state.closeOptionPanel();
+  optionPanel() => Container(
+      margin: EdgeInsets.only(left: posX, top: posY + maxSize),
+      child: ColoredBox(
+          color: _backGroundColor,
+          child: Container(
+              height: 163,
+              padding: const EdgeInsets.all(3),
+              child: Column(children: [
+                Center(
+                    child: Row(children: [
+                  ElevatedButton(
+                      onPressed: () {
+                        state.setState(() {
+                          if (size > minSize) setSize(size - 5);
+                        });
+                      },
+                      style: ElevatedButton.styleFrom(fixedSize: const Size(58, 50), primary: _buttonColor),
+                      child: const Center(child: Icon(Icons.remove))),
+                  offset,
+                  _valueIconBox(const Icon(UniconsLine.expand_arrows_alt, color: Colors.white, size: 20), size.toInt().toString()),
+                  offset,
+                  ElevatedButton(
+                      onPressed: () {
+                        state.setState(() {
+                          if (size < maxSize) setSize(size + 5);
+                        });
+                      },
+                      style: ElevatedButton.styleFrom(fixedSize: const Size(58, 50), primary: _buttonColor),
+                      child: const Center(child: Icon(Icons.add)))
+                ])),
+                offset,
+                Row(children: [
+                  ElevatedButton(
+                      onPressed: () {
+                        state.setState(() {
+                          state.closeOptionPanel();
+                          state.removeMoveIcon(this);
+                        });
+                      },
+                      style: ElevatedButton.styleFrom(fixedSize: const Size(85, 50), primary: _buttonColor),
+                      child: const Center(child: Icon(Icons.delete_forever, size: 20))),
+                  offset,
+                  ElevatedButton(
+                      onPressed: () {
+                        state.setState(() {
+                          state.closeOptionPanel();
 
-                                final double x;
+                          final double x;
 
-                                if (mapWidth < posX + (size * 2)) {
-                                  x = posX - size;
-                                } else {
-                                  x = posX + size;
-                                }
+                          if (mapWidth < posX + (size * 2)) {
+                            x = posX - size;
+                          } else {
+                            x = posX + size;
+                          }
 
-                                state.setState(() {
-                                  OperatorIcon(state, operator, x, posY);
-                                });
-                              });
-                            },
-                            style: ElevatedButton.styleFrom(fixedSize: const Size(50, 50), primary: Colors.white),
-                            child: const Center(child: Icon(Icons.copy, color: Colors.black))),
-                      ],
-                    ), //[Remove]
-                  ]))));
+                          state.setState(() {
+                            OperatorIcon(state, operator, x, posY);
+                          });
+                        });
+                      },
+                      style: ElevatedButton.styleFrom(fixedSize: const Size(85, 50), primary: _buttonColor),
+                      child: const Center(child: Icon(Icons.copy, size: 20))),
+                ]),
+                offset,
+                Row(children: [
+                  ElevatedButton(
+                      onPressed: () {
+                        state.setState(() {});
+                      },
+                      style: ElevatedButton.styleFrom(fixedSize: Size(_gadgetButtonSize, _gadgetButtonSize), primary: _buttonColor),
+                      child: const Text("T")),
+                  offset,
+                  ElevatedButton(
+                      onPressed: () {
+                        state.setState(() {});
+                      },
+                      style: ElevatedButton.styleFrom(fixedSize: Size(_gadgetButtonSize, _gadgetButtonSize), primary: _buttonColor),
+                      child: const Text("T")),
+                  offset,
+                  ElevatedButton(
+                      onPressed: () {
+                        state.setState(() {});
+                      },
+                      style: ElevatedButton.styleFrom(fixedSize: Size(_gadgetButtonSize, _gadgetButtonSize), primary: _buttonColor),
+                      child: const Text("T")),
+                ]),
+              ]))));
 }

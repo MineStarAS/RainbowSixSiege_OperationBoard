@@ -1,39 +1,6 @@
 // ignore_for_file: file_names, constant_identifier_names, recursive_getters
 
-import 'dart:ui';
-
-import 'package:r6splannerboard/data/gadget/PublicGadget.dart';
-import 'package:r6splannerboard/data/gadget/PublicGadget.dart';
-import 'package:r6splannerboard/data/gadget/PublicGadget.dart';
-import 'package:r6splannerboard/data/gadget/PublicGadget.dart';
-import 'package:r6splannerboard/data/gadget/PublicGadget.dart';
-import 'package:r6splannerboard/data/gadget/PublicGadget.dart';
-import 'package:r6splannerboard/data/gadget/PublicGadget.dart';
-import 'package:r6splannerboard/data/gadget/PublicGadget.dart';
-import 'package:r6splannerboard/data/gadget/PublicGadget.dart';
-import 'package:r6splannerboard/data/gadget/PublicGadget.dart';
-import 'package:r6splannerboard/data/gadget/PublicGadget.dart';
-import 'package:r6splannerboard/data/gadget/PublicGadget.dart';
-import 'package:r6splannerboard/data/gadget/PublicGadget.dart';
-import 'package:r6splannerboard/data/gadget/PublicGadget.dart';
-import 'package:r6splannerboard/data/gadget/PublicGadget.dart';
-import 'package:r6splannerboard/data/gadget/PublicGadget.dart';
-import 'package:r6splannerboard/data/gadget/PublicGadget.dart';
-import 'package:r6splannerboard/data/gadget/PublicGadget.dart';
-import 'package:r6splannerboard/data/gadget/PublicGadget.dart';
-import 'package:r6splannerboard/data/gadget/PublicGadget.dart';
-import 'package:r6splannerboard/data/gadget/PublicGadget.dart';
-import 'package:r6splannerboard/data/gadget/PublicGadget.dart';
-import 'package:r6splannerboard/data/gadget/PublicGadget.dart';
-import 'package:r6splannerboard/data/gadget/PublicGadget.dart';
-import 'package:r6splannerboard/data/gadget/PublicGadget.dart';
-import 'package:r6splannerboard/data/gadget/PublicGadget.dart';
-import 'package:r6splannerboard/data/gadget/PublicGadget.dart';
-import 'package:r6splannerboard/data/gadget/PublicGadget.dart';
-import 'package:r6splannerboard/data/gadget/PublicGadget.dart';
-import 'package:r6splannerboard/data/gadget/PublicGadget.dart';
-import 'package:r6splannerboard/data/gadget/PublicGadget.dart';
-import 'package:r6splannerboard/data/gadget/PublicGadget.dart';
+import 'package:r6splannerboard/data/gadget/OperatorGadget.dart';
 import 'package:r6splannerboard/data/operator/Operator.dart';
 
 import '../gadget/Gadget.dart';
@@ -60,16 +27,16 @@ enum AttackOperator implements Operator {
   LION("라이온", {}),
   FINKA("핀카", {}),
   MAVERICK("매버릭", {}),
-  NOMAD("노마드", {}),
-  GRIDLOCK("그리드락", {}),
+  NOMAD("노마드", {OperatorGadget.Airjab}),
+  GRIDLOCK("그리드락", {OperatorGadget.TraxStingers}),
   NOKK("뇌크", {}),
   AMARU("아마루", {}),
   KALI("칼리", {}),
   IANA("야나", {}),
   ACE("에이스", {}),
-  ZERO("제로", {}),
+  ZERO("제로", {OperatorGadget.ARGUS}),
   FLORES("플로레스", {}),
-  OSA("오사", {}),
+  OSA("오사", {OperatorGadget.Talon8Shield}),
   SENS("센스", {}),
   ;
 

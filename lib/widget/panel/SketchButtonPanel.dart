@@ -110,19 +110,19 @@ class SketchButtonPanel extends Panel {
           _textBox("변수 설정"),
           offset,
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            _AddThicknessButton(state, Colors.lightBlueAccent, const Size(50, 50)).button(),
+            _RemoveOpacityButton(state, Colors.lightBlueAccent, const Size(50, 50)).button(),
             offset,
             _valueIconBox(const Icon(UniconsLine.arrows_resize, color: Colors.white), "[ ${state.getSketchThickness(state.sketchMode).toInt()} ]"),
             offset,
-            _RemoveThicknessButton(state, Colors.lightBlueAccent, const Size(50, 50)).button(),
+            _AddOpacityButton(state, Colors.lightBlueAccent, const Size(50, 50)).button(),
           ]),
           offset,
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            _AddOpacityButton(state, Colors.lightBlueAccent, const Size(50, 50)).button(),
+            _RemoveOpacityButton(state, Colors.lightBlueAccent, const Size(50, 50)).button(),
             offset,
             _valueIconBox(const Icon(UniconsLine.border_clear, color: Colors.white), "[ ${(state.getSketchOpacity(state.sketchMode) * 10).toInt()} ]"),
             offset,
-            _RemoveOpacityButton(state, Colors.lightBlueAccent, const Size(50, 50)).button(),
+            _AddOpacityButton(state, Colors.lightBlueAccent, const Size(50, 50)).button(),
           ]),
         ],
       );
