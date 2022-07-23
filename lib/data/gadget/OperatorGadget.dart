@@ -34,7 +34,14 @@ enum OperatorGadget implements Gadget {
 
   final String operatorName;
 
-  getPath() => "assets/gadget/Gadget_$operatorName.png";
+  @override
+  String path() => "assets/gadget/operator/Gadget_$operatorName.png";
+
+  @override
+  String? otherPath() {
+    if (hasOtherImage == GadgetOtherImage.Null) return null;
+    return "assets/gadget/operator/Gadget_${operatorName}_$hasOtherImage.png";
+  }
 
   @override
   final int angleStep;

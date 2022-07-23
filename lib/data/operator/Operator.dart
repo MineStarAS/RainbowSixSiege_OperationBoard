@@ -10,16 +10,16 @@ abstract class Operator {
     this.enumName,
     this.korean,
     this.teamType,
-    this.path,
     this.gadgets,
   );
 
   final String enumName;
   final String korean;
-  final String path;
   final TeamType teamType;
 
-  final Set<Gadget> gadgets;
+  String path();
+
+  final List<Gadget> gadgets;
 }
 
 enum TeamType {

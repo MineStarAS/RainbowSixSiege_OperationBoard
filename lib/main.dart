@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'package:r6splannerboard/data/map/PlayMap.dart';
 import 'package:r6splannerboard/data/operator/Operator.dart';
@@ -13,6 +15,7 @@ import 'package:r6splannerboard/widget/sketch/SketchMode.dart';
 import 'package:r6splannerboard/widget/sketch/interface/Sketch.dart';
 import 'package:unicons/unicons.dart';
 import 'package:url_launcher/url_launcher.dart';
+
 import 'data/map/Floor.dart';
 
 void main() {
@@ -43,6 +46,19 @@ class MyStatefulWidget extends StatefulWidget {
 
 ///##### Build Class #####
 class MyStatefulWidgetState extends State<MyStatefulWidget> {
+  MyStatefulWidgetState() {
+    for (PlayMap playMap in PlayMap.values) {
+      final Map<Floor, Set<MoveIcon>> moveIconMap = {};
+      final Map<Floor, Set<Sketch>> sketchMap = {};
+      for (Floor floor in playMap.hasFloor.values()) {
+        moveIconMap[floor] = {};
+        sketchMap[floor] = {};
+      }
+      _moveIconMap[playMap] = moveIconMap;
+      _sketchMap[playMap] = sketchMap;
+    }
+  }
+
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   ///##### Field #####
@@ -61,14 +77,28 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
   TeamType _teamType = TeamType.attack;
 
   //MoveIcon
-  final Set<MoveIcon> _moveIconSet = {};
+  final Map<PlayMap, Map<Floor, Set<MoveIcon>>> _moveIconMap = {};
+
+  Set<MoveIcon> _moveIconSet() {
+    final map = _moveIconMap[playMap]!;
+    return map[floor]!;
+  }
+
   OptionPanel? _optionPanel;
 
   //Sketch
   SketchMode sketchMode = SketchMode.ARROW;
   Color sketchColor = Colors.red;
-  final Set<Sketch> _sketchSet = {};
+
+  final Map<PlayMap, Map<Floor, Set<Sketch>>> _sketchMap = {};
+
+  Set<Sketch> _sketchSet() {
+    final map = _sketchMap[playMap]!;
+    return map[floor]!;
+  }
+
   Sketch? sketchTarget;
+
   final Map<SketchMode, int> _sketchThicknessMap = {
     SketchMode.ARROW: 5,
     SketchMode.SQUARE: 0,
@@ -88,17 +118,18 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
 
   ///##### Display List #####
   _displayList() {
-    final List<Widget> list = [PlayMapWidget(this).mapImage()]; //Create List and Add PlayMapWidget Image
+    //Create List and Add PlayMapWidget Image
+    final List<Widget> list = [PlayMapWidget(this).mapImage()];
 
     //Add Sketch
-    for (final sketch in _sketchSet) {
+    for (final sketch in _sketchSet()) {
       list.add(sketch.widget());
     }
     //Add PlayMapWidget GestureDetector
     list.add(PlayMapWidget(this).gestureDetector());
 
     //Add MoveIcon
-    for (final moveIcon in _moveIconSet) {
+    for (final moveIcon in _moveIconSet()) {
       list.add(moveIcon.widget());
     }
 
@@ -110,29 +141,29 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
 
   ///##### MoveIcon Function #####
   addMoveIcon(MoveIcon moveIcon) {
-    _moveIconSet.add(moveIcon);
+    _moveIconSet().add(moveIcon);
   }
 
   removeMoveIcon(MoveIcon moveIcon) {
-    _moveIconSet.remove(moveIcon);
+    _moveIconMap.remove(moveIcon);
   }
 
   ///##### Sketch Function #####
   addSketch(Sketch sketch) {
-    _sketchSet.add(sketch);
+    _sketchSet().add(sketch);
   }
 
   undoSketch() {
     setState(() {
       try {
-        _sketchSet.remove(_sketchSet.last);
+        _sketchSet().remove(_sketchSet().last);
       } catch (_) {}
     });
   }
 
   clearSketch() {
     setState(() {
-      _sketchSet.clear();
+      _sketchSet().clear();
     });
   }
 
@@ -261,15 +292,15 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
   ///##### Leading Function #####
   _leading() => Builder(
       builder: (context) => IconButton(
-        onPressed: () {
-          setState(() {
-            closeOptionPanel();
-            launchUrl(Uri.parse('https://github.com/MineStarAS/r6splannerboard'));
-          });
-        },
-        tooltip: "Open browser",
-        icon: const Icon(UniconsLine.github),
-      ));
+            onPressed: () {
+              setState(() {
+                closeOptionPanel();
+                launchUrl(Uri.parse('https://github.com/MineStarAS/r6splannerboard'));
+              });
+            },
+            tooltip: "Open browser",
+            icon: const Icon(UniconsLine.github),
+          ));
 
   ///##### Build Function #####
   @override

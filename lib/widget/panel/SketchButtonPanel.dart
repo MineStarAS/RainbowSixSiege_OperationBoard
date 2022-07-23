@@ -171,7 +171,7 @@ class _SelectColorButton extends Button {
             state.sketchColor = sketchColor;
           });
         },
-        style: ElevatedButton.styleFrom(fixedSize: size, primary: selectedColor(state.sketchColor == sketchColor)),
+        style: ElevatedButton.styleFrom(fixedSize: size, primary: disableColor(state.sketchColor == sketchColor)),
         child: Icon(Icons.square, color: sketchColor),
       );
 }
@@ -195,7 +195,7 @@ class _SelectArrowSketchButton extends Button {
             state.sketchMode = SketchMode.ARROW;
           });
         },
-        style: ElevatedButton.styleFrom(fixedSize: size, primary: selectedColor(state.sketchMode == SketchMode.ARROW)),
+        style: ElevatedButton.styleFrom(fixedSize: size, primary: disableColor(state.sketchMode == SketchMode.ARROW)),
         child: const Icon(UniconsSolid.arrow_up_right),
       );
 }
@@ -219,7 +219,7 @@ class _SelectSquareSketchButton extends Button {
             state.sketchMode = SketchMode.SQUARE;
           });
         },
-        style: ElevatedButton.styleFrom(fixedSize: size, primary: selectedColor(state.sketchMode == SketchMode.SQUARE)),
+        style: ElevatedButton.styleFrom(fixedSize: size, primary: disableColor(state.sketchMode == SketchMode.SQUARE)),
         child: const Icon(Icons.square),
       );
 }
@@ -243,7 +243,7 @@ class _SelectSquareBorderSketchButton extends Button {
             state.sketchMode = SketchMode.SQUARE_BORDER;
           });
         },
-        style: ElevatedButton.styleFrom(fixedSize: size, primary: selectedColor(state.sketchMode == SketchMode.SQUARE_BORDER)),
+        style: ElevatedButton.styleFrom(fixedSize: size, primary: disableColor(state.sketchMode == SketchMode.SQUARE_BORDER)),
         child: const Icon(Icons.square_outlined),
       );
 }
@@ -267,7 +267,7 @@ class _SelectLineSketchButton extends Button {
             state.sketchMode = SketchMode.LINE;
           });
         },
-        style: ElevatedButton.styleFrom(fixedSize: size, primary: selectedColor(state.sketchMode == SketchMode.LINE)),
+        style: ElevatedButton.styleFrom(fixedSize: size, primary: disableColor(state.sketchMode == SketchMode.LINE)),
         child: const Icon(UniconsLine.line_alt),
       );
 }
@@ -291,7 +291,7 @@ class _SelectCircleSketchButton extends Button {
             state.sketchMode = SketchMode.CIRCLE;
           });
         },
-        style: ElevatedButton.styleFrom(fixedSize: size, primary: selectedColor(state.sketchMode == SketchMode.CIRCLE)),
+        style: ElevatedButton.styleFrom(fixedSize: size, primary: disableColor(state.sketchMode == SketchMode.CIRCLE)),
         child: const Icon(Icons.circle_outlined),
       );
 }
@@ -315,7 +315,7 @@ class _SelectCrossMarkSketchButton extends Button {
             state.sketchMode = SketchMode.CROSS_MARK;
           });
         },
-        style: ElevatedButton.styleFrom(fixedSize: size, primary: selectedColor(state.sketchMode == SketchMode.CROSS_MARK)),
+        style: ElevatedButton.styleFrom(fixedSize: size, primary: disableColor(state.sketchMode == SketchMode.CROSS_MARK)),
         child: const Icon(Icons.close),
       );
 }
@@ -339,7 +339,7 @@ class _AddThicknessButton extends Button {
             state.addSketchThickness(state.sketchMode);
           });
         },
-        style: ElevatedButton.styleFrom(fixedSize: size, primary: selectedColor(state.sketchMode == SketchMode.SQUARE)),
+        style: ElevatedButton.styleFrom(fixedSize: size, primary: disableColor(state.sketchMode == SketchMode.SQUARE)),
         child: const Icon(Icons.add),
       );
 }
@@ -363,7 +363,7 @@ class _RemoveThicknessButton extends Button {
             state.removeSketchThickness(state.sketchMode);
           });
         },
-        style: ElevatedButton.styleFrom(fixedSize: size, primary: selectedColor(state.sketchMode == SketchMode.SQUARE)),
+        style: ElevatedButton.styleFrom(fixedSize: size, primary: disableColor(state.sketchMode == SketchMode.SQUARE)),
         child: const Icon(Icons.remove),
       );
 }

@@ -12,7 +12,7 @@ abstract class Button {
 
   late final Size size;
 
-  selectedColor(bool isSelected) {
+  disableColor(bool isSelected) {
     if (isSelected) return color.withOpacity(0.4);
     return color;
   }

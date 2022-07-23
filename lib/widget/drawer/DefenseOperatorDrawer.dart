@@ -47,7 +47,7 @@ class DefenseOpDrawer {
       leading: const Icon(Icons.add),
       title: Row(
         children: [
-          SizedBox(width: 45, height: 45, child: Image.asset(operator.path)),
+          SizedBox(width: 45, height: 45, child: Image.asset(operator.path())),
           Text(operator.korean),
         ],
       ),

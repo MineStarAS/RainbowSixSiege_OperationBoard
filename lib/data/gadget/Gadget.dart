@@ -4,6 +4,9 @@ abstract class Gadget {
   const Gadget(this.angleStep, this.hasOtherImage);
   final int angleStep;
   final GadgetOtherImage hasOtherImage;
+
+  String path();
+  String? otherPath();
 }
 
 enum GadgetOtherImage {
