@@ -20,25 +20,30 @@ class OperatorIcon extends MoveIcon {
 
   @override
   double posX;
-
   @override
   double posY;
 
   @override
   final double offsetX = 3;
-
   @override
   final double offsetY = 3;
+
+  @override
+  final double minSize = 20.0;
+  @override
+  final double maxSize = 50.0;
+  @override
+  double currentSize = 30.0;
 
   final Operator operator;
 
   @override
   widget() => GestureDetector(
-      onPanUpdate: (details) {
+      onPanUpdate: (event) {
         state.closeOptionPanel();
         state.setState(() {
-          setPosX(details.localPosition.dx - (size / 2));
-          setPosY(details.localPosition.dy - (size / 2));
+          setPosX(event.localPosition.dx - (size / 2));
+          setPosY(event.localPosition.dy - (size / 2));
         });
       },
       onDoubleTap: () {
@@ -56,7 +61,6 @@ class OperatorIcon extends MoveIcon {
   ///Option Panel
   final _buttonColor = Colors.lightBlueAccent;
   final _backGroundColor = Colors.blue.shade100;
-  final _gadgetButtonSize = 50.0;
 
   _valueIconBox(Icon icon, String text) {
     return Container(
@@ -106,58 +110,17 @@ class OperatorIcon extends MoveIcon {
                 child: Column(children: [
                   Center(
                       child: Row(children: [
-                    ElevatedButton(
-                        onPressed: () {
-                          state.setState(() {
-                            if (size > minSize) setSize(size - 5);
-                          });
-                        },
-                        style: ElevatedButton.styleFrom(fixedSize: const Size(58, 50), primary: _buttonColor),
-                        child: const Center(child: Icon(Icons.remove))),
+                    _SizeRemoveButton(state, _buttonColor, const Size(58, 50), this).button(),
                     offset,
                     _valueIconBox(const Icon(UniconsLine.expand_arrows_alt, color: Colors.white, size: 20), size.toInt().toString()),
                     offset,
-                    ElevatedButton(
-                        onPressed: () {
-                          state.setState(() {
-                            if (size < maxSize) setSize(size + 5);
-                          });
-                        },
-                        style: ElevatedButton.styleFrom(fixedSize: const Size(58, 50), primary: _buttonColor),
-                        child: const Center(child: Icon(Icons.add)))
+                    _SizeAddButton(state, _buttonColor, const Size(58, 50), this).button(),
                   ])),
                   offset,
                   Row(children: [
-                    ElevatedButton(
-                        onPressed: () {
-                          state.setState(() {
-                            state.closeOptionPanel();
-                            state.removeMoveIcon(this);
-                          });
-                        },
-                        style: ElevatedButton.styleFrom(fixedSize: const Size(85, 50), primary: _buttonColor),
-                        child: const Center(child: Icon(Icons.delete_forever, size: 20))),
+                    _RemoveIconButton(state, _buttonColor, const Size(85, 50), this).button(),
                     offset,
-                    ElevatedButton(
-                        onPressed: () {
-                          state.setState(() {
-                            state.closeOptionPanel();
-
-                            final double x;
-
-                            if (mapWidth < posX + (size * 2)) {
-                              x = posX - size;
-                            } else {
-                              x = posX + size;
-                            }
-
-                            state.setState(() {
-                              OperatorIcon(state, operator, x, posY);
-                            });
-                          });
-                        },
-                        style: ElevatedButton.styleFrom(fixedSize: const Size(85, 50), primary: _buttonColor),
-                        child: const Center(child: Icon(Icons.copy, size: 20))),
+                    _CloneIconButton(state, _buttonColor, const Size(85, 50), this).button(),
                   ]),
                   offset,
                   Row(children: [
@@ -172,6 +135,133 @@ class OperatorIcon extends MoveIcon {
 }
 
 ///Button Classes
+class _SizeAddButton extends Button {
+  _SizeAddButton(this.state, this.color, this.size, this.operatorIcon);
+
+  @override
+  final MyStatefulWidgetState state;
+
+  @override
+  final Color color;
+
+  @override
+  final Size size;
+
+  final OperatorIcon operatorIcon;
+
+  @override
+  button() {
+    return ElevatedButton(
+      onPressed: () {
+        if (operatorIcon.currentSize > operatorIcon.minSize) {
+          state.setState(() {
+            operatorIcon.setSize(operatorIcon.currentSize + 5);
+          });
+        }
+      },
+      style: ElevatedButton.styleFrom(fixedSize: size, primary: color),
+      child: const Icon(Icons.add),
+    );
+  }
+}
+
+class _SizeRemoveButton extends Button {
+  _SizeRemoveButton(this.state, this.color, this.size, this.operatorIcon);
+
+  @override
+  final MyStatefulWidgetState state;
+
+  @override
+  final Color color;
+
+  @override
+  final Size size;
+
+  final OperatorIcon operatorIcon;
+
+  @override
+  button() {
+    return ElevatedButton(
+      onPressed: () {
+        if (operatorIcon.currentSize > operatorIcon.minSize) {
+          state.setState(() {
+            operatorIcon.setSize(operatorIcon.currentSize - 5);
+          });
+        }
+      },
+      style: ElevatedButton.styleFrom(fixedSize: size, primary: color),
+      child: const Icon(Icons.remove),
+    );
+  }
+}
+
+class _RemoveIconButton extends Button {
+  _RemoveIconButton(this.state, this.color, this.size, this.operatorIcon);
+
+  @override
+  final MyStatefulWidgetState state;
+
+  @override
+  final Color color;
+
+  @override
+  final Size size;
+
+  final OperatorIcon operatorIcon;
+
+  @override
+  button() {
+    return ElevatedButton(
+      onPressed: () {
+        state.setState(() {
+          state.closeOptionPanel();
+          state.removeMoveIcon(operatorIcon);
+        });
+      },
+      style: ElevatedButton.styleFrom(fixedSize: size, primary: color),
+      child: const Center(child: Icon(Icons.delete_forever, size: 20)),
+    );
+  }
+}
+
+class _CloneIconButton extends Button {
+  _CloneIconButton(this.state, this.color, this.size, this.operatorIcon);
+
+  @override
+  final MyStatefulWidgetState state;
+
+  @override
+  final Color color;
+
+  @override
+  final Size size;
+
+  final OperatorIcon operatorIcon;
+
+  @override
+  button() {
+    return ElevatedButton(
+      onPressed: () {
+        state.setState(() {
+          state.closeOptionPanel();
+
+          final double x;
+
+          if (state.mapWidth < operatorIcon.posX + (operatorIcon.size * 2)) {
+            x = operatorIcon.posX - operatorIcon.size;
+          } else {
+            x = operatorIcon.posX + operatorIcon.size;
+          }
+
+          OperatorIcon(state, operatorIcon.operator, x, operatorIcon.posY);
+        });
+      },
+      style: ElevatedButton.styleFrom(fixedSize: size, primary: color),
+      child: const Center(child: Icon(Icons.copy, size: 20)),
+    );
+  }
+}
+
 class _GadgetButton extends Button {
   _GadgetButton(this.state, this.color, this.size, this.x, this.y, this.gadgetNumber, this.operator);
 

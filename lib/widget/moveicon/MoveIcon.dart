@@ -6,14 +6,13 @@ import 'package:r6splannerboard/widget/panel/interface/OptionPanel.dart';
 import '../../main.dart';
 
 abstract class MoveIcon extends OptionPanel {
-  late final MyStatefulWidgetState state;
 
   late double posX;
   late double posY;
 
-  final double minSize = 20.0;
-  final double maxSize = 50.0;
-  double _currentSize = 30.0;
+  late final double minSize;
+  late final double maxSize;
+  late double currentSize;
 
   late final double mapWidth = state.mapWidth;
   late final double mapHeight =  state.mapHeight;
@@ -21,8 +20,8 @@ abstract class MoveIcon extends OptionPanel {
   setPosX(double x) {
     if (x < 0) {
       posX = 0;
-    } else if (mapWidth < x + _currentSize) {
-      posX = mapWidth - _currentSize;
+    } else if (mapWidth < x + currentSize) {
+      posX = mapWidth - currentSize;
     } else {
       posX = x;
     }
@@ -31,8 +30,8 @@ abstract class MoveIcon extends OptionPanel {
   setPosY(double y) {
     if (y < 0) {
       posY = 0;
-    } else if (mapHeight < y + _currentSize) {
-      posY = mapHeight - _currentSize;
+    } else if (mapHeight < y + currentSize) {
+      posY = mapHeight - currentSize;
     } else {
       posY = y;
     }
@@ -40,14 +39,14 @@ abstract class MoveIcon extends OptionPanel {
 
   setSize(double size) {
     if (maxSize < size) {
-      _currentSize = maxSize;
+      currentSize = maxSize;
     } else if (size < minSize) {
-      _currentSize = minSize;
+      currentSize = minSize;
     } else {
-      _currentSize = size;
+      currentSize = size;
     }
   }
-  get size => _currentSize;
+  get size => currentSize;
 
   Widget widget();
 }

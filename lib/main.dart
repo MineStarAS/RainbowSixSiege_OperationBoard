@@ -1,5 +1,6 @@
-import 'dart:collection';
+// ignore_for_file: must_call_super
 
+import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter/material.dart';
 import 'package:r6splannerboard/data/map/PlayMap.dart';
 import 'package:r6splannerboard/data/operator/Operator.dart';
@@ -46,32 +47,49 @@ class MyStatefulWidget extends StatefulWidget {
 
 ///##### Build Class #####
 class MyStatefulWidgetState extends State<MyStatefulWidget> {
-  MyStatefulWidgetState() {
+  @override
+  initState() {
+    DesktopWindow.setMinWindowSize(const Size(1686, 825));
+    DesktopWindow.setFullScreen(true);
+
     for (PlayMap playMap in PlayMap.values) {
       final Map<Floor, Set<MoveIcon>> moveIconMap = {};
       final Map<Floor, Set<Sketch>> sketchMap = {};
+      final Map<Floor, double> playMapOffsetYMap = {};
+      final Map<Floor, double> playMapOffsetXMap = {};
+      final Map<Floor, double> playMapScaleMap = {};
       for (Floor floor in playMap.hasFloor.values()) {
         moveIconMap[floor] = {};
         sketchMap[floor] = {};
+        playMapOffsetYMap[floor] = 0;
+        playMapOffsetXMap[floor] = 0;
+        playMapScaleMap[floor] = 1;
       }
       _moveIconMap[playMap] = moveIconMap;
       _sketchMap[playMap] = sketchMap;
+      _playMapOffsetX[playMap] = playMapOffsetYMap;
+      _playMapOffsetY[playMap] = playMapOffsetXMap;
+      _playMapScale[playMap] = playMapScaleMap;
     }
   }
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   ///##### Field #####
+  //PlayMap
+  PlayMap playMap = PlayMap.BANK;
+  Floor floor = Floor.F1;
+
   final double mapWidth = 1250;
   final double mapHeight = 938;
+
+  final Map<PlayMap, Map<Floor, double>> _playMapOffsetX = {};
+  final Map<PlayMap, Map<Floor, double>> _playMapOffsetY = {};
+  final Map<PlayMap, Map<Floor, double>> _playMapScale = {};
 
   //TeamColor
   final attackTeamColor = const Color(0xFF1184E1);
   final defenseTeamColor = const Color(0xFFE97015);
-
-  //PlayMap
-  PlayMap playMap = PlayMap.BANK;
-  Floor floor = Floor.F1;
 
   //Drawer TeamType
   TeamType _teamType = TeamType.attack;
@@ -79,10 +97,7 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
   //MoveIcon
   final Map<PlayMap, Map<Floor, Set<MoveIcon>>> _moveIconMap = {};
 
-  Set<MoveIcon> _moveIconSet() {
-    final map = _moveIconMap[playMap]!;
-    return map[floor]!;
-  }
+  Set<MoveIcon> _moveIconSet() => _moveIconMap[playMap]![floor]!;
 
   OptionPanel? _optionPanel;
 
@@ -92,10 +107,7 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
 
   final Map<PlayMap, Map<Floor, Set<Sketch>>> _sketchMap = {};
 
-  Set<Sketch> _sketchSet() {
-    final map = _sketchMap[playMap]!;
-    return map[floor]!;
-  }
+  Set<Sketch> _sketchSet() => _sketchMap[playMap]![floor]!;
 
   Sketch? sketchTarget;
 
@@ -139,41 +151,52 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
     return list;
   }
 
-  ///##### MoveIcon Function #####
-  addMoveIcon(MoveIcon moveIcon) {
-    _moveIconSet().add(moveIcon);
+  ///##### PlayMap Function #####
+  double getPlayMapOffsetX() => _playMapOffsetX[playMap]![floor]!;
+
+  double getPlayMapOffsetY() => _playMapOffsetY[playMap]![floor]!;
+
+  double getPlayMapScale() => _playMapScale[playMap]![floor]!;
+
+  setPlayMapOffsetX(double offsetX) => _playMapOffsetX[playMap]![floor] = offsetX;
+
+  setPlayMapOffsetY(double offsetY) => _playMapOffsetY[playMap]![floor] = offsetY;
+
+  addPlayMapScale() {
+    //Reversed
+    var newValue = _playMapScale[playMap]![floor]! - 0.05;
+    if (newValue < 0.3) newValue = 0.3;
+    _playMapScale[playMap]![floor] = newValue;
   }
 
-  removeMoveIcon(MoveIcon moveIcon) {
-    _moveIconMap.remove(moveIcon);
+  removePlayMapScale() {
+    //Reversed
+    var newValue = _playMapScale[playMap]![floor]! + 0.05;
+    if (newValue > 1) newValue = 1;
+    _playMapScale[playMap]![floor] = newValue;
   }
+
+  ///##### MoveIcon Function #####
+  addMoveIcon(MoveIcon moveIcon) => _moveIconSet().add(moveIcon);
+
+  removeMoveIcon(MoveIcon moveIcon) => _moveIconSet().remove(moveIcon);
 
   ///##### Sketch Function #####
-  addSketch(Sketch sketch) {
-    _sketchSet().add(sketch);
-  }
+  addSketch(Sketch sketch) => _sketchSet().add(sketch);
 
-  undoSketch() {
-    setState(() {
-      try {
-        _sketchSet().remove(_sketchSet().last);
-      } catch (_) {}
-    });
-  }
+  undoSketch() => setState(() {
+        try {
+          _sketchSet().remove(_sketchSet().last);
+        } catch (_) {}
+      });
 
-  clearSketch() {
-    setState(() {
-      _sketchSet().clear();
-    });
-  }
+  clearSketch() => setState(() {
+        _sketchSet().clear();
+      });
 
-  setSketchTarget(Sketch sketch) {
-    sketchTarget = sketch;
-  }
+  setSketchTarget(Sketch sketch) => sketchTarget = sketch;
 
-  removeSketchTarget() {
-    sketchTarget = null;
-  }
+  removeSketchTarget() => sketchTarget = null;
 
   getSketchThickness(SketchMode sketchMode) => _sketchThicknessMap[sketchMode]!.toDouble();
 
@@ -202,13 +225,9 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
   }
 
   ///##### Set or Remove OptionPanel Target #####
-  setOptionPanel(OptionPanel optionPanel) {
-    _optionPanel = optionPanel;
-  }
+  setOptionPanel(OptionPanel optionPanel) => _optionPanel = optionPanel;
 
-  closeOptionPanel() {
-    _optionPanel = null;
-  }
+  closeOptionPanel() => _optionPanel = null;
 
   ///##### OperatorDrawer Function #####
   Drawer _loadOpDrawer() {
