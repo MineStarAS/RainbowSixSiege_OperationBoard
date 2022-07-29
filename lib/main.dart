@@ -87,6 +87,8 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
   final Map<PlayMap, Map<Floor, double>> _playMapOffsetY = {};
   final Map<PlayMap, Map<Floor, double>> _playMapScale = {};
 
+  final double _zoomInLimit = 0.3;
+
   //TeamColor
   final attackTeamColor = const Color(0xFF1184E1);
   final defenseTeamColor = const Color(0xFFE97015);
@@ -162,11 +164,25 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
 
   setPlayMapOffsetY(double offsetY) => _playMapOffsetY[playMap]![floor] = offsetY;
 
-  addPlayMapScale() {
-    //Reversed
-    var newValue = _playMapScale[playMap]![floor]! - 0.05;
-    if (newValue < 0.3) newValue = 0.3;
+  addPlayMapOffsetX(double offsetX) => _playMapOffsetX[playMap]![floor] = _playMapOffsetX[playMap]![floor]! + offsetX;
+
+  addPlayMapOffsetY(double offsetY) => _playMapOffsetY[playMap]![floor] = _playMapOffsetX[playMap]![floor]! + offsetY;
+
+  addPlayMapScale(double posX, double posY) {
+    final value = _playMapScale[playMap]![floor]!;
+    if (value <= _zoomInLimit) return;
+    var newValue = value - 0.05;
+    if (newValue < _zoomInLimit) newValue = _zoomInLimit;
     _playMapScale[playMap]![floor] = newValue;
+
+    final centerX = mapWidth / 2;
+    final centerY = mapHeight / 2;
+
+    final offsetX = (posX - centerX) * 0.000005;
+    final offsetY = (posY - centerY) * 0.000005;
+
+    addPlayMapOffsetX(addPlayMapOffsetX(offsetX));
+    addPlayMapOffsetY(addPlayMapOffsetX(offsetY));
   }
 
   removePlayMapScale() {

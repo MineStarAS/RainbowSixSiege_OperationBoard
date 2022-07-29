@@ -37,7 +37,7 @@ class PlayMapWidget {
           if (event is! PointerScrollEvent) return;
           state.setState(() {
             if (event.scrollDelta.dy < 0) {
-              state.addPlayMapScale(); //ZoomIn
+              state.addPlayMapScale(event.localPosition.dx, event.localPosition.dy); //ZoomIn
             } else {
               state.removePlayMapScale(); //ZoomOut
             }
