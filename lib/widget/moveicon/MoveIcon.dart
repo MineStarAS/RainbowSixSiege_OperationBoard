@@ -46,7 +46,7 @@ abstract class MoveIcon extends OptionPanel {
       currentSize = size;
     }
   }
-  get size => currentSize;
+  get size => currentSize * state.getPlayMapScale();
 
   Widget widget();
 }

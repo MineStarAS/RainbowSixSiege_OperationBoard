@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
+import 'package:r6splannerboard/main.dart';
 import 'package:r6splannerboard/widget/sketch/Arrow.dart';
 import 'package:r6splannerboard/widget/sketch/Circle.dart';
 import 'package:r6splannerboard/widget/sketch/CrossMark.dart';
@@ -11,33 +12,22 @@ import 'package:r6splannerboard/widget/sketch/Square.dart';
 import 'package:r6splannerboard/widget/sketch/SquareBorder.dart';
 import 'package:r6splannerboard/widget/sketch/interface/Sketch.dart';
 
-import '../main.dart';
-
-class PlayMapWidget {
-  PlayMapWidget(this.state);
+class PlayMapGesture {
+  PlayMapGesture(this.state);
 
   late final MyStatefulWidgetState state;
 
-  mapImage() => Center(
-        child: SizedBox(
-            width: state.mapWidth,
-            height: state.mapHeight,
-            child: Container(
-              margin: EdgeInsets.only(left: state.getPlayMapOffsetX(), top: state.getPlayMapOffsetY()),
-              child: Image.asset(
-                state.playMap.path(state.floor),
-                fit: BoxFit.none,
-                scale: state.getPlayMapScale(),
-              ),
-            )),
-      );
+  bool _moveImageBoolean = true;
+  double? _originX;
+  double? _originY;
 
-  gestureDetector() => Listener(
+  widget() => Listener(
+        ///Mouse Wheel Scroll
         onPointerSignal: (event) {
           if (event is! PointerScrollEvent) return;
           state.setState(() {
             if (event.scrollDelta.dy < 0) {
-              state.addPlayMapScale(event.localPosition.dx, event.localPosition.dy); //ZoomIn
+              state.addPlayMapScale(); //ZoomIn
             } else {
               state.removePlayMapScale(); //ZoomOut
             }
@@ -50,6 +40,11 @@ class PlayMapWidget {
             });
           },
           onPanStart: (event) {
+            if (_moveImageBoolean) {
+              _originX = event.localPosition.dx;
+              _originY = event.localPosition.dy;
+              return;
+            }
             state.setState(() {
               final Sketch? sketch;
               switch (state.sketchMode) {
@@ -81,6 +76,23 @@ class PlayMapWidget {
             });
           },
           onPanUpdate: (event) {
+            ///Move PlayMap Image
+            if (_moveImageBoolean) {
+              state.setState(() {
+                print(state.debug("${state.getPlayMapOffsetX().toInt()} ${state.getPlayMapOffsetY().toInt()}"));
+
+                final scale = 1.0 + state.zoomInLimit - state.getPlayMapScale();
+
+                if (_originX != null) state.addPlayMapOffsetX((_originX! - event.localPosition.dx) * scale);
+                if (_originY != null) state.addPlayMapOffsetY((_originY! - event.localPosition.dy) * scale);
+
+                _originX = event.localPosition.dx;
+                _originY = event.localPosition.dy;
+              });
+              return;
+            }
+
+            ///Draw Sketch
             state.setState(() {
               state.sketchTarget?.setFinishX(event.localPosition.dx);
               state.sketchTarget?.setFinishY(event.localPosition.dy);
@@ -90,6 +102,7 @@ class PlayMapWidget {
             state.setState(() {
               state.closeOptionPanel();
               state.removeSketchTarget();
+              // _moveImageBoolean = false;
             });
           },
           onDoubleTap: () {
@@ -100,6 +113,7 @@ class PlayMapWidget {
           onDoubleTapCancel: () {
             state.setState(() {
               state.closeOptionPanel();
+              _moveImageBoolean = true;
             });
           },
           child: Center(child: Image.asset("assets/map/BLANK.png")),

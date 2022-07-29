@@ -4,7 +4,8 @@ import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter/material.dart';
 import 'package:r6splannerboard/data/map/PlayMap.dart';
 import 'package:r6splannerboard/data/operator/Operator.dart';
-import 'package:r6splannerboard/widget/PlayMapWidget.dart';
+import 'package:r6splannerboard/widget/playmap/PlayMapGesture.dart';
+import 'package:r6splannerboard/widget/playmap/PlayMapWidget.dart';
 import 'package:r6splannerboard/widget/drawer/AttackOperatorDrawer.dart';
 import 'package:r6splannerboard/widget/drawer/DefenseOperatorDrawer.dart';
 import 'package:r6splannerboard/widget/drawer/PlayMapDrawer.dart';
@@ -87,7 +88,8 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
   final Map<PlayMap, Map<Floor, double>> _playMapOffsetY = {};
   final Map<PlayMap, Map<Floor, double>> _playMapScale = {};
 
-  final double _zoomInLimit = 0.3;
+  final double zoomInLimit = 3;
+  final double _zoomStep = 0.1;
 
   //TeamColor
   final attackTeamColor = const Color(0xFF1184E1);
@@ -130,17 +132,27 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
     SketchMode.CROSS_MARK: 10,
   };
 
+  //Debug
+  String? _debug;
+
+  debug(Object? object) {
+    setState(() {
+      _debug = object.toString();
+    });
+    return object.toString();
+  }
+
   ///##### Display List #####
   _displayList() {
     //Create List and Add PlayMapWidget Image
-    final List<Widget> list = [PlayMapWidget(this).mapImage()];
+    final List<Widget> list = [PlayMapWidget(this).widget()];
 
     //Add Sketch
     for (final sketch in _sketchSet()) {
       list.add(sketch.widget());
     }
     //Add PlayMapWidget GestureDetector
-    list.add(PlayMapWidget(this).gestureDetector());
+    list.add(PlayMapGesture(this).widget());
 
     //Add MoveIcon
     for (final moveIcon in _moveIconSet()) {
@@ -160,35 +172,31 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
 
   double getPlayMapScale() => _playMapScale[playMap]![floor]!;
 
-  setPlayMapOffsetX(double offsetX) => _playMapOffsetX[playMap]![floor] = offsetX;
+  addPlayMapOffsetX(double offsetX) {
+    var newValue = _playMapOffsetX[playMap]![floor]! + offsetX;
+    if (mapWidth < newValue.abs()) return;
+    if (getPlayMapScale() == 1.0) return;
+    _playMapOffsetX[playMap]![floor] = newValue;
+  }
 
-  setPlayMapOffsetY(double offsetY) => _playMapOffsetY[playMap]![floor] = offsetY;
+  addPlayMapOffsetY(double offsetY) {
+    var newValue = _playMapOffsetY[playMap]![floor]! + offsetY;
+    if (mapHeight < newValue.abs()) return;
+    if (getPlayMapScale() == 1.0) return;
+    _playMapOffsetY[playMap]![floor] = newValue;
+  }
 
-  addPlayMapOffsetX(double offsetX) => _playMapOffsetX[playMap]![floor] = _playMapOffsetX[playMap]![floor]! + offsetX;
-
-  addPlayMapOffsetY(double offsetY) => _playMapOffsetY[playMap]![floor] = _playMapOffsetX[playMap]![floor]! + offsetY;
-
-  addPlayMapScale(double posX, double posY) {
+  addPlayMapScale() {
     final value = _playMapScale[playMap]![floor]!;
-    if (value <= _zoomInLimit) return;
-    var newValue = value - 0.05;
-    if (newValue < _zoomInLimit) newValue = _zoomInLimit;
+    if (zoomInLimit <= value) return;
+    var newValue = value + _zoomStep;
+    if (zoomInLimit < newValue) newValue = zoomInLimit;
     _playMapScale[playMap]![floor] = newValue;
-
-    final centerX = mapWidth / 2;
-    final centerY = mapHeight / 2;
-
-    final offsetX = (posX - centerX) * 0.000005;
-    final offsetY = (posY - centerY) * 0.000005;
-
-    addPlayMapOffsetX(addPlayMapOffsetX(offsetX));
-    addPlayMapOffsetY(addPlayMapOffsetX(offsetY));
   }
 
   removePlayMapScale() {
-    //Reversed
-    var newValue = _playMapScale[playMap]![floor]! + 0.05;
-    if (newValue > 1) newValue = 1;
+    var newValue = _playMapScale[playMap]![floor]! - _zoomStep;
+    if (newValue < 1.0) newValue = 1.0;
     _playMapScale[playMap]![floor] = newValue;
   }
 
@@ -273,6 +281,15 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
   _playMapActions() {
     final list = <Widget>[];
 
+    //DebugDisplay
+    if (_debug != null) {
+      list.add(Builder(
+          builder: (context) => TextButton(
+                onPressed: () {},
+                child: Text(_debug!, style: const TextStyle(color: Colors.orange, fontSize: 18, fontWeight: FontWeight.w600)),
+              )));
+    }
+
     for (final floor in playMap.hasFloor.values()) {
       final Color color;
       if (this.floor == floor) {
@@ -342,6 +359,8 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
+
+      ///AppBar
       appBar: AppBar(
         title: const Text('Rainbow Six Siege Planner Board'),
         automaticallyImplyLeading: false,
@@ -351,8 +370,10 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
 
       ///Display
       body: Center(
-        child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [MoveIconButtonPanel(this).widget(), Center(child: Stack(children: _displayList())), SketchButtonPanel(this).widget()]),
-      ),
+          child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [MoveIconButtonPanel(this).widget(), Center(child: Stack(children: _displayList())), SketchButtonPanel(this).widget()],
+      )),
 
       ///Drawer
       drawer: _loadOpDrawer(),
