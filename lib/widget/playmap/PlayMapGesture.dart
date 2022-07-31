@@ -17,7 +17,6 @@ class PlayMapGesture {
 
   late final MyStatefulWidgetState state;
 
-  bool _moveImageBoolean = true;
   double? _originX;
   double? _originY;
 
@@ -26,6 +25,7 @@ class PlayMapGesture {
         onPointerSignal: (event) {
           if (event is! PointerScrollEvent) return;
           state.setState(() {
+            state.closeOptionPanel();
             if (event.scrollDelta.dy < 0) {
               state.addPlayMapScale(); //ZoomIn
             } else {
@@ -40,7 +40,7 @@ class PlayMapGesture {
             });
           },
           onPanStart: (event) {
-            if (_moveImageBoolean) {
+            if (state.moveImageBoolean) {
               _originX = event.localPosition.dx;
               _originY = event.localPosition.dy;
               return;
@@ -77,10 +77,8 @@ class PlayMapGesture {
           },
           onPanUpdate: (event) {
             ///Move PlayMap Image
-            if (_moveImageBoolean) {
+            if (state.moveImageBoolean) {
               state.setState(() {
-                print(state.debug("${state.getPlayMapOffsetX().toInt()} ${state.getPlayMapOffsetY().toInt()}"));
-
                 final scale = 1.0 + state.zoomInLimit - state.getPlayMapScale();
 
                 if (_originX != null) state.addPlayMapOffsetX((_originX! - event.localPosition.dx) * scale);
@@ -102,7 +100,7 @@ class PlayMapGesture {
             state.setState(() {
               state.closeOptionPanel();
               state.removeSketchTarget();
-              // _moveImageBoolean = false;
+              state.moveImageBoolean = false;
             });
           },
           onDoubleTap: () {
@@ -113,7 +111,7 @@ class PlayMapGesture {
           onDoubleTapCancel: () {
             state.setState(() {
               state.closeOptionPanel();
-              _moveImageBoolean = true;
+              state.moveImageBoolean = true;
             });
           },
           child: Center(child: Image.asset("assets/map/BLANK.png")),

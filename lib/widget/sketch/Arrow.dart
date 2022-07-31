@@ -24,10 +24,14 @@ class Arrow extends Sketch {
   late final double opacity = state.getSketchOpacity(SketchMode.ARROW);
 
   @override
-  widget() => Container(
-        margin: EdgeInsets.only(left: startX, top: startY),
-        child: CustomPaint(painter: _ArrowSketcher(startX, startY, finishX, finishY, color.withOpacity(opacity), thickness)),
-      );
+  widget() {
+    final startPos = getStart();
+    final finishPos = getFinish();
+    return Container(
+      margin: EdgeInsets.only(left: startPos.x, top: startPos.y),
+      child: CustomPaint(painter: _ArrowSketcher(startPos.x, startPos.y, finishPos.x, finishPos.y, color.withOpacity(opacity), thickness)),
+    );
+  }
 }
 
 class _ArrowSketcher extends CustomPainter {

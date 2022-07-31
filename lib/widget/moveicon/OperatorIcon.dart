@@ -11,7 +11,72 @@ import 'GadgetIcon.dart';
 import 'MoveIcon.dart';
 
 class OperatorIcon extends MoveIcon {
-  OperatorIcon(this.state, this.operator, this.posX, this.posY) {
+  OperatorIcon(this.state, this.operator, double x, double y) {
+    if (x <= 0) {
+      x = 1;
+    } else if (state.mapWidth <= x + size) {
+      x = state.mapWidth - size - 1;
+    }
+
+    if (y <= 0) {
+      y = 1;
+    } else if (state.mapHeight <= y + size) {
+      y = state.mapHeight - size - 1;
+    }
+
+    final centerX = state.mapWidth / 2;
+    final centerY = state.mapHeight / 2;
+    final offsetX = state.getPlayMapOffsetX();
+    final offsetY = state.getPlayMapOffsetY();
+    final scale = state.getPlayMapScale();
+
+    posX = (((x - centerX) + (offsetX / 2 * (scale - 1))) / centerX / scale * state.mapWidth) + centerX;
+    posY = (((y - centerY) + (offsetY / 2 * (scale - 1))) / centerY / scale * state.mapHeight) + centerY;
+
+    state.addMoveIcon(this);
+  }
+
+  OperatorIcon.center(this.state, this.operator) {
+    final centerX = state.mapWidth / 2;
+    final centerY = state.mapHeight / 2;
+    final offsetX = state.getPlayMapOffsetX();
+    final offsetY = state.getPlayMapOffsetY();
+    final scale = state.getPlayMapScale();
+
+    var x = state.mapWidth / 2;
+    var y = state.mapHeight / 2;
+
+    posX = (((x - centerX) + (offsetX / 2 * (scale - 1))) / centerX / scale * state.mapWidth) + centerX;
+    posY = (((y - centerY) + (offsetY / 2 * (scale - 1))) / centerY / scale * state.mapHeight) + centerY;
+
+    state.addMoveIcon(this);
+  }
+
+  OperatorIcon.clone(this.state, OperatorIcon operatorIcon, double x, double y) {
+    if (x <= 0) {
+      x = 1;
+    } else if (state.mapWidth <= x + size) {
+      x = state.mapWidth - size - 1;
+    }
+
+    if (y <= 0) {
+      y = 1;
+    } else if (state.mapHeight <= y + size) {
+      y = state.mapHeight - size - 1;
+    }
+
+    final centerX = state.mapWidth / 2;
+    final centerY = state.mapHeight / 2;
+    final offsetX = state.getPlayMapOffsetX();
+    final offsetY = state.getPlayMapOffsetY();
+    final scale = state.getPlayMapScale();
+
+    posX = (((x - centerX) + (offsetX / 2 * (scale - 1))) / centerX / scale * state.mapWidth) + centerX;
+    posY = (((y - centerY) + (offsetY / 2 * (scale - 1))) / centerY / scale * state.mapHeight) + centerY;
+
+    operator = operatorIcon.operator;
+    currentSize = operatorIcon.currentSize;
+
     state.addMoveIcon(this);
   }
 
@@ -19,14 +84,14 @@ class OperatorIcon extends MoveIcon {
   MyStatefulWidgetState state;
 
   @override
-  double posX;
+  late double posX;
   @override
-  double posY;
+  late double posY;
 
   @override
-  final double offsetX = 3;
+  final double optionPanelOffsetX = 3;
   @override
-  final double offsetY = 3;
+  final double optionPanelOffsetY = 3;
 
   @override
   final double minSize = 20.0;
@@ -35,7 +100,7 @@ class OperatorIcon extends MoveIcon {
   @override
   double currentSize = 30.0;
 
-  final Operator operator;
+  late final Operator operator;
 
   @override
   widget() => GestureDetector(
@@ -54,11 +119,11 @@ class OperatorIcon extends MoveIcon {
       child: Container(
         width: size,
         height: size,
-        margin: EdgeInsets.only(left: posX, top: posY),
+        margin: EdgeInsets.only(left: getPosX(), top: getPosY()),
         child: Center(child: SizedBox(height: size, width: size, child: Center(child: Image.asset(operator.path())))),
       ));
 
-  ///Option Panel
+  ///##### Option Panel #####
   final _buttonColor = Colors.lightBlueAccent;
   final _backGroundColor = Colors.blue.shade100;
 
@@ -85,6 +150,9 @@ class OperatorIcon extends MoveIcon {
     const width = 163;
     const height = 163;
 
+    final posX = getPosX();
+    final posY = getPosY();
+
     final double x;
     final double y;
 
@@ -94,10 +162,10 @@ class OperatorIcon extends MoveIcon {
       x = posX;
     }
 
-    if (state.mapHeight < posY + height) {
+    if (state.mapHeight < posY + height + maxSize * state.getPlayMapScale()) {
       y = posY - height;
     } else {
-      y = posY + maxSize;
+      y = posY + maxSize * state.getPlayMapScale();
     }
 
     return Container(
@@ -111,30 +179,30 @@ class OperatorIcon extends MoveIcon {
                   Center(
                       child: Row(children: [
                     _SizeRemoveButton(state, _buttonColor, const Size(58, 50), this).button(),
-                    offset,
-                    _valueIconBox(const Icon(UniconsLine.expand_arrows_alt, color: Colors.white, size: 20), size.toInt().toString()),
-                    offset,
+                    optionPanelOffset,
+                    _valueIconBox(const Icon(UniconsLine.expand_arrows_alt, color: Colors.white, size: 20), currentSize.toInt().toString()),
+                    optionPanelOffset,
                     _SizeAddButton(state, _buttonColor, const Size(58, 50), this).button(),
                   ])),
-                  offset,
+                  optionPanelOffset,
                   Row(children: [
                     _RemoveIconButton(state, _buttonColor, const Size(85, 50), this).button(),
-                    offset,
-                    _CloneIconButton(state, _buttonColor, const Size(85, 50), this).button(),
+                    optionPanelOffset,
+                    _CloneIconButton(state, _buttonColor, const Size(85, 50), this, x, y).button(),
                   ]),
-                  offset,
+                  optionPanelOffset,
                   Row(children: [
                     _GadgetButton(state, _buttonColor, const Size(50, 50), x, y, 0, operator).button(),
-                    offset,
+                    optionPanelOffset,
                     _GadgetButton(state, _buttonColor, const Size(50, 50), x, y, 1, operator).button(),
-                    offset,
+                    optionPanelOffset,
                     _GadgetButton(state, _buttonColor, const Size(50, 50), x, y, 2, operator).button(),
                   ]),
                 ]))));
   }
 }
 
-///Button Classes
+///##### Button Classes #####
 class _SizeAddButton extends Button {
   _SizeAddButton(this.state, this.color, this.size, this.operatorIcon);
 
@@ -153,7 +221,7 @@ class _SizeAddButton extends Button {
   button() {
     return ElevatedButton(
       onPressed: () {
-        if (operatorIcon.currentSize > operatorIcon.minSize) {
+        if (operatorIcon.currentSize >= operatorIcon.minSize) {
           state.setState(() {
             operatorIcon.setSize(operatorIcon.currentSize + 5);
           });
@@ -225,7 +293,7 @@ class _RemoveIconButton extends Button {
 }
 
 class _CloneIconButton extends Button {
-  _CloneIconButton(this.state, this.color, this.size, this.operatorIcon);
+  _CloneIconButton(this.state, this.color, this.size, this.operatorIcon, this.x, this.y);
 
   @override
   final MyStatefulWidgetState state;
@@ -238,22 +306,16 @@ class _CloneIconButton extends Button {
 
   final OperatorIcon operatorIcon;
 
+  double x;
+  double y;
+
   @override
   button() {
     return ElevatedButton(
       onPressed: () {
         state.setState(() {
           state.closeOptionPanel();
-
-          final double x;
-
-          if (state.mapWidth < operatorIcon.posX + (operatorIcon.size * 2)) {
-            x = operatorIcon.posX - operatorIcon.size;
-          } else {
-            x = operatorIcon.posX + operatorIcon.size;
-          }
-
-          OperatorIcon(state, operatorIcon.operator, x, operatorIcon.posY);
+          OperatorIcon.clone(state, operatorIcon, x, y);
         });
       },
       style: ElevatedButton.styleFrom(fixedSize: size, primary: color),

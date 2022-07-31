@@ -4,8 +4,6 @@ import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter/material.dart';
 import 'package:r6splannerboard/data/map/PlayMap.dart';
 import 'package:r6splannerboard/data/operator/Operator.dart';
-import 'package:r6splannerboard/widget/playmap/PlayMapGesture.dart';
-import 'package:r6splannerboard/widget/playmap/PlayMapWidget.dart';
 import 'package:r6splannerboard/widget/drawer/AttackOperatorDrawer.dart';
 import 'package:r6splannerboard/widget/drawer/DefenseOperatorDrawer.dart';
 import 'package:r6splannerboard/widget/drawer/PlayMapDrawer.dart';
@@ -13,6 +11,8 @@ import 'package:r6splannerboard/widget/moveicon/MoveIcon.dart';
 import 'package:r6splannerboard/widget/panel/MoveIconButtonPanel.dart';
 import 'package:r6splannerboard/widget/panel/SketchButtonPanel.dart';
 import 'package:r6splannerboard/widget/panel/interface/OptionPanel.dart';
+import 'package:r6splannerboard/widget/playmap/PlayMapGesture.dart';
+import 'package:r6splannerboard/widget/playmap/PlayMapImage.dart';
 import 'package:r6splannerboard/widget/sketch/SketchMode.dart';
 import 'package:r6splannerboard/widget/sketch/interface/Sketch.dart';
 import 'package:unicons/unicons.dart';
@@ -91,6 +91,8 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
   final double zoomInLimit = 3;
   final double _zoomStep = 0.1;
 
+  bool moveImageBoolean = false;
+
   //TeamColor
   final attackTeamColor = const Color(0xFF1184E1);
   final defenseTeamColor = const Color(0xFFE97015);
@@ -139,13 +141,14 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
     setState(() {
       _debug = object.toString();
     });
-    return object.toString();
+    // ignore: avoid_print
+    print(object);
   }
 
   ///##### Display List #####
   _displayList() {
     //Create List and Add PlayMapWidget Image
-    final List<Widget> list = [PlayMapWidget(this).widget()];
+    final List<Widget> list = [PlayMapImage(this).widget()];
 
     //Add Sketch
     for (final sketch in _sketchSet()) {
@@ -156,6 +159,8 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
 
     //Add MoveIcon
     for (final moveIcon in _moveIconSet()) {
+      if (0 > moveIcon.getPosX() || moveIcon.getPosX() + moveIcon.size > mapWidth) continue;
+      if (0 > moveIcon.getPosY() || moveIcon.getPosY() + moveIcon.size > mapHeight) continue;
       list.add(moveIcon.widget());
     }
 
@@ -286,7 +291,7 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
       list.add(Builder(
           builder: (context) => TextButton(
                 onPressed: () {},
-                child: Text(_debug!, style: const TextStyle(color: Colors.orange, fontSize: 18, fontWeight: FontWeight.w600)),
+                child: Text(_debug!, style: const TextStyle(color: Colors.orange, fontSize: 18, fontWeight: FontWeight.w600, backgroundColor: Colors.white70)),
               )));
     }
 

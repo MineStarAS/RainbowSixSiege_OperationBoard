@@ -7,10 +7,10 @@ import '../../../main.dart';
 abstract class OptionPanel {
   late final MyStatefulWidgetState state;
 
-  late final double offsetX;
-  late final double offsetY;
+  late final double optionPanelOffsetX;
+  late final double optionPanelOffsetY;
 
-  late final offset = SizedBox(width: offsetX, height: offsetY);
+  late final optionPanelOffset = SizedBox(width: optionPanelOffsetX, height: optionPanelOffsetY);
 
   offsetBox(double offset) => SizedBox(width: offset, height: offset);
 

@@ -9,7 +9,56 @@ import '../button/Button.dart';
 import 'MoveIcon.dart';
 
 class GadgetIcon extends MoveIcon {
-  GadgetIcon(this.state, this.gadget, this.posX, this.posY) {
+  GadgetIcon(this.state, this.gadget, double x, double y) {
+    if (x <= 0) {
+      x = 1;
+    } else if (state.mapWidth <= x + size) {
+      x = state.mapWidth - size - 1;
+    }
+
+    if (y <= 0) {
+      y = 1;
+    } else if (state.mapHeight <= y + size) {
+      y = state.mapHeight - size - 1;
+    }
+
+    final centerX = state.mapWidth / 2;
+    final centerY = state.mapHeight / 2;
+    final offsetX = state.getPlayMapOffsetX();
+    final offsetY = state.getPlayMapOffsetY();
+    final scale = state.getPlayMapScale();
+
+    posX = (((x - centerX) + (offsetX / 2 * (scale - 1))) / centerX / scale * state.mapWidth) + centerX;
+    posY = (((y - centerY) + (offsetY / 2 * (scale - 1))) / centerY / scale * state.mapHeight) + centerY;
+
+    state.addMoveIcon(this);
+  }
+
+  GadgetIcon.clone(this.state, GadgetIcon gadgetIcon, double x, double y) {
+    if (x <= 0) {
+      x = 1;
+    } else if (state.mapWidth <= x + size) {
+      x = state.mapWidth - size - 1;
+    }
+
+    if (y <= 0) {
+      y = 1;
+    } else if (state.mapHeight <= y + size) {
+      y = state.mapHeight - size - 1;
+    }
+
+    final centerX = state.mapWidth / 2;
+    final centerY = state.mapHeight / 2;
+    final offsetX = state.getPlayMapOffsetX();
+    final offsetY = state.getPlayMapOffsetY();
+    final scale = state.getPlayMapScale();
+
+    posX = (((x - centerX) + (offsetX / 2 * (scale - 1))) / centerX / scale * state.mapWidth) + centerX;
+    posY = (((y - centerY) + (offsetY / 2 * (scale - 1))) / centerY / scale * state.mapHeight) + centerY;
+
+    gadget = gadgetIcon.gadget;
+    currentSize = gadgetIcon.currentSize;
+
     state.addMoveIcon(this);
   }
 
@@ -17,14 +66,14 @@ class GadgetIcon extends MoveIcon {
   MyStatefulWidgetState state;
 
   @override
-  double posX;
+  late double posX;
   @override
-  double posY;
+  late double posY;
 
   @override
-  final double offsetX = 3;
+  final double optionPanelOffsetX = 3;
   @override
-  final double offsetY = 3;
+  final double optionPanelOffsetY = 3;
 
   @override
   final double minSize = 20.0;
@@ -33,7 +82,7 @@ class GadgetIcon extends MoveIcon {
   @override
   double currentSize = 40.0;
 
-  final Gadget gadget;
+  late final Gadget gadget;
 
   @override
   widget() => GestureDetector(
@@ -52,15 +101,15 @@ class GadgetIcon extends MoveIcon {
       child: Container(
           width: size,
           height: size,
-          margin: EdgeInsets.only(left: posX, top: posY),
+          margin: EdgeInsets.only(left: getPosX(), top: getPosY()),
           child: Center(
               child: Transform(
             alignment: FractionalOffset.center,
-            transform: Matrix4.identity()..rotateZ(40 * 3.1415927 / 180),
+            transform: Matrix4.identity()..rotateZ(0 * 3.1415927 / 180),
             child: SizedBox(height: size, width: size, child: Center(child: Image.asset(gadget.path()))),
           ))));
 
-  ///Option Panel
+  ///##### Option Panel #####
   final _buttonColor = Colors.lightBlueAccent;
   final _backGroundColor = Colors.blue.shade100;
 
@@ -87,6 +136,9 @@ class GadgetIcon extends MoveIcon {
     const width = 163;
     const height = 163;
 
+    final posX = getPosX();
+    final posY = getPosY();
+
     final double x;
     final double y;
 
@@ -96,11 +148,12 @@ class GadgetIcon extends MoveIcon {
       x = posX;
     }
 
-    if (state.mapHeight < posY + height) {
+    if (state.mapHeight < posY + height + maxSize * state.getPlayMapScale()) {
       y = posY - height;
     } else {
-      y = posY + maxSize;
+      y = posY + maxSize * state.getPlayMapScale();
     }
+
     return Container(
         margin: EdgeInsets.only(left: x, top: y),
         child: ColoredBox(
@@ -112,18 +165,18 @@ class GadgetIcon extends MoveIcon {
                   Center(
                       child: Row(children: [
                     _SizeRemoveButton(state, _buttonColor, const Size(58, 50), this).button(),
-                    offset,
-                    _valueIconBox(const Icon(UniconsLine.expand_arrows_alt, color: Colors.white, size: 20), size.toInt().toString()),
-                    offset,
+                    optionPanelOffset,
+                    _valueIconBox(const Icon(UniconsLine.expand_arrows_alt, color: Colors.white, size: 20), currentSize.toInt().toString()),
+                    optionPanelOffset,
                     _SizeAddButton(state, _buttonColor, const Size(58, 50), this).button(),
                   ])),
-                  offset,
+                  optionPanelOffset,
                   Row(children: [
                     _RemoveIconButton(state, _buttonColor, const Size(85, 50), this).button(),
-                    offset,
-                    _CloneIconButton(state, _buttonColor, const Size(85, 50), this).button(),
+                    optionPanelOffset,
+                    _CloneIconButton(state, _buttonColor, const Size(85, 50), this, x, y).button(),
                   ]),
-                  offset,
+                  optionPanelOffset,
                   Row(children: []),
                 ]))));
   }
@@ -148,7 +201,7 @@ class _SizeAddButton extends Button {
   button() {
     return ElevatedButton(
       onPressed: () {
-        if (gadgetIcon.currentSize > gadgetIcon.minSize) {
+        if (gadgetIcon.currentSize >= gadgetIcon.minSize) {
           state.setState(() {
             gadgetIcon.setSize(gadgetIcon.currentSize + 5);
           });
@@ -220,7 +273,7 @@ class _RemoveIconButton extends Button {
 }
 
 class _CloneIconButton extends Button {
-  _CloneIconButton(this.state, this.color, this.size, this.gadgetIcon);
+  _CloneIconButton(this.state, this.color, this.size, this.gadgetIcon, this.x, this.y);
 
   @override
   final MyStatefulWidgetState state;
@@ -233,22 +286,16 @@ class _CloneIconButton extends Button {
 
   final GadgetIcon gadgetIcon;
 
+  double x;
+  double y;
+
   @override
   button() {
     return ElevatedButton(
       onPressed: () {
         state.setState(() {
           state.closeOptionPanel();
-
-          final double x;
-
-          if (state.mapWidth < gadgetIcon.posX + (gadgetIcon.size * 2)) {
-            x = gadgetIcon.posX - gadgetIcon.size;
-          } else {
-            x = gadgetIcon.posX + gadgetIcon.size;
-          }
-
-          GadgetIcon(state, gadgetIcon.gadget, x, gadgetIcon.posY);
+          GadgetIcon.clone(state, gadgetIcon, x, y);
         });
       },
       style: ElevatedButton.styleFrom(fixedSize: size, primary: color),

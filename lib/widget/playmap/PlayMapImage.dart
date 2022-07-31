@@ -5,8 +5,8 @@ import 'package:photo_view/photo_view.dart';
 
 import '../../main.dart';
 
-class PlayMapWidget {
-  PlayMapWidget(this.state);
+class PlayMapImage {
+  PlayMapImage(this.state);
 
   late final MyStatefulWidgetState state;
 
