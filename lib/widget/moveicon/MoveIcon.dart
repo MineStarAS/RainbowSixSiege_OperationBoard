@@ -3,10 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:r6splannerboard/widget/panel/interface/OptionPanel.dart';
 
-import '../../main.dart';
-
 abstract class MoveIcon extends OptionPanel {
-
   late double posX;
   late double posY;
 
@@ -14,27 +11,52 @@ abstract class MoveIcon extends OptionPanel {
   late final double maxSize;
   late double currentSize;
 
-  late final double mapWidth = state.mapWidth;
-  late final double mapHeight =  state.mapHeight;
+  getPosX() {
+    final center = state.mapWidth / 2;
+    final scale = state.getPlayMapScale();
+    final offset = state.getPlayMapOffsetX();
+
+    final v1 = center + (((posX - center) / state.mapWidth) * center * scale);
+    final v2 = v1 - (offset / 2 * (scale - 1));
+    return v2;
+  }
+
+  getPosY() {
+    final center = state.mapHeight / 2;
+    final scale = state.getPlayMapScale();
+    final offset = state.getPlayMapOffsetY();
+
+    final v1 = center + (((posY - center) / state.mapHeight) * center * scale);
+    final v2 = v1 - (offset / 2 * (scale - 1));
+    return v2;
+  }
 
   setPosX(double x) {
-    if (x < 0) {
-      posX = 0;
-    } else if (mapWidth < x + currentSize) {
-      posX = mapWidth - currentSize;
-    } else {
-      posX = x;
+    if (x <= 0) {
+      x = 1;
+    } else if (state.mapWidth <= x + size) {
+      x = state.mapWidth - size - 1;
     }
+
+    final center = state.mapWidth / 2;
+    final scale = state.getPlayMapScale();
+    final offset = state.getPlayMapOffsetX();
+
+    posX = (((x - center) + (offset / 2 * (scale - 1))) / center / scale * state.mapWidth) + center;
   }
 
   setPosY(double y) {
-    if (y < 0) {
-      posY = 0;
-    } else if (mapHeight < y + currentSize) {
-      posY = mapHeight - currentSize;
-    } else {
-      posY = y;
+    if (y <= 0) {
+      y = 1;
+    } else if (state.mapHeight <= y + size) {
+      y = state.mapHeight - size - 1;
     }
+
+    final center = state.mapHeight / 2;
+    final scale = state.getPlayMapScale();
+    final offset = state.getPlayMapOffsetY();
+
+    posY = (((y - center) + (offset / 2 * (scale - 1))) / center / scale * state.mapHeight) + center;
   }
 
   setSize(double size) {
@@ -46,6 +68,7 @@ abstract class MoveIcon extends OptionPanel {
       currentSize = size;
     }
   }
+
   get size => currentSize * state.getPlayMapScale();
 
   Widget widget();

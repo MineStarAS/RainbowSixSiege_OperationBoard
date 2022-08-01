@@ -52,7 +52,7 @@ class AttackOpDrawer {
       ),
       onTap: () {
         state.setState(() {
-          OperatorIcon(state, operator, 150, 200);
+          OperatorIcon.center(state, operator);
           Navigator.pop(state.context);
         });
       });

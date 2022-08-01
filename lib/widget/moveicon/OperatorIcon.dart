@@ -147,8 +147,8 @@ class OperatorIcon extends MoveIcon {
 
   @override
   optionPanel() {
-    const width = 163;
-    const height = 163;
+    const double width = 180;
+    const double height = 163;
 
     final posX = getPosX();
     final posY = getPosY();
@@ -173,7 +173,8 @@ class OperatorIcon extends MoveIcon {
         child: ColoredBox(
             color: _backGroundColor,
             child: Container(
-                height: 163,
+                height: height,
+                width: width,
                 padding: const EdgeInsets.all(3),
                 child: Column(children: [
                   Center(

@@ -25,12 +25,13 @@ class SquareBorder extends Sketch {
   late final double opacity = state.getSketchOpacity(SketchMode.SQUARE_BORDER);
 
   @override
-  widget() => Container(
-        width: (startX.abs() - finishX.abs()).abs(),
-        height: (startY.abs() - finishY.abs()).abs(),
-        margin: EdgeInsets.only(left: min(startX, finishX), top: min(startY, finishY)),
-    decoration: BoxDecoration(
-      border: Border.all(color: color.withOpacity(opacity), width: thickness),
-    ),
-      );
+  widget() => Positioned(
+      left: min(getStartX(), getFinishX()),
+      top: min(getStartY(), getFinishY()),
+      child: Container(
+          width: (getStartX().abs() - getFinishX().abs()).abs(),
+          height: (getStartY().abs() - getFinishY().abs()).abs(),
+          decoration: BoxDecoration(
+            border: Border.all(color: color.withOpacity(opacity), width: thickness),
+          )));
 }

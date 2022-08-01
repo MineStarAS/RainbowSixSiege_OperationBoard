@@ -82,6 +82,8 @@ class GadgetIcon extends MoveIcon {
   @override
   double currentSize = 40.0;
 
+  double rotate = 0;
+
   late final Gadget gadget;
 
   @override
@@ -105,7 +107,7 @@ class GadgetIcon extends MoveIcon {
           child: Center(
               child: Transform(
             alignment: FractionalOffset.center,
-            transform: Matrix4.identity()..rotateZ(0 * 3.1415927 / 180),
+            transform: Matrix4.identity()..rotateZ(rotate * 3.1415927 / 180),
             child: SizedBox(height: size, width: size, child: Center(child: Image.asset(gadget.path()))),
           ))));
 
@@ -133,8 +135,8 @@ class GadgetIcon extends MoveIcon {
 
   @override
   optionPanel() {
-    const width = 163;
-    const height = 163;
+    const double width = 180;
+    const double height = 163;
 
     final posX = getPosX();
     final posY = getPosY();
@@ -159,7 +161,8 @@ class GadgetIcon extends MoveIcon {
         child: ColoredBox(
             color: _backGroundColor,
             child: Container(
-                height: 163,
+                height: height,
+                width: width,
                 padding: const EdgeInsets.all(3),
                 child: Column(children: [
                   Center(
@@ -177,12 +180,18 @@ class GadgetIcon extends MoveIcon {
                     _CloneIconButton(state, _buttonColor, const Size(85, 50), this, x, y).button(),
                   ]),
                   optionPanelOffset,
-                  Row(children: []),
+                  Row(children: [
+                    _RotateRemoveButton(state, _buttonColor, const Size(58, 50), this).button(),
+                    optionPanelOffset,
+                    _valueIconBox(const Icon(Icons.screen_rotation_alt, color: Colors.white, size: 20), rotate.toInt().toString()),
+                    optionPanelOffset,
+                    _RotateAddButton(state, _buttonColor, const Size(58, 50), this).button(),
+                  ]),
                 ]))));
   }
 }
 
-///Button Classes
+///##### Button Classes #####
 class _SizeAddButton extends Button {
   _SizeAddButton(this.state, this.color, this.size, this.gadgetIcon);
 
@@ -300,6 +309,63 @@ class _CloneIconButton extends Button {
       },
       style: ElevatedButton.styleFrom(fixedSize: size, primary: color),
       child: const Center(child: Icon(Icons.copy, size: 20)),
+    );
+  }
+}
+
+class _RotateAddButton extends Button {
+  _RotateAddButton(this.state, this.color, this.size, this.gadgetIcon);
+
+  @override
+  final MyStatefulWidgetState state;
+
+  @override
+  final Color color;
+
+  @override
+  final Size size;
+  final GadgetIcon gadgetIcon;
+
+  @override
+  button() {
+    return ElevatedButton(
+      onPressed: () {
+        state.setState(() {
+          gadgetIcon.rotate += gadgetIcon.gadget.angleStep;
+          if (gadgetIcon.rotate >= 360) gadgetIcon.rotate = gadgetIcon.rotate % 360;
+        });
+      },
+      style: ElevatedButton.styleFrom(fixedSize: size, primary: color),
+      child: const Icon(Icons.rotate_right),
+    );
+  }
+}
+
+class _RotateRemoveButton extends Button {
+  _RotateRemoveButton(this.state, this.color, this.size, this.gadgetIcon);
+
+  @override
+  final MyStatefulWidgetState state;
+
+  @override
+  final Color color;
+
+  @override
+  final Size size;
+
+  final GadgetIcon gadgetIcon;
+
+  @override
+  button() {
+    return ElevatedButton(
+      onPressed: () {
+        state.setState(() {
+          gadgetIcon.rotate -= gadgetIcon.gadget.angleStep;
+          if (gadgetIcon.rotate < 0) gadgetIcon.rotate = gadgetIcon.rotate % -360;
+        });
+      },
+      style: ElevatedButton.styleFrom(fixedSize: size, primary: color),
+      child: const Icon(Icons.rotate_left),
     );
   }
 }

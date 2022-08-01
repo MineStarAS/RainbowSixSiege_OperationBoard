@@ -8,15 +8,24 @@ import 'package:r6splannerboard/widget/sketch/interface/Sketch.dart';
 import 'SketchMode.dart';
 
 class Line extends Sketch {
-  Line(this.state, this.startX, this.startY);
+  Line(this.state, double x, double y) {
+    final centerX = state.mapWidth / 2;
+    final centerY = state.mapHeight / 2;
+    final offsetX = state.getPlayMapOffsetX();
+    final offsetY = state.getPlayMapOffsetY();
+    final scale = state.getPlayMapScale();
+
+    startX = (((x - centerX) + (offsetX / 2 * (scale - 1))) / state.mapWidth / scale * state.mapWidth) + centerX;
+    startY = (((y - centerY) + (offsetY / 2 * (scale - 1))) / state.mapHeight / scale * state.mapHeight) + centerY;
+  }
 
   @override
   final MyStatefulWidgetState state;
 
   @override
-  final double startX;
+  late final double startX;
   @override
-  final double startY;
+  late final double startY;
 
   @override
   late final double thickness = state.getSketchThickness(SketchMode.LINE);
@@ -24,9 +33,10 @@ class Line extends Sketch {
   late final double opacity = state.getSketchOpacity(SketchMode.LINE);
 
   @override
-  widget() => Container(
-        margin: EdgeInsets.only(left: startX, top: startY),
-        child: CustomPaint(painter: _ArrowSketcher(startX, startY, finishX, finishY, color.withOpacity(opacity), thickness)),
+  widget() => Positioned(
+        left: getStartX(),
+        top: getStartY(),
+        child: CustomPaint(painter: _ArrowSketcher(getStartX(), getStartY(), getFinishX(), getFinishY(), color.withOpacity(opacity), thickness)),
       );
 }
 

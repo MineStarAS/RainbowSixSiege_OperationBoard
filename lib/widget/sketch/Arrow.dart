@@ -8,15 +8,24 @@ import 'package:r6splannerboard/widget/sketch/interface/Sketch.dart';
 import 'SketchMode.dart';
 
 class Arrow extends Sketch {
-  Arrow(this.state, this.startX, this.startY);
+  Arrow(this.state, double x, double y) {
+    final centerX = state.mapWidth / 2;
+    final centerY = state.mapHeight / 2;
+    final offsetX = state.getPlayMapOffsetX();
+    final offsetY = state.getPlayMapOffsetY();
+    final scale = state.getPlayMapScale();
+
+    startX = (((x - centerX) + (offsetX / 2 * (scale - 1))) / state.mapWidth / scale * state.mapWidth) + centerX;
+    startY = (((y - centerY) + (offsetY / 2 * (scale - 1))) / state.mapHeight / scale * state.mapHeight) + centerY;
+  }
 
   @override
   final MyStatefulWidgetState state;
 
   @override
-  final double startX;
+  late final double startX;
   @override
-  final double startY;
+  late final double startY;
 
   @override
   late final double thickness = state.getSketchThickness(SketchMode.ARROW);
@@ -24,14 +33,13 @@ class Arrow extends Sketch {
   late final double opacity = state.getSketchOpacity(SketchMode.ARROW);
 
   @override
-  widget() {
-    final startPos = getStart();
-    final finishPos = getFinish();
-    return Container(
-      margin: EdgeInsets.only(left: startPos.x, top: startPos.y),
-      child: CustomPaint(painter: _ArrowSketcher(startPos.x, startPos.y, finishPos.x, finishPos.y, color.withOpacity(opacity), thickness)),
-    );
-  }
+  widget() => Positioned(
+      left: getStartX(),
+      top: getStartY(),
+      width: state.mapWidth,
+      height: state.mapHeight,
+        child: CustomPaint(painter: _ArrowSketcher(getStartX(), getStartY(), getFinishX(), getFinishY(), color.withOpacity(opacity), thickness)),
+      );
 }
 
 class _ArrowSketcher extends CustomPainter {

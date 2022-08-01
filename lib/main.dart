@@ -377,7 +377,11 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
       body: Center(
           child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [MoveIconButtonPanel(this).widget(), Center(child: Stack(children: _displayList())), SketchButtonPanel(this).widget()],
+        children: [
+          MoveIconButtonPanel(this).widget(),
+          Center(child: SizedBox(width: mapWidth, height: mapHeight, child: ClipRect(child: Stack(children: _displayList())))),
+          SketchButtonPanel(this).widget(),
+        ],
       )),
 
       ///Drawer
