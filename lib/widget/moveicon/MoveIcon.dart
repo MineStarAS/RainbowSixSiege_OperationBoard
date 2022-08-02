@@ -69,11 +69,13 @@ abstract class MoveIcon extends OptionPanel {
     }
   }
 
-  get size => currentSize * state.getPlayMapScale();
+  clone();
+
+  double get size => currentSize * state.getPlayMapScale();
 
   BoxDecoration? isSelected() {
     if (state.getSelectMoveIcon() != this) return null;
-    return BoxDecoration(color: const Color(0xFF55FF00), borderRadius: BorderRadius.circular(5));
+    return BoxDecoration(color: const Color(0xB355FF00), borderRadius: BorderRadius.circular(5));
   }
 
   Widget widget();

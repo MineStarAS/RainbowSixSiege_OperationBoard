@@ -3,23 +3,23 @@
 import 'package:r6splannerboard/data/gadget/Gadget.dart';
 
 enum PublicGadget implements Gadget {
-  Drone(10, GadgetOtherImage.Null),
-  Barricade(45, GadgetOtherImage.Null),
-  Claymore(10, GadgetOtherImage.Null),
-  BreachCharge(45, GadgetOtherImage.Null),
-  HardBreachCharge(45, GadgetOtherImage.Null),
-  FragGrenade(45, GadgetOtherImage.Null),
-  SmokeGrenade(45, GadgetOtherImage.Activate),
-  StunGrenade(45, GadgetOtherImage.Null),
-  Barb(90, GadgetOtherImage.Null),
-  ProximityMine(45, GadgetOtherImage.Null),
-  BulletProofCamera(15, GadgetOtherImage.Vertical),
-  Shield(10, GadgetOtherImage.Null),
-  C4(45, GadgetOtherImage.Null),
-  ImpactGrenade(45, GadgetOtherImage.Null),
+  Drone(10, GadgetOtherImage.Null, "정찰 드론"),
+  Barricade(45, GadgetOtherImage.Null, "바리게이트"),
+  Claymore(10, GadgetOtherImage.Null, "대인지뢰"),
+  BreachCharge(45, GadgetOtherImage.Null, "접착폭약"),
+  HardBreachCharge(45, GadgetOtherImage.Null, "강력접착폭약"),
+  FragGrenade(45, GadgetOtherImage.Null, "수류탄"),
+  SmokeGrenade(45, GadgetOtherImage.Activate, "연막탄"),
+  StunGrenade(45, GadgetOtherImage.Null, "섬광탄"),
+  Barb(90, GadgetOtherImage.Null, "철조망"),
+  ProximityMine(45, GadgetOtherImage.Null, "근접 알람"),
+  BulletProofCamera(45, GadgetOtherImage.Vertical, "방탄 카메라"),
+  Shield(10, GadgetOtherImage.Null, "이동식 방패"),
+  C4(45, GadgetOtherImage.Null, "C4"),
+  ImpactGrenade(45, GadgetOtherImage.Null, "충격 수류탄"),
   ;
 
-  const PublicGadget(this.angleStep, this.hasOtherImage);
+  const PublicGadget(this.angleStep, this.hasOtherImage, this.korean);
 
   @override
   String path() => "assets/gadget/public/Gadget_$name.png";
@@ -27,7 +27,7 @@ enum PublicGadget implements Gadget {
   @override
   String? otherPath() {
     if (hasOtherImage == GadgetOtherImage.Null) return null;
-    return "assets/gadget/public/Gadget_${name}_$hasOtherImage.png";
+    return "assets/gadget/public/Gadget_${name}_${hasOtherImage.name}.png";
   }
 
   @override
@@ -35,4 +35,6 @@ enum PublicGadget implements Gadget {
 
   @override
   final GadgetOtherImage hasOtherImage;
+
+  final String korean;
 }

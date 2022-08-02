@@ -99,6 +99,31 @@ class OperatorIcon extends MoveIcon {
   late final Operator operator;
 
   @override
+  clone() {
+    final double width = maxSize;
+    final double height = maxSize;
+
+    final posX = getPosX();
+    final posY = getPosY();
+
+    final double x;
+    final double y;
+
+    if (state.mapWidth < posX + width) {
+      x = posX - width;
+    } else {
+      x = posX;
+    }
+
+    if (state.mapHeight < posY + height + maxSize * state.getPlayMapScale()) {
+      y = posY - height;
+    } else {
+      y = posY + maxSize * state.getPlayMapScale();
+    }
+    OperatorIcon.clone(state, this, x, y);
+  }
+
+  @override
   widget() => GestureDetector(
       onTap: () {
         state.setState(() {

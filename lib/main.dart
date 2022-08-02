@@ -4,10 +4,11 @@ import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:r6splannerboard/data/map/PlayMap.dart';
-import 'package:r6splannerboard/data/operator/Operator.dart';
 import 'package:r6splannerboard/widget/drawer/AttackOperatorDrawer.dart';
 import 'package:r6splannerboard/widget/drawer/DefenseOperatorDrawer.dart';
+import 'package:r6splannerboard/widget/drawer/DrawerType.dart';
 import 'package:r6splannerboard/widget/drawer/PlayMapDrawer.dart';
+import 'package:r6splannerboard/widget/drawer/PublicGadgetDrawer.dart';
 import 'package:r6splannerboard/widget/moveicon/MoveIcon.dart';
 import 'package:r6splannerboard/widget/panel/MoveIconButtonPanel.dart';
 import 'package:r6splannerboard/widget/panel/SketchButtonPanel.dart';
@@ -105,7 +106,7 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
   final defenseTeamColor = const Color(0xFFE97015);
 
   //Drawer TeamType
-  TeamType _teamType = TeamType.attack;
+  DrawerType _drawerType = DrawerType.attackOperator;
 
   //MoveIcon
   final Map<PlayMap, Map<Floor, Set<MoveIcon>>> _moveIconMap = {};
@@ -311,16 +312,20 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
 
   ///##### OperatorDrawer Function #####
   Drawer _loadOpDrawer() {
-    if (_teamType == TeamType.attack) {
-      return AttackOpDrawer(this).getDrawer();
+    switch (_drawerType) {
+      case DrawerType.attackOperator:
+        return AttackOpDrawer(this).getDrawer();
+      case DrawerType.defenseOperator:
+        return DefenseOpDrawer(this).getDrawer();
+      case DrawerType.publicGadget:
+        return PublicGadgetDrawer(this).getDrawer();
     }
-    return DefenseOpDrawer(this).getDrawer();
   }
 
   void openAttackOpDrawer() {
     setState(() {
       closeOptionPanel();
-      _teamType = TeamType.attack;
+      _drawerType = DrawerType.attackOperator;
     });
     _scaffoldKey.currentState!.openDrawer();
   }
@@ -328,7 +333,15 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
   void openDefenseOpDrawer() {
     setState(() {
       closeOptionPanel();
-      _teamType = TeamType.defense;
+      _drawerType = DrawerType.defenseOperator;
+    });
+    _scaffoldKey.currentState!.openDrawer();
+  }
+
+  void openPublicGadgetDrawer() {
+    setState(() {
+      closeOptionPanel();
+      _drawerType = DrawerType.publicGadget;
     });
     _scaffoldKey.currentState!.openDrawer();
   }
@@ -421,98 +434,101 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
     final sketchModes = ["Q", "W", "E", "A", "S", "D"];
     final floors = ["1", "2", "3", "4", "5"];
 
-    ///Select Color
-    if (label.contains("Numpad")) {
-      switch (label) {
-        case "Numpad 1":
-          sketchColor = Colors.white;
-          break;
-        case "Numpad 2":
-          sketchColor = Colors.grey;
-          break;
-        case "Numpad 3":
-          sketchColor = Colors.black;
-          break;
-        case "Numpad 4":
-          sketchColor = Colors.green;
-          break;
-        case "Numpad 5":
-          sketchColor = Colors.blue;
-          break;
-        case "Numpad 6":
-          sketchColor = Colors.purple;
-          break;
-        case "Numpad 7":
-          sketchColor = Colors.red;
-          break;
-        case "Numpad 8":
-          sketchColor = Colors.orange;
-          break;
-        case "Numpad 9":
-          sketchColor = Colors.yellow;
-          break;
+    if (!event.isControlPressed && !event.isAltPressed && !event.isShiftPressed) {
+      ///Select Color
+      if (label.contains("Numpad")) {
+        switch (label) {
+          case "Numpad 1":
+            sketchColor = Colors.white;
+            break;
+          case "Numpad 2":
+            sketchColor = Colors.grey;
+            break;
+          case "Numpad 3":
+            sketchColor = Colors.black;
+            break;
+          case "Numpad 4":
+            sketchColor = Colors.green;
+            break;
+          case "Numpad 5":
+            sketchColor = Colors.blue;
+            break;
+          case "Numpad 6":
+            sketchColor = Colors.purple;
+            break;
+          case "Numpad 7":
+            sketchColor = Colors.red;
+            break;
+          case "Numpad 8":
+            sketchColor = Colors.orange;
+            break;
+          case "Numpad 9":
+            sketchColor = Colors.yellow;
+            break;
+        }
+        setState(() {});
+        return;
       }
-      setState(() {});
-      return;
+
+      ///Select Sketch Mode
+      if (sketchModes.contains(label)) {
+        switch (label) {
+          case "Q":
+            sketchMode = SketchMode.ARROW;
+            break;
+          case "W":
+            sketchMode = SketchMode.SQUARE;
+            break;
+          case "E":
+            sketchMode = SketchMode.SQUARE_BORDER;
+            break;
+          case "A":
+            sketchMode = SketchMode.LINE;
+            break;
+          case "S":
+            sketchMode = SketchMode.CIRCLE;
+            break;
+          case "D":
+            sketchMode = SketchMode.CROSS_MARK;
+            break;
+        }
+        setState(() {});
+        return;
+      }
+
+      ///Select Floor
+      if (floors.contains(label)) {
+        final hasFloors = playMap.hasFloor.values();
+        switch (label) {
+          case "1":
+            if (hasFloors.isEmpty) return;
+            floor = hasFloors[0];
+            break;
+          case "2":
+            if (hasFloors.length < 2) return;
+            floor = hasFloors[1];
+            break;
+          case "3":
+            if (hasFloors.length < 3) return;
+            floor = hasFloors[2];
+            break;
+          case "4":
+            if (hasFloors.length < 4) return;
+            floor = hasFloors[3];
+            break;
+          case "5":
+            if (hasFloors.length < 5) return;
+            floor = hasFloors[4];
+            break;
+        }
+        setState(() {});
+        return;
+      }
     }
 
-    ///Select Sketch Mode
-    if (sketchModes.contains(label)) {
-      switch (label) {
-        case "Q":
-          sketchMode = SketchMode.ARROW;
-          break;
-        case "W":
-          sketchMode = SketchMode.SQUARE;
-          break;
-        case "E":
-          sketchMode = SketchMode.SQUARE_BORDER;
-          break;
-        case "A":
-          sketchMode = SketchMode.LINE;
-          break;
-        case "S":
-          sketchMode = SketchMode.CIRCLE;
-          break;
-        case "D":
-          sketchMode = SketchMode.CROSS_MARK;
-          break;
-      }
-      setState(() {});
-      return;
-    }
-
-    ///Select Floor
-    if (floors.contains(label)) {
-      final hasFloors = playMap.hasFloor.values();
-      switch (label) {
-        case "1":
-          if (hasFloors.isEmpty) return;
-          floor = hasFloors[0];
-          break;
-        case "2":
-          if (hasFloors.length < 2) return;
-          floor = hasFloors[1];
-          break;
-        case "3":
-          if (hasFloors.length < 3) return;
-          floor = hasFloors[2];
-          break;
-        case "4":
-          if (hasFloors.length < 4) return;
-          floor = hasFloors[3];
-          break;
-        case "5":
-          if (hasFloors.length < 5) return;
-          floor = hasFloors[4];
-          break;
-      }
-      setState(() {});
-      return;
-    }
-
-    ///Sketch Control
+    ///Command Key
     switch (label) {
+      //Undo, Redo
       case "Z":
         if (event.isControlPressed) {
           if (event.isShiftPressed) {
@@ -522,8 +538,41 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
           }
         }
         break;
+      //Selected MoveIcon Delete
+      case "Delete":
+      case "D":
+        if (label == "D") if (!event.isControlPressed) return;
+        if (getSelectMoveIcon() == null) return;
+        removeMoveIcon(getSelectMoveIcon()!);
+        break;
+      //Clone MoveIcon
+      case "C":
+        if (!event.isControlPressed) return;
+        final moveIcon = getSelectMoveIcon();
+        if (moveIcon == null) return;
+        moveIcon.clone();
+        break;
+      //Move Map Image
+      case "Arrow Right":
+        if (!event.isControlPressed) return;
+        addPlayMapOffsetX(100);
+        break;
+      case "Arrow Left":
+        if (!event.isControlPressed) return;
+        addPlayMapOffsetX(-100);
+        break;
+      case "Arrow Up":
+        if (!event.isControlPressed) return;
+        addPlayMapOffsetY(-100);
+        break;
+      case "Arrow Down":
+        if (!event.isControlPressed) return;
+        addPlayMapOffsetY(100);
+        break;
+      //Esc
       case "Escape":
         setSelectMoveIcon(null);
+        Navigator.pop(context);
         break;
     }
     setState(() {});

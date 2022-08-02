@@ -66,9 +66,11 @@ class MoveIconButtonPanel extends Panel {
       child: Container(
         padding: const EdgeInsets.only(left: 10, right: 10),
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          AttackOperatorDrawerOpenButton(state, state.attackTeamColor, const Size(200, 50)).button(),
+          _AttackOperatorDrawerOpenButton(state, state.attackTeamColor, const Size(200, 50)).button(),
           customOffsetBox(10),
-          DefenseOperatorDrawerOpenButton(state, state.defenseTeamColor, const Size(200, 50)).button(),
+          _DefenseOperatorDrawerOpenButton(state, state.defenseTeamColor, const Size(200, 50)).button(),
+          customOffsetBox(10),
+          _PublicGadgetDrawerOpenButton(state, state.defenseTeamColor, const Size(200, 50)).button(),
           customOffsetBox(100),
           _editValueButtons(),
           customOffsetBox(100),
@@ -78,8 +80,8 @@ class MoveIconButtonPanel extends Panel {
 }
 
 ///#### Button Classes #####
-class AttackOperatorDrawerOpenButton extends Button {
-  AttackOperatorDrawerOpenButton(this.state, this.color, this.size);
+class _AttackOperatorDrawerOpenButton extends Button {
+  _AttackOperatorDrawerOpenButton(this.state, this.color, this.size);
 
   @override
   final MyStatefulWidgetState state;
@@ -100,8 +102,8 @@ class AttackOperatorDrawerOpenButton extends Button {
       );
 }
 
-class DefenseOperatorDrawerOpenButton extends Button {
-  DefenseOperatorDrawerOpenButton(this.state, this.color, this.size);
+class _DefenseOperatorDrawerOpenButton extends Button {
+  _DefenseOperatorDrawerOpenButton(this.state, this.color, this.size);
 
   @override
   final MyStatefulWidgetState state;
@@ -119,6 +121,28 @@ class DefenseOperatorDrawerOpenButton extends Button {
         },
         style: ElevatedButton.styleFrom(fixedSize: size, primary: state.defenseTeamColor),
         child: const Text("방어팀 오퍼레이터", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
+      );
+}
+
+class _PublicGadgetDrawerOpenButton extends Button {
+  _PublicGadgetDrawerOpenButton(this.state, this.color, this.size);
+
+  @override
+  final MyStatefulWidgetState state;
+
+  @override
+  final Color color;
+
+  @override
+  final Size size;
+
+  @override
+  button() => ElevatedButton(
+        onPressed: () {
+          state.openPublicGadgetDrawer();
+        },
+        style: ElevatedButton.styleFrom(fixedSize: size, primary: const Color(0xFFE8C515)),
+        child: const Text("공용 가젯", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
       );
 }
 

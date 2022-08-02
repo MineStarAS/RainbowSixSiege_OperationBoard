@@ -40,7 +40,7 @@ enum OperatorGadget implements Gadget {
   @override
   String? otherPath() {
     if (hasOtherImage == GadgetOtherImage.Null) return null;
-    return "assets/gadget/operator/Gadget_${operatorName}_$hasOtherImage.png";
+    return "assets/gadget/operator/Gadget_${operatorName}_${hasOtherImage.name}.png";
   }
 
   @override

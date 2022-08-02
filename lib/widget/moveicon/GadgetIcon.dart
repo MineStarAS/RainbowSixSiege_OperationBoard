@@ -35,6 +35,23 @@ class GadgetIcon extends MoveIcon {
     state.setSelectMoveIcon(this);
   }
 
+  GadgetIcon.center(this.state, this.gadget) {
+    final centerX = state.mapWidth / 2;
+    final centerY = state.mapHeight / 2;
+    final offsetX = state.getPlayMapOffsetX();
+    final offsetY = state.getPlayMapOffsetY();
+    final scale = state.getPlayMapScale();
+
+    var x = state.mapWidth / 2;
+    var y = state.mapHeight / 2;
+
+    posX = (((x - centerX) + (offsetX / 2 * (scale - 1))) / centerX / scale * state.mapWidth) + centerX;
+    posY = (((y - centerY) + (offsetY / 2 * (scale - 1))) / centerY / scale * state.mapHeight) + centerY;
+
+    state.addMoveIcon(this);
+    state.setSelectMoveIcon(this);
+  }
+
   GadgetIcon.clone(this.state, GadgetIcon gadgetIcon, double x, double y) {
     if (x <= 0) {
       x = 1;
@@ -80,7 +97,40 @@ class GadgetIcon extends MoveIcon {
 
   double rotate = 0;
 
+  bool isOtherImage = false;
+
   late final Gadget gadget;
+
+  _path() {
+    if (!isOtherImage) return gadget.path();
+    if (gadget.hasOtherImage == GadgetOtherImage.Null) return gadget.path();
+    return gadget.otherPath();
+  }
+
+  @override
+  clone() {
+    final double width = size;
+    final double height = size;
+
+    final posX = getPosX();
+    final posY = getPosY();
+
+    final double x;
+    final double y;
+
+    if (state.mapWidth < posX + width) {
+      x = posX - width;
+    } else {
+      x = posX;
+    }
+
+    if (state.mapHeight < posY + height + maxSize * state.getPlayMapScale()) {
+      y = posY - height;
+    } else {
+      y = posY + maxSize * state.getPlayMapScale();
+    }
+    GadgetIcon.clone(state, this, x, y);
+  }
 
   @override
   widget() => GestureDetector(
@@ -103,6 +153,12 @@ class GadgetIcon extends MoveIcon {
           state.setOptionPanel(this);
         });
       },
+      onLongPress: () {
+        state.setState(() {
+          isOtherImage = !isOtherImage;
+          state.debug(isOtherImage);
+        });
+      },
       child: Container(
           width: size,
           height: size,
@@ -112,7 +168,7 @@ class GadgetIcon extends MoveIcon {
               child: Transform(
             alignment: FractionalOffset.center,
             transform: Matrix4.identity()..rotateZ(rotate * 3.1415927 / 180),
-            child: SizedBox(height: size, width: size, child: Center(child: Image.asset(gadget.path()))),
+            child: SizedBox(height: size, width: size, child: Center(child: Image.asset(_path()))),
           ))));
 
   ///##### Option Panel #####

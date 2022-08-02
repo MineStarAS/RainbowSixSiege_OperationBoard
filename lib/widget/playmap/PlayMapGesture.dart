@@ -37,9 +37,11 @@ class PlayMapGesture {
           onTap: () {
             state.setState(() {
               state.closeOptionPanel();
+              state.setSelectMoveIcon(null);
             });
           },
           onPanStart: (event) {
+            state.setSelectMoveIcon(null);
             if (state.moveImageBoolean) {
               _originX = event.localPosition.dx;
               _originY = event.localPosition.dy;
@@ -106,11 +108,13 @@ class PlayMapGesture {
           onDoubleTap: () {
             state.setState(() {
               state.closeOptionPanel();
+              state.setSelectMoveIcon(null);
             });
           },
           onDoubleTapCancel: () {
             state.setState(() {
               state.closeOptionPanel();
+              state.setSelectMoveIcon(null);
               state.moveImageBoolean = true;
             });
           },

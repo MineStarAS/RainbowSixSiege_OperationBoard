@@ -1,14 +1,13 @@
 // ignore_for_file: invalid_use_of_protected_member
 
 import 'package:flutter/material.dart';
-import 'package:r6splannerboard/data/operator/DefenseOperator.dart';
 
-import '../../main.dart';
 import '../../data/map/PlayMap.dart';
+import '../../main.dart';
 
 class PlayMapDrawer {
-
   PlayMapDrawer(this.state);
+
   MyStatefulWidgetState state;
 
   /// Map Drawer
@@ -32,7 +31,7 @@ class PlayMapDrawer {
           decoration: BoxDecoration(color: Colors.blue),
           child: Text(
             '맵 선택',
-            style: TextStyle(fontWeight: FontWeight.w600),
+            style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w600),
           )));
 
   /// Map ListTile
