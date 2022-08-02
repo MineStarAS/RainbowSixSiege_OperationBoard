@@ -29,7 +29,7 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  static const String _title = 'Rainbow Six: Siege Operation Board';
+  static const String _title = 'Rainbow Six Siege Operation Board';
 
   @override
   Widget build(BuildContext context) {
