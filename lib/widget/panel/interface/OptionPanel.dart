@@ -10,9 +10,9 @@ abstract class OptionPanel {
   late final double optionPanelOffsetX;
   late final double optionPanelOffsetY;
 
-  late final optionPanelOffset = SizedBox(width: optionPanelOffsetX, height: optionPanelOffsetY);
+  late final offsetBox = SizedBox(width: optionPanelOffsetX, height: optionPanelOffsetY);
 
-  offsetBox(double offset) => SizedBox(width: offset, height: offset);
+  customOffsetBox(double offset) => SizedBox(width: offset, height: offset);
 
   Widget optionPanel();
 }

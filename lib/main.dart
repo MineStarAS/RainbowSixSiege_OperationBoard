@@ -2,6 +2,7 @@
 
 import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:r6splannerboard/data/map/PlayMap.dart';
 import 'package:r6splannerboard/data/operator/Operator.dart';
 import 'package:r6splannerboard/widget/drawer/AttackOperatorDrawer.dart';
@@ -50,24 +51,30 @@ class MyStatefulWidget extends StatefulWidget {
 class MyStatefulWidgetState extends State<MyStatefulWidget> {
   @override
   initState() {
-    DesktopWindow.setMinWindowSize(const Size(1686, 825));
+    DesktopWindow.setMinWindowSize(const Size(1686, 1026));
     DesktopWindow.setFullScreen(true);
 
     for (PlayMap playMap in PlayMap.values) {
       final Map<Floor, Set<MoveIcon>> moveIconMap = {};
+      final Map<Floor, MoveIcon?> selectMoveIconMap = {};
       final Map<Floor, Set<Sketch>> sketchMap = {};
+      final Map<Floor, Set<List<Sketch>>> sketchUndoMap = {};
       final Map<Floor, double> playMapOffsetYMap = {};
       final Map<Floor, double> playMapOffsetXMap = {};
       final Map<Floor, double> playMapScaleMap = {};
       for (Floor floor in playMap.hasFloor.values()) {
         moveIconMap[floor] = {};
+        selectMoveIconMap[floor] = null;
         sketchMap[floor] = {};
+        sketchUndoMap[floor] = {};
         playMapOffsetYMap[floor] = 0;
         playMapOffsetXMap[floor] = 0;
         playMapScaleMap[floor] = 1;
       }
       _moveIconMap[playMap] = moveIconMap;
+      _selectMoveIconMap[playMap] = selectMoveIconMap;
       _sketchMap[playMap] = sketchMap;
+      _sketchUndoMap[playMap] = sketchUndoMap;
       _playMapOffsetX[playMap] = playMapOffsetYMap;
       _playMapOffsetY[playMap] = playMapOffsetXMap;
       _playMapScale[playMap] = playMapScaleMap;
@@ -102,8 +109,33 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
 
   //MoveIcon
   final Map<PlayMap, Map<Floor, Set<MoveIcon>>> _moveIconMap = {};
+  final Map<PlayMap, Map<Floor, MoveIcon?>> _selectMoveIconMap = {};
 
   Set<MoveIcon> _moveIconSet() => _moveIconMap[playMap]![floor]!;
+
+  MoveIcon? getSelectMoveIcon() {
+    final moveIcon = _selectMoveIconMap[playMap]?[floor];
+    return moveIcon;
+  }
+
+  void setSelectMoveIcon(MoveIcon? moveIcon) {
+    _selectMoveIconMap[playMap]![floor] = moveIcon;
+  }
+
+  final double minMoveIconSize = 15;
+  final double maxMoveIconSize = 50;
+  double defaultMoveIconSize = 30;
+
+  addDefaultMoveIconSize(double add) {
+    defaultMoveIconSize += add;
+    if (maxMoveIconSize < defaultMoveIconSize) {
+      defaultMoveIconSize = maxMoveIconSize;
+      return;
+    } else if (defaultMoveIconSize < minMoveIconSize) {
+      defaultMoveIconSize = minMoveIconSize;
+      return;
+    }
+  }
 
   OptionPanel? _optionPanel;
 
@@ -112,8 +144,11 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
   Color sketchColor = Colors.red;
 
   final Map<PlayMap, Map<Floor, Set<Sketch>>> _sketchMap = {};
+  final Map<PlayMap, Map<Floor, Set<List<Sketch>>>> _sketchUndoMap = {};
 
   Set<Sketch> _sketchSet() => _sketchMap[playMap]![floor]!;
+
+  Set<List<Sketch>> _sketchUndoSet() => _sketchUndoMap[playMap]![floor]!;
 
   Sketch? sketchTarget;
 
@@ -210,16 +245,32 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
 
   removeMoveIcon(MoveIcon moveIcon) => _moveIconSet().remove(moveIcon);
 
+  clearMoveIcon() => _moveIconSet().clear();
+
   ///##### Sketch Function #####
-  addSketch(Sketch sketch) => _sketchSet().add(sketch);
+  addSketch(Sketch sketch) {
+    _sketchUndoSet().clear();
+    _sketchSet().add(sketch);
+  }
 
   undoSketch() => setState(() {
-        try {
-          _sketchSet().remove(_sketchSet().last);
-        } catch (_) {}
+        final set = _sketchSet();
+        if (set.isEmpty) return;
+        _sketchUndoSet().add([set.last]);
+        set.remove(set.last);
       });
 
+  redoSketch() {
+    final set = _sketchUndoSet();
+    if (set.isEmpty) return;
+    for (final sketch in set.last) {
+      _sketchSet().add(sketch);
+    }
+    set.remove(set.last);
+  }
+
   clearSketch() => setState(() {
+        _sketchUndoSet().add(_sketchSet().toList());
         _sketchSet().clear();
       });
 
@@ -359,6 +410,126 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
             icon: const Icon(UniconsLine.github),
           ));
 
+  ///##### KeyBoard Event Function #####
+  _keyEvent(RawKeyEvent event) {
+    if (event is! RawKeyDownEvent) return;
+    final key = event.logicalKey;
+    final label = key.keyLabel;
+    // debug(label);
+
+    ///Key Kind
+    final sketchModes = ["Q", "W", "E", "A", "S", "D"];
+    final floors = ["1", "2", "3", "4", "5"];
+
+    ///Select Color
+    if (label.contains("Numpad")) {
+      switch (label) {
+        case "Numpad 1":
+          sketchColor = Colors.white;
+          break;
+        case "Numpad 2":
+          sketchColor = Colors.grey;
+          break;
+        case "Numpad 3":
+          sketchColor = Colors.black;
+          break;
+        case "Numpad 4":
+          sketchColor = Colors.green;
+          break;
+        case "Numpad 5":
+          sketchColor = Colors.blue;
+          break;
+        case "Numpad 6":
+          sketchColor = Colors.purple;
+          break;
+        case "Numpad 7":
+          sketchColor = Colors.red;
+          break;
+        case "Numpad 8":
+          sketchColor = Colors.orange;
+          break;
+        case "Numpad 9":
+          sketchColor = Colors.yellow;
+          break;
+      }
+      setState(() {});
+      return;
+    }
+
+    ///Select Sketch Mode
+    if (sketchModes.contains(label)) {
+      switch (label) {
+        case "Q":
+          sketchMode = SketchMode.ARROW;
+          break;
+        case "W":
+          sketchMode = SketchMode.SQUARE;
+          break;
+        case "E":
+          sketchMode = SketchMode.SQUARE_BORDER;
+          break;
+        case "A":
+          sketchMode = SketchMode.LINE;
+          break;
+        case "S":
+          sketchMode = SketchMode.CIRCLE;
+          break;
+        case "D":
+          sketchMode = SketchMode.CROSS_MARK;
+          break;
+      }
+      setState(() {});
+      return;
+    }
+
+    ///Select Floor
+    if (floors.contains(label)) {
+      final hasFloors = playMap.hasFloor.values();
+      switch (label) {
+        case "1":
+          if (hasFloors.isEmpty) return;
+          floor = hasFloors[0];
+          break;
+        case "2":
+          if (hasFloors.length < 2) return;
+          floor = hasFloors[1];
+          break;
+        case "3":
+          if (hasFloors.length < 3) return;
+          floor = hasFloors[2];
+          break;
+        case "4":
+          if (hasFloors.length < 4) return;
+          floor = hasFloors[3];
+          break;
+        case "5":
+          if (hasFloors.length < 5) return;
+          floor = hasFloors[4];
+          break;
+      }
+      setState(() {});
+      return;
+    }
+
+    ///Sketch Control
+    switch (label) {
+      case "Z":
+        if (event.isControlPressed) {
+          if (event.isShiftPressed) {
+            redoSketch();
+          } else {
+            undoSketch();
+          }
+        }
+        break;
+      case "Escape":
+        setSelectMoveIcon(null);
+        break;
+    }
+    setState(() {});
+    return;
+  }
+
   ///##### Build Function #####
   @override
   Widget build(BuildContext context) {
@@ -374,15 +545,22 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
       ),
 
       ///Display
-      body: Center(
-          child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          MoveIconButtonPanel(this).widget(),
-          Center(child: SizedBox(width: mapWidth, height: mapHeight, child: ClipRect(child: Stack(children: _displayList())))),
-          SketchButtonPanel(this).widget(),
-        ],
-      )),
+      body: RawKeyboardListener(
+        autofocus: true,
+        focusNode: FocusNode(),
+        onKey: (event) {
+          _keyEvent(event);
+        },
+        child: Center(
+            child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            MoveIconButtonPanel(this).widget(),
+            Center(child: SizedBox(width: mapWidth, height: mapHeight, child: ClipRect(child: Stack(children: _displayList())))),
+            SketchButtonPanel(this).widget(),
+          ],
+        )),
+      ),
 
       ///Drawer
       drawer: _loadOpDrawer(),

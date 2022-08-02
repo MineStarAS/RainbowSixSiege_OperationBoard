@@ -8,5 +8,5 @@ class HasFloor {
 
   contains(Floor floor) => _floorSet.contains(floor);
 
-  values() => _floorSet.toList();
+  List<Floor> values() => _floorSet.toList();
 }

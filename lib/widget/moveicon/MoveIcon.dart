@@ -7,9 +7,9 @@ abstract class MoveIcon extends OptionPanel {
   late double posX;
   late double posY;
 
-  late final double minSize;
-  late final double maxSize;
-  late double currentSize;
+  late final double minSize = state.minMoveIconSize;
+  late final double maxSize = state.maxMoveIconSize;
+  late double currentSize = state.defaultMoveIconSize;
 
   getPosX() {
     final center = state.mapWidth / 2;
@@ -70,6 +70,11 @@ abstract class MoveIcon extends OptionPanel {
   }
 
   get size => currentSize * state.getPlayMapScale();
+
+  BoxDecoration? isSelected() {
+    if (state.getSelectMoveIcon() != this) return null;
+    return BoxDecoration(color: const Color(0xFF55FF00), borderRadius: BorderRadius.circular(5));
+  }
 
   Widget widget();
 }

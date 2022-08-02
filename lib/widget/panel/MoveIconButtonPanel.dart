@@ -1,8 +1,9 @@
-// ignore_for_file: file_names, overridden_fields, implementation_imports
+// ignore_for_file: file_names, overridden_fields, implementation_imports, invalid_use_of_protected_member
 
 import 'package:flutter/material.dart';
 import 'package:r6splannerboard/main.dart';
 import 'package:r6splannerboard/widget/panel/interface/Panel.dart';
+import 'package:unicons/unicons.dart';
 
 import '../button/Button.dart';
 
@@ -15,22 +16,68 @@ class MoveIconButtonPanel extends Panel {
   @override
   final double offsetX = 5;
   @override
-  final double offsetY = 10;
+  final double offsetY = 5;
+
+  _textBox(String text) {
+    return Container(
+      width: 200,
+      height: 50,
+      decoration: BoxDecoration(
+        color: Colors.blue,
+        borderRadius: BorderRadius.circular(5),
+      ),
+      child: Center(child: Text(text, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: Colors.white))),
+    );
+  }
+
+  _valueIconBox(Icon icon, String text) {
+    return Container(
+      width: 50,
+      height: 50,
+      decoration: BoxDecoration(
+        color: Colors.blue,
+        borderRadius: BorderRadius.circular(5),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Center(child: icon),
+          Center(child: Text(text, style: const TextStyle(fontSize: 10, color: Colors.white, fontWeight: FontWeight.w700))),
+        ],
+      ),
+    );
+  }
+
+  _editValueButtons() => Column(children: [
+        _textBox("아이콘 기본 크기"),
+        offsetBox,
+        Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+          _RemoveIconSizeButton(state, Colors.lightBlueAccent, const Size(50, 50)).button(),
+          offsetBox,
+          _valueIconBox(const Icon(UniconsLine.expand_arrows_alt, color: Colors.white), "[ ${state.defaultMoveIconSize.toInt()} ]"),
+          offsetBox,
+          _AddIconSizeButton(state, Colors.lightBlueAccent, const Size(50, 50)).button(),
+        ])
+      ]);
 
   @override
   widget() => ColoredBox(
-          color: Colors.blue.shade100,
-          child: Container(
-            padding: const EdgeInsets.only(left: 10, right: 10, top: 30),
-            child: Column(children: [
-            AttackOperatorDrawerOpenButton(state, state.attackTeamColor, const Size(200, 50)).button(),
-            SizedBox(height: offsetY),
-            DefenseOperatorDrawerOpenButton(state, state.defenseTeamColor, const Size(200, 50)).button(),
-          ]),
-        ),
-  );
+      color: Colors.blue.shade100,
+      child: Container(
+        padding: const EdgeInsets.only(left: 10, right: 10),
+        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          AttackOperatorDrawerOpenButton(state, state.attackTeamColor, const Size(200, 50)).button(),
+          customOffsetBox(10),
+          DefenseOperatorDrawerOpenButton(state, state.defenseTeamColor, const Size(200, 50)).button(),
+          customOffsetBox(100),
+          _editValueButtons(),
+          customOffsetBox(100),
+          _IconClearButton(state, Colors.lightBlueAccent, const Size(200, 50)).button()
+        ]),
+      ));
 }
 
+///#### Button Classes #####
 class AttackOperatorDrawerOpenButton extends Button {
   AttackOperatorDrawerOpenButton(this.state, this.color, this.size);
 
@@ -72,5 +119,77 @@ class DefenseOperatorDrawerOpenButton extends Button {
         },
         style: ElevatedButton.styleFrom(fixedSize: size, primary: state.defenseTeamColor),
         child: const Text("방어팀 오퍼레이터", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
+      );
+}
+
+class _AddIconSizeButton extends Button {
+  _AddIconSizeButton(this.state, this.color, this.size);
+
+  @override
+  final MyStatefulWidgetState state;
+
+  @override
+  final Color color;
+
+  @override
+  final Size size;
+
+  @override
+  button() => ElevatedButton(
+        onPressed: () {
+          state.setState(() {
+            state.addDefaultMoveIconSize(5);
+          });
+        },
+        style: ElevatedButton.styleFrom(fixedSize: size, primary: color),
+        child: const Icon(Icons.add),
+      );
+}
+
+class _RemoveIconSizeButton extends Button {
+  _RemoveIconSizeButton(this.state, this.color, this.size);
+
+  @override
+  final MyStatefulWidgetState state;
+
+  @override
+  final Color color;
+
+  @override
+  final Size size;
+
+  @override
+  button() => ElevatedButton(
+        onPressed: () {
+          state.setState(() {
+            state.addDefaultMoveIconSize(-5);
+          });
+        },
+        style: ElevatedButton.styleFrom(fixedSize: size, primary: color),
+        child: const Icon(Icons.remove),
+      );
+}
+
+class _IconClearButton extends Button {
+  _IconClearButton(this.state, this.color, this.size);
+
+  @override
+  final MyStatefulWidgetState state;
+
+  @override
+  final Color color;
+
+  @override
+  final Size size;
+
+  @override
+  button() => ElevatedButton(
+        onPressed: () {
+          state.setState(() {
+            state.clearMoveIcon();
+          });
+        },
+        style: ElevatedButton.styleFrom(fixedSize: size, primary: color),
+        child: const Text("아이콘 모두지우기", style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600)),
       );
 }

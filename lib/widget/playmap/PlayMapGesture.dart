@@ -79,7 +79,7 @@ class PlayMapGesture {
             ///Move PlayMap Image
             if (state.moveImageBoolean) {
               state.setState(() {
-                final scale = 1.0 + state.zoomInLimit - state.getPlayMapScale();
+                final scale = 2.0 + state.zoomInLimit - state.getPlayMapScale();
 
                 if (_originX != null) state.addPlayMapOffsetX((_originX! - event.localPosition.dx) * scale);
                 if (_originY != null) state.addPlayMapOffsetY((_originY! - event.localPosition.dy) * scale);

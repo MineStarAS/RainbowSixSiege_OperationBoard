@@ -34,6 +34,7 @@ class OperatorIcon extends MoveIcon {
     posY = (((y - centerY) + (offsetY / 2 * (scale - 1))) / centerY / scale * state.mapHeight) + centerY;
 
     state.addMoveIcon(this);
+    state.setSelectMoveIcon(this);
   }
 
   OperatorIcon.center(this.state, this.operator) {
@@ -50,6 +51,7 @@ class OperatorIcon extends MoveIcon {
     posY = (((y - centerY) + (offsetY / 2 * (scale - 1))) / centerY / scale * state.mapHeight) + centerY;
 
     state.addMoveIcon(this);
+    state.setSelectMoveIcon(this);
   }
 
   OperatorIcon.clone(this.state, OperatorIcon operatorIcon, double x, double y) {
@@ -78,6 +80,7 @@ class OperatorIcon extends MoveIcon {
     currentSize = operatorIcon.currentSize;
 
     state.addMoveIcon(this);
+    state.setSelectMoveIcon(this);
   }
 
   @override
@@ -93,18 +96,17 @@ class OperatorIcon extends MoveIcon {
   @override
   final double optionPanelOffsetY = 3;
 
-  @override
-  final double minSize = 20.0;
-  @override
-  final double maxSize = 50.0;
-  @override
-  double currentSize = 30.0;
-
   late final Operator operator;
 
   @override
   widget() => GestureDetector(
+      onTap: () {
+        state.setState(() {
+          state.setSelectMoveIcon(this);
+        });
+      },
       onPanUpdate: (event) {
+        state.setSelectMoveIcon(this);
         state.closeOptionPanel();
         state.setState(() {
           setPosX(event.localPosition.dx - (size / 2));
@@ -113,12 +115,14 @@ class OperatorIcon extends MoveIcon {
       },
       onDoubleTap: () {
         state.setState(() {
+          state.setSelectMoveIcon(this);
           state.setOptionPanel(this);
         });
       },
       child: Container(
         width: size,
         height: size,
+        decoration: isSelected(),
         margin: EdgeInsets.only(left: getPosX(), top: getPosY()),
         child: Center(child: SizedBox(height: size, width: size, child: Center(child: Image.asset(operator.path())))),
       ));
@@ -180,23 +184,23 @@ class OperatorIcon extends MoveIcon {
                   Center(
                       child: Row(children: [
                     _SizeRemoveButton(state, _buttonColor, const Size(58, 50), this).button(),
-                    optionPanelOffset,
+                    offsetBox,
                     _valueIconBox(const Icon(UniconsLine.expand_arrows_alt, color: Colors.white, size: 20), currentSize.toInt().toString()),
-                    optionPanelOffset,
+                    offsetBox,
                     _SizeAddButton(state, _buttonColor, const Size(58, 50), this).button(),
                   ])),
-                  optionPanelOffset,
+                  offsetBox,
                   Row(children: [
-                    _RemoveIconButton(state, _buttonColor, const Size(85, 50), this).button(),
-                    optionPanelOffset,
+                    _DeleteIconButton(state, _buttonColor, const Size(85, 50), this).button(),
+                    offsetBox,
                     _CloneIconButton(state, _buttonColor, const Size(85, 50), this, x, y).button(),
                   ]),
-                  optionPanelOffset,
+                  offsetBox,
                   Row(children: [
                     _GadgetButton(state, _buttonColor, const Size(50, 50), x, y, 0, operator).button(),
-                    optionPanelOffset,
+                    offsetBox,
                     _GadgetButton(state, _buttonColor, const Size(50, 50), x, y, 1, operator).button(),
-                    optionPanelOffset,
+                    offsetBox,
                     _GadgetButton(state, _buttonColor, const Size(50, 50), x, y, 2, operator).button(),
                   ]),
                 ]))));
@@ -222,11 +226,9 @@ class _SizeAddButton extends Button {
   button() {
     return ElevatedButton(
       onPressed: () {
-        if (operatorIcon.currentSize >= operatorIcon.minSize) {
-          state.setState(() {
-            operatorIcon.setSize(operatorIcon.currentSize + 5);
-          });
-        }
+        state.setState(() {
+          operatorIcon.setSize(operatorIcon.currentSize + 5);
+        });
       },
       style: ElevatedButton.styleFrom(fixedSize: size, primary: color),
       child: const Icon(Icons.add),
@@ -252,11 +254,9 @@ class _SizeRemoveButton extends Button {
   button() {
     return ElevatedButton(
       onPressed: () {
-        if (operatorIcon.currentSize > operatorIcon.minSize) {
-          state.setState(() {
-            operatorIcon.setSize(operatorIcon.currentSize - 5);
-          });
-        }
+        state.setState(() {
+          operatorIcon.setSize(operatorIcon.currentSize - 5);
+        });
       },
       style: ElevatedButton.styleFrom(fixedSize: size, primary: color),
       child: const Icon(Icons.remove),
@@ -264,8 +264,8 @@ class _SizeRemoveButton extends Button {
   }
 }
 
-class _RemoveIconButton extends Button {
-  _RemoveIconButton(this.state, this.color, this.size, this.operatorIcon);
+class _DeleteIconButton extends Button {
+  _DeleteIconButton(this.state, this.color, this.size, this.operatorIcon);
 
   @override
   final MyStatefulWidgetState state;

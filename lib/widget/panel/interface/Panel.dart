@@ -10,9 +10,9 @@ abstract class Panel {
   late final double offsetX;
   late final double offsetY;
 
-  late final offset = SizedBox(width: offsetX, height: offsetY);
+  late final offsetBox = SizedBox(width: offsetX, height: offsetY);
 
-  offsetBox(double offset) => SizedBox(width: offset, height: offset);
+  customOffsetBox(double offset) => SizedBox(width: offset, height: offset);
 
   Widget widget();
 }

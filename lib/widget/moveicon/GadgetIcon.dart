@@ -32,6 +32,7 @@ class GadgetIcon extends MoveIcon {
     posY = (((y - centerY) + (offsetY / 2 * (scale - 1))) / centerY / scale * state.mapHeight) + centerY;
 
     state.addMoveIcon(this);
+    state.setSelectMoveIcon(this);
   }
 
   GadgetIcon.clone(this.state, GadgetIcon gadgetIcon, double x, double y) {
@@ -58,8 +59,10 @@ class GadgetIcon extends MoveIcon {
 
     gadget = gadgetIcon.gadget;
     currentSize = gadgetIcon.currentSize;
+    rotate = gadgetIcon.rotate;
 
     state.addMoveIcon(this);
+    state.setSelectMoveIcon(this);
   }
 
   @override
@@ -75,20 +78,19 @@ class GadgetIcon extends MoveIcon {
   @override
   final double optionPanelOffsetY = 3;
 
-  @override
-  final double minSize = 20.0;
-  @override
-  final double maxSize = 60.0;
-  @override
-  double currentSize = 40.0;
-
   double rotate = 0;
 
   late final Gadget gadget;
 
   @override
   widget() => GestureDetector(
+      onTap: () {
+        state.setState(() {
+          state.setSelectMoveIcon(this);
+        });
+      },
       onPanUpdate: (event) {
+        state.setSelectMoveIcon(this);
         state.closeOptionPanel();
         state.setState(() {
           setPosX(event.localPosition.dx - (size / 2));
@@ -97,12 +99,14 @@ class GadgetIcon extends MoveIcon {
       },
       onDoubleTap: () {
         state.setState(() {
+          state.setSelectMoveIcon(this);
           state.setOptionPanel(this);
         });
       },
       child: Container(
           width: size,
           height: size,
+          decoration: isSelected(),
           margin: EdgeInsets.only(left: getPosX(), top: getPosY()),
           child: Center(
               child: Transform(
@@ -168,23 +172,23 @@ class GadgetIcon extends MoveIcon {
                   Center(
                       child: Row(children: [
                     _SizeRemoveButton(state, _buttonColor, const Size(58, 50), this).button(),
-                    optionPanelOffset,
+                    offsetBox,
                     _valueIconBox(const Icon(UniconsLine.expand_arrows_alt, color: Colors.white, size: 20), currentSize.toInt().toString()),
-                    optionPanelOffset,
+                    offsetBox,
                     _SizeAddButton(state, _buttonColor, const Size(58, 50), this).button(),
                   ])),
-                  optionPanelOffset,
+                  offsetBox,
                   Row(children: [
-                    _RemoveIconButton(state, _buttonColor, const Size(85, 50), this).button(),
-                    optionPanelOffset,
+                    _DeleteIconButton(state, _buttonColor, const Size(85, 50), this).button(),
+                    offsetBox,
                     _CloneIconButton(state, _buttonColor, const Size(85, 50), this, x, y).button(),
                   ]),
-                  optionPanelOffset,
+                  offsetBox,
                   Row(children: [
                     _RotateRemoveButton(state, _buttonColor, const Size(58, 50), this).button(),
-                    optionPanelOffset,
+                    offsetBox,
                     _valueIconBox(const Icon(Icons.screen_rotation_alt, color: Colors.white, size: 20), rotate.toInt().toString()),
-                    optionPanelOffset,
+                    offsetBox,
                     _RotateAddButton(state, _buttonColor, const Size(58, 50), this).button(),
                   ]),
                 ]))));
@@ -252,8 +256,8 @@ class _SizeRemoveButton extends Button {
   }
 }
 
-class _RemoveIconButton extends Button {
-  _RemoveIconButton(this.state, this.color, this.size, this.gadgetIcon);
+class _DeleteIconButton extends Button {
+  _DeleteIconButton(this.state, this.color, this.size, this.gadgetIcon);
 
   @override
   final MyStatefulWidgetState state;

@@ -9,15 +9,24 @@ import 'package:r6splannerboard/widget/sketch/interface/Sketch.dart';
 import 'SketchMode.dart';
 
 class SquareBorder extends Sketch {
-  SquareBorder(this.state, this.startX, this.startY);
+  SquareBorder(this.state, double x, double y) {
+    final centerX = state.mapWidth / 2;
+    final centerY = state.mapHeight / 2;
+    final offsetX = state.getPlayMapOffsetX();
+    final offsetY = state.getPlayMapOffsetY();
+    final scale = state.getPlayMapScale();
+
+    startX = (((x - centerX) + (offsetX / 2 * (scale - 1))) / state.mapWidth / scale * state.mapWidth) + centerX;
+    startY = (((y - centerY) + (offsetY / 2 * (scale - 1))) / state.mapHeight / scale * state.mapHeight) + centerY;
+  }
 
   @override
   final MyStatefulWidgetState state;
 
   @override
-  final double startX;
+  late final double startX;
   @override
-  final double startY;
+  late final double startY;
 
   @override
   late final double thickness = state.getSketchThickness(SketchMode.SQUARE_BORDER);
@@ -25,13 +34,29 @@ class SquareBorder extends Sketch {
   late final double opacity = state.getSketchOpacity(SketchMode.SQUARE_BORDER);
 
   @override
-  widget() => Positioned(
-      left: min(getStartX(), getFinishX()),
-      top: min(getStartY(), getFinishY()),
-      child: Container(
-          width: (getStartX().abs() - getFinishX().abs()).abs(),
-          height: (getStartY().abs() - getFinishY().abs()).abs(),
-          decoration: BoxDecoration(
-            border: Border.all(color: color.withOpacity(opacity), width: thickness),
-          )));
+  widget() {
+    final double width;
+    if (getStartX().isNegative != getFinishX().isNegative) {
+      width = (getStartX().abs() + getFinishX().abs()).abs();
+    } else {
+      width = (getStartX().abs() - getFinishX().abs()).abs();
+    }
+
+    final double height;
+    if (getStartY().isNegative != getFinishY().isNegative) {
+      height = (getStartY().abs() + getFinishY().abs()).abs();
+    } else {
+      height = (getStartY().abs() - getFinishY().abs()).abs();
+    }
+
+    return Positioned(
+        left: min(getStartX(), getFinishX()),
+        top: min(getStartY(), getFinishY()),
+        child: Container(
+            width: width,
+            height: height,
+            decoration: BoxDecoration(
+              border: Border.all(color: color.withOpacity(opacity), width: thickness),
+            )));
+  }
 }

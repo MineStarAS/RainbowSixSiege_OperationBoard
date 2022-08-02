@@ -74,32 +74,32 @@ class SketchButtonPanel extends Panel {
 
     return Column(children: [
       _textBox("스케치 색상"),
-      offset,
-      Row(children: [widgetList[0], offset, widgetList[1], offset, widgetList[2]]),
-      offset,
-      Row(children: [widgetList[3], offset, widgetList[4], offset, widgetList[5]]),
-      offset,
-      Row(children: [widgetList[6], offset, widgetList[7], offset, widgetList[8]]),
+      offsetBox,
+      Row(children: [widgetList[0], offsetBox, widgetList[1], offsetBox, widgetList[2]]),
+      offsetBox,
+      Row(children: [widgetList[3], offsetBox, widgetList[4], offsetBox, widgetList[5]]),
+      offsetBox,
+      Row(children: [widgetList[6], offsetBox, widgetList[7], offsetBox, widgetList[8]]),
     ]);
   }
 
   _selectSketchButtons() => Column(
         children: [
           _textBox("스케치 모드"),
-          offset,
+          offsetBox,
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             _SelectArrowSketchButton(state, Colors.lightBlueAccent, const Size(50, 50)).button(),
-            offset,
+            offsetBox,
             _SelectSquareSketchButton(state, Colors.lightBlueAccent, const Size(50, 50)).button(),
-            offset,
+            offsetBox,
             _SelectSquareBorderSketchButton(state, Colors.lightBlueAccent, const Size(50, 50)).button(),
           ]),
-          offset,
+          offsetBox,
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             _SelectLineSketchButton(state, Colors.lightBlueAccent, const Size(50, 50)).button(),
-            offset,
+            offsetBox,
             _SelectCircleSketchButton(state, Colors.lightBlueAccent, const Size(50, 50)).button(),
-            offset,
+            offsetBox,
             _SelectCrossMarkSketchButton(state, Colors.lightBlueAccent, const Size(50, 50)).button(),
           ]),
         ],
@@ -108,20 +108,20 @@ class SketchButtonPanel extends Panel {
   _editValueButtons() => Column(
         children: [
           _textBox("변수 설정"),
-          offset,
+          offsetBox,
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             _RemoveThicknessButton(state, Colors.lightBlueAccent, const Size(50, 50)).button(),
-            offset,
+            offsetBox,
             _valueIconBox(const Icon(UniconsLine.arrows_resize, color: Colors.white), "[ ${state.getSketchThickness(state.sketchMode).toInt()} ]"),
-            offset,
+            offsetBox,
             _AddThicknessButton(state, Colors.lightBlueAccent, const Size(50, 50)).button(),
           ]),
-          offset,
+          offsetBox,
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             _RemoveOpacityButton(state, Colors.lightBlueAccent, const Size(50, 50)).button(),
-            offset,
+            offsetBox,
             _valueIconBox(const Icon(UniconsLine.border_clear, color: Colors.white), "[ ${(state.getSketchOpacity(state.sketchMode) * 10).toInt()} ]"),
-            offset,
+            offsetBox,
             _AddOpacityButton(state, Colors.lightBlueAccent, const Size(50, 50)).button(),
           ]),
         ],
@@ -136,15 +136,15 @@ class SketchButtonPanel extends Panel {
             mainAxisAlignment: MainAxisAlignment.center,
               children: [
             _selectColorButtons(),
-            offsetBox(30),
+            customOffsetBox(30),
             _selectSketchButtons(),
-            offsetBox(30),
+            customOffsetBox(30),
             _editValueButtons(),
-            offsetBox(30),
+            customOffsetBox(30),
             Column(children: [
               _SketchUndoButton(state, Colors.lightBlueAccent, const Size(180, 50)).button(),
-              offset,
-              _SketchResetButton(state, Colors.lightBlueAccent, const Size(180, 50)).button(),
+              offsetBox,
+              _SketchClearButton(state, Colors.lightBlueAccent, const Size(180, 50)).button(),
             ])
           ])));
 }
@@ -438,8 +438,8 @@ class _SketchUndoButton extends Button {
       );
 }
 
-class _SketchResetButton extends Button {
-  _SketchResetButton(this.state, this.color, this.size);
+class _SketchClearButton extends Button {
+  _SketchClearButton(this.state, this.color, this.size);
 
   @override
   final MyStatefulWidgetState state;
