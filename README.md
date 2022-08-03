@@ -40,6 +40,7 @@
 * [Click] Select Icon.
 * [Click + Drag] Move Icon.
 * [Double Click] Open Option Panel.
+* [Long Click] Swap Other Image. (Only Gadget)
 
 ---
 
