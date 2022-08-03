@@ -85,6 +85,8 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   ///##### Field #####
+  //Link
+  final github = "https://github.com/MineStarAS/RainbowSixSiege_OperationBoard";
   //PlayMap
   PlayMap playMap = PlayMap.BANK;
   Floor floor = Floor.F1;
@@ -416,7 +418,7 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
             onPressed: () {
               setState(() {
                 closeOptionPanel();
-                launchUrl(Uri.parse('https://github.com/MineStarAS/r6splannerboard'));
+                launchUrl(Uri.parse(github));
               });
             },
             tooltip: "Open browser",
