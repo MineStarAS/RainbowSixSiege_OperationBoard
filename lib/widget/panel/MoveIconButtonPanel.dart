@@ -1,8 +1,8 @@
 // ignore_for_file: file_names, overridden_fields, implementation_imports, invalid_use_of_protected_member
 
 import 'package:flutter/material.dart';
-import 'package:r6splannerboard/main.dart';
-import 'package:r6splannerboard/widget/panel/interface/Panel.dart';
+import 'package:r6soperationboard/main.dart';
+import 'package:r6soperationboard/widget/panel/interface/Panel.dart';
 import 'package:unicons/unicons.dart';
 
 import '../button/Button.dart';

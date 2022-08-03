@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "kr.kro.minestar" "\0"
-            VALUE "FileDescription", "r6splannerboard" "\0"
+            VALUE "FileDescription", "r6soperationboard" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "r6splannerboard" "\0"
+            VALUE "InternalName", "r6soperationboard" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2022 kr.kro.minestar. All rights reserved." "\0"
-            VALUE "OriginalFilename", "r6splannerboard.exe" "\0"
-            VALUE "ProductName", "r6splannerboard" "\0"
+            VALUE "OriginalFilename", "r6soperationboard.exe" "\0"
+            VALUE "ProductName", "r6soperationboard" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

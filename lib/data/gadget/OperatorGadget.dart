@@ -1,6 +1,6 @@
 // ignore_for_file: file_names, constant_identifier_names, constant_identifier_names, duplicate_ignore
 
-import 'package:r6splannerboard/data/gadget/Gadget.dart';
+import 'package:r6soperationboard/data/gadget/Gadget.dart';
 
 enum OperatorGadget implements Gadget {
   Prisma("ALIBI", 10, GadgetOtherImage.Null),

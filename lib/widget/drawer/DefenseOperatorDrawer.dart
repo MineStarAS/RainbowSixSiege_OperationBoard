@@ -1,7 +1,7 @@
 // ignore_for_file: invalid_use_of_protected_member
 
 import 'package:flutter/material.dart';
-import 'package:r6splannerboard/data/operator/DefenseOperator.dart';
+import 'package:r6soperationboard/data/operator/DefenseOperator.dart';
 
 import '../../data/operator/Operator.dart';
 import '../../main.dart';

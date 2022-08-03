@@ -2,9 +2,9 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:r6splannerboard/main.dart';
-import 'package:r6splannerboard/widget/panel/interface/Panel.dart';
-import 'package:r6splannerboard/widget/sketch/SketchMode.dart';
+import 'package:r6soperationboard/main.dart';
+import 'package:r6soperationboard/widget/panel/interface/Panel.dart';
+import 'package:r6soperationboard/widget/sketch/SketchMode.dart';
 import 'package:unicons/unicons.dart';
 
 import '../button/Button.dart';

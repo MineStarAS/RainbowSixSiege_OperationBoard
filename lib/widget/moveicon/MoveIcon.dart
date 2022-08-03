@@ -1,7 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
-import 'package:r6splannerboard/widget/panel/interface/OptionPanel.dart';
+import 'package:r6soperationboard/widget/panel/interface/OptionPanel.dart';
 
 abstract class MoveIcon extends OptionPanel {
   late double posX;

@@ -3,9 +3,9 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:r6splannerboard/main.dart';
-import 'package:r6splannerboard/widget/sketch/SketchMode.dart';
-import 'package:r6splannerboard/widget/sketch/interface/Sketch.dart';
+import 'package:r6soperationboard/main.dart';
+import 'package:r6soperationboard/widget/sketch/SketchMode.dart';
+import 'package:r6soperationboard/widget/sketch/interface/Sketch.dart';
 
 class Square extends Sketch {
   Square(this.state, double x, double y) {

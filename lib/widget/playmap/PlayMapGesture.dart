@@ -2,15 +2,15 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
-import 'package:r6splannerboard/main.dart';
-import 'package:r6splannerboard/widget/sketch/Arrow.dart';
-import 'package:r6splannerboard/widget/sketch/Circle.dart';
-import 'package:r6splannerboard/widget/sketch/CrossMark.dart';
-import 'package:r6splannerboard/widget/sketch/Line.dart';
-import 'package:r6splannerboard/widget/sketch/SketchMode.dart';
-import 'package:r6splannerboard/widget/sketch/Square.dart';
-import 'package:r6splannerboard/widget/sketch/SquareBorder.dart';
-import 'package:r6splannerboard/widget/sketch/interface/Sketch.dart';
+import 'package:r6soperationboard/main.dart';
+import 'package:r6soperationboard/widget/sketch/Arrow.dart';
+import 'package:r6soperationboard/widget/sketch/Circle.dart';
+import 'package:r6soperationboard/widget/sketch/CrossMark.dart';
+import 'package:r6soperationboard/widget/sketch/Line.dart';
+import 'package:r6soperationboard/widget/sketch/SketchMode.dart';
+import 'package:r6soperationboard/widget/sketch/Square.dart';
+import 'package:r6soperationboard/widget/sketch/SquareBorder.dart';
+import 'package:r6soperationboard/widget/sketch/interface/Sketch.dart';
 
 class PlayMapGesture {
   PlayMapGesture(this.state);

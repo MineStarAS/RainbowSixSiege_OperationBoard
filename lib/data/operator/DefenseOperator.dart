@@ -1,40 +1,9 @@
 // ignore_for_file: file_names, constant_identifier_names, recursive_getters
 
-import 'package:r6splannerboard/data/gadget/Gadget.dart';
-import 'package:r6splannerboard/data/gadget/OperatorGadget.dart';
-import 'package:r6splannerboard/data/gadget/PublicGadget.dart';
-import 'package:r6splannerboard/data/gadget/PublicGadget.dart';
-import 'package:r6splannerboard/data/gadget/PublicGadget.dart';
-import 'package:r6splannerboard/data/gadget/PublicGadget.dart';
-import 'package:r6splannerboard/data/gadget/PublicGadget.dart';
-import 'package:r6splannerboard/data/gadget/PublicGadget.dart';
-import 'package:r6splannerboard/data/gadget/PublicGadget.dart';
-import 'package:r6splannerboard/data/gadget/PublicGadget.dart';
-import 'package:r6splannerboard/data/gadget/PublicGadget.dart';
-import 'package:r6splannerboard/data/gadget/PublicGadget.dart';
-import 'package:r6splannerboard/data/gadget/PublicGadget.dart';
-import 'package:r6splannerboard/data/gadget/PublicGadget.dart';
-import 'package:r6splannerboard/data/gadget/PublicGadget.dart';
-import 'package:r6splannerboard/data/gadget/PublicGadget.dart';
-import 'package:r6splannerboard/data/gadget/PublicGadget.dart';
-import 'package:r6splannerboard/data/gadget/PublicGadget.dart';
-import 'package:r6splannerboard/data/gadget/PublicGadget.dart';
-import 'package:r6splannerboard/data/gadget/PublicGadget.dart';
-import 'package:r6splannerboard/data/gadget/PublicGadget.dart';
-import 'package:r6splannerboard/data/gadget/PublicGadget.dart';
-import 'package:r6splannerboard/data/gadget/PublicGadget.dart';
-import 'package:r6splannerboard/data/gadget/PublicGadget.dart';
-import 'package:r6splannerboard/data/gadget/PublicGadget.dart';
-import 'package:r6splannerboard/data/gadget/PublicGadget.dart';
-import 'package:r6splannerboard/data/gadget/PublicGadget.dart';
-import 'package:r6splannerboard/data/gadget/PublicGadget.dart';
-import 'package:r6splannerboard/data/gadget/PublicGadget.dart';
-import 'package:r6splannerboard/data/gadget/PublicGadget.dart';
-import 'package:r6splannerboard/data/gadget/PublicGadget.dart';
-import 'package:r6splannerboard/data/gadget/PublicGadget.dart';
-import 'package:r6splannerboard/data/gadget/PublicGadget.dart';
-import 'package:r6splannerboard/data/gadget/PublicGadget.dart';
-import 'package:r6splannerboard/data/operator/Operator.dart';
+import 'package:r6soperationboard/data/gadget/Gadget.dart';
+import 'package:r6soperationboard/data/gadget/OperatorGadget.dart';
+import 'package:r6soperationboard/data/gadget/PublicGadget.dart';
+import 'package:r6soperationboard/data/operator/Operator.dart';
 
 enum DefenseOperator implements Operator {
   SMOKE("스모크", [OperatorGadget.RemoteGasGrenade, PublicGadget.Barb, PublicGadget.Shield]),

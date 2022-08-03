@@ -1,6 +1,6 @@
 // ignore_for_file: file_names, constant_identifier_names, constant_identifier_names, duplicate_ignore
 
-import 'package:r6splannerboard/data/gadget/Gadget.dart';
+import 'package:r6soperationboard/data/gadget/Gadget.dart';
 
 enum PublicGadget implements Gadget {
   Drone(10, GadgetOtherImage.Null, "정찰 드론"),

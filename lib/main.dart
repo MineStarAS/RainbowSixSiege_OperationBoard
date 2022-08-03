@@ -3,20 +3,20 @@
 import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:r6splannerboard/data/map/PlayMap.dart';
-import 'package:r6splannerboard/widget/drawer/AttackOperatorDrawer.dart';
-import 'package:r6splannerboard/widget/drawer/DefenseOperatorDrawer.dart';
-import 'package:r6splannerboard/widget/drawer/DrawerType.dart';
-import 'package:r6splannerboard/widget/drawer/PlayMapDrawer.dart';
-import 'package:r6splannerboard/widget/drawer/PublicGadgetDrawer.dart';
-import 'package:r6splannerboard/widget/moveicon/MoveIcon.dart';
-import 'package:r6splannerboard/widget/panel/MoveIconButtonPanel.dart';
-import 'package:r6splannerboard/widget/panel/SketchButtonPanel.dart';
-import 'package:r6splannerboard/widget/panel/interface/OptionPanel.dart';
-import 'package:r6splannerboard/widget/playmap/PlayMapGesture.dart';
-import 'package:r6splannerboard/widget/playmap/PlayMapImage.dart';
-import 'package:r6splannerboard/widget/sketch/SketchMode.dart';
-import 'package:r6splannerboard/widget/sketch/interface/Sketch.dart';
+import 'package:r6soperationboard/data/map/PlayMap.dart';
+import 'package:r6soperationboard/widget/drawer/AttackOperatorDrawer.dart';
+import 'package:r6soperationboard/widget/drawer/DefenseOperatorDrawer.dart';
+import 'package:r6soperationboard/widget/drawer/DrawerType.dart';
+import 'package:r6soperationboard/widget/drawer/PlayMapDrawer.dart';
+import 'package:r6soperationboard/widget/drawer/PublicGadgetDrawer.dart';
+import 'package:r6soperationboard/widget/moveicon/MoveIcon.dart';
+import 'package:r6soperationboard/widget/panel/MoveIconButtonPanel.dart';
+import 'package:r6soperationboard/widget/panel/SketchButtonPanel.dart';
+import 'package:r6soperationboard/widget/panel/interface/OptionPanel.dart';
+import 'package:r6soperationboard/widget/playmap/PlayMapGesture.dart';
+import 'package:r6soperationboard/widget/playmap/PlayMapImage.dart';
+import 'package:r6soperationboard/widget/sketch/SketchMode.dart';
+import 'package:r6soperationboard/widget/sketch/interface/Sketch.dart';
 import 'package:unicons/unicons.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -589,7 +589,7 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
 
       ///AppBar
       appBar: AppBar(
-        title: const Text('Rainbow Six Siege Planner Board'),
+        title: const Text('Rainbow Six Siege Operation Board'),
         automaticallyImplyLeading: false,
         leading: _leading(),
         actions: _playMapActions(),

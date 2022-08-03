@@ -1,7 +1,7 @@
 // ignore_for_file: file_names, constant_identifier_names
 
-import 'package:r6splannerboard/data/map/Floor.dart';
-import 'package:r6splannerboard/data/map/HasFloor.dart';
+import 'package:r6soperationboard/data/map/Floor.dart';
+import 'package:r6soperationboard/data/map/HasFloor.dart';
 
 enum PlayMap {
   BANK('은행', HasFloor(<Floor>{Floor.B1, Floor.F1, Floor.F2})),

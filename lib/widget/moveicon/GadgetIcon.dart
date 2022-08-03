@@ -1,7 +1,7 @@
 // ignore_for_file: file_names, no_logic_in_create_state, overridden_fields, invalid_use_of_protected_member
 
 import 'package:flutter/material.dart';
-import 'package:r6splannerboard/data/gadget/Gadget.dart';
+import 'package:r6soperationboard/data/gadget/Gadget.dart';
 import 'package:unicons/unicons.dart';
 
 import '../../main.dart';
@@ -156,7 +156,6 @@ class GadgetIcon extends MoveIcon {
       onLongPress: () {
         state.setState(() {
           isOtherImage = !isOtherImage;
-          state.debug(isOtherImage);
         });
       },
       child: Container(
