@@ -4,6 +4,7 @@ enum DrawerType {
   attackOperator,
   defenseOperator,
   publicGadget,
+  language,
   ;
 
   const DrawerType();

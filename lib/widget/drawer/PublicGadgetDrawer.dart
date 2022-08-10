@@ -19,7 +19,7 @@ class PublicGadgetDrawer {
   final _brightColor = const Color(0xFFE8D98B);
 
   ///Drawer
-  Drawer getDrawer() => Drawer(width: 213, backgroundColor: _brightColor, child: ListView(padding: EdgeInsets.zero, children: _buttonList()));
+  Drawer getDrawer() => Drawer(width: 257, backgroundColor: _brightColor, child: ListView(padding: EdgeInsets.zero, children: _buttonList()));
 
   ///Drawer List
   List<Widget> _buttonList() {
@@ -37,10 +37,10 @@ class PublicGadgetDrawer {
       height: 60,
       child: DrawerHeader(
           decoration: BoxDecoration(color: _color),
-          child: const Center(
+          child: Center(
               child: Text(
-            '공용 가젯 아이콘 생성',
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+                state.language.publicGadget('Title'),
+            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
           ))));
 
   ///ListTile
@@ -50,7 +50,7 @@ class PublicGadgetDrawer {
       title: Row(
         children: [
           SizedBox(width: 45, height: 45, child: Image.asset(gadget.path())),
-          Text(gadget.korean),
+          Text(gadget.translationString()),
         ],
       ),
       onTap: () {

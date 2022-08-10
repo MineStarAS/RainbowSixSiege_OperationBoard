@@ -25,19 +25,19 @@ class PlayMapDrawer {
   }
 
   ///Map DrawerHeader
-  SizedBox _mapDrawerHeader() => const SizedBox(
+  SizedBox _mapDrawerHeader() => SizedBox(
       height: 60,
       child: DrawerHeader(
-          decoration: BoxDecoration(color: Colors.blue),
+          decoration: const BoxDecoration(color: Colors.blue),
           child: Text(
-            '맵 선택',
-            style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w600),
+            state.language.playMap('Title'),
+            style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w600),
           )));
 
   /// Map ListTile
   ListTile _mapIconCreateButton(PlayMap playMap) => ListTile(
       leading: const Icon(Icons.add),
-      title: Text(playMap.korean, style: const TextStyle(fontWeight: FontWeight.w600)),
+      title: Text(playMap.translationString(), style: const TextStyle(fontWeight: FontWeight.w600)),
       onTap: () {
         state.setState(() {
           state.setPlayMap(playMap);

@@ -7,17 +7,15 @@ import '../gadget/Gadget.dart';
 
 abstract class Operator {
   const Operator(
-    this.enumName,
-    this.korean,
     this.teamType,
     this.gadgets,
   );
 
-  final String enumName;
-  final String korean;
   final TeamType teamType;
 
   String path();
+
+  String translationString();
 
   final List<Gadget> gadgets;
 }

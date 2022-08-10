@@ -1,0 +1,121 @@
+main:
+  attack: Attack Operator
+  defense: Defense Operator
+  public_gadget: Public Gadget
+  icon_default_size: Icon Default Size
+  icon_clear: Icon Clear
+  sketch_color: Sketch Color
+  sketch_mode: Sketch Mode
+  sketch_value: Sketch Value
+  sketch_undo: Sketch Undo
+  sketch_clear: Sketch Clear
+
+attack_operator:
+  Title: Generate Operator Icon
+  SLEDGE: SLEDGE
+  THATCHER: THATCHER
+  ASH: ASH
+  THERMITE: THERMITE
+  TWITCH: TWITCH
+  MONTAGNE: MONTAGNE
+  GLAZ: GLAZ
+  FUZE: FUZE
+  BLITZ: BLITZ
+  IQ: IQ
+  BUCK: BUCK
+  BLACKBEARD: BLACKBEARD
+  CAPITAO: CAPITAO
+  HIBANA: HIBANA
+  JACKAL: JACKAL
+  YING: YING
+  ZOFIA: ZOFIA
+  DOKKAEBI: DOKKAEBI
+  LION: LION
+  FINKA: FINKA
+  MAVERICK: MAVERICK
+  NOMAD: NOMAD
+  GRIDLOCK: GRIDLOCK
+  NOKK: NOKK
+  AMARU: AMARU
+  KALI: KALI
+  IANA: IANA
+  ACE: ACE
+  ZERO: ZERO
+  FLORES: FLORES
+  OSA: OSA
+  SENS: SENS
+
+defense_operator:
+  Title: Generate Operator Icon
+  SMOKE: SMOKE
+  MUTE: MUTE
+  CASTLE: CASTLE
+  PULSE: PULSE
+  DOC: DOC
+  ROOK: ROOK
+  KAPKAN: KAPKAN
+  TACHANKA: TACHANKA
+  JAGER: JAGER
+  BANDIT: BANDIT
+  FROST: FROST
+  VALKYRIE: VALKYRIE
+  CAVEIRA: CAVEIRA
+  ECHO: ECHO
+  MIRA: MIRA
+  LESION: LESION
+  ELA: ELA
+  VIGIL: VIGIL
+  MAESTRO: MAESTRO
+  ALIBI: ALIBI
+  CLASH: CLASH
+  KAID: KAID
+  MOZZIE: MOZZIE
+  WARDEN: WARDEN
+  GOYO: GOYO
+  WAMAI: WAMAI
+  ORYX: ORYX
+  MELUSI: MELUSI
+  ARUNI: ARUNI
+  THUNDERBIRD: THUNDERBIRD
+  THORN: THORN
+  AZAMI: AZAMI
+
+map:
+  Title: Select Map
+  BANK: Bank
+  BORDER: Border
+  CHALET: Chalet
+  CLUB_HOUSE: Club House
+  COASTLINE: Coastline
+  CONSULATE: Consulate
+  FAVELA: Favela
+  FORTRESS: Fortress
+  HEREFORD: Hereford
+  HOUSE: House
+  KAFE: Kafe Dostoyevsky
+  KANAL: Kanal
+  OREGON: Oregon
+  OUTBACK: Outback
+  PLANE: Presidential Plane
+  SKYSCRAPER: Skyscraper
+  THEME_PARK: Theme Park
+  TOWER: Tower
+  VILLA: Villa
+  YACHT: Yacht
+
+public_gadget:
+  Title: Generate Public Gadget Icon
+  Drone: Drone
+  Barricade: Barricade
+  Claymore: Claymore
+  BreachCharge: Breach Charge
+  HardBreachCharge: Hard Breach Charge
+  FragGrenade: Frag Grenade
+  SmokeGrenade: Smoke Grenade
+  StunGrenade: Stun Grenade
+  Barb: Barb
+  ProximityMine: Proximity Mine
+  BulletProofCamera: Bullet Proof Camera
+  Shield: Shield
+  C4: C4
+  ImpactGrenade: Impact Grenade

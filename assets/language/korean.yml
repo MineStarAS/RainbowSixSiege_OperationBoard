@@ -1,0 +1,121 @@
+main:
+  attack: 공격팀 오퍼레이터
+  defense: 방어팀 오퍼레이터
+  public_gadget: 공용 가젯
+  icon_default_size: 아이콘 기본 크기
+  icon_clear: 아이콘 모두지우기
+  sketch_color: 스케치 색상
+  sketch_mode: 스케치 모드
+  sketch_value: 스케치 변수
+  sketch_undo: 스케치 되돌리기
+  sketch_clear: 스케치 모두지우기
+
+attack_operator:
+  Title: 오퍼레이터 아이콘 생성
+  SLEDGE: 슬레지
+  THATCHER: 대처
+  ASH: 애쉬
+  THERMITE: 써마이트
+  TWITCH: 트위치
+  MONTAGNE: 몽타뉴
+  GLAZ: 글라즈
+  FUZE: 퓨즈
+  BLITZ: 블리츠
+  IQ: 아이큐
+  BUCK: 벅
+  BLACKBEARD: 블랙비어드
+  CAPITAO: 카피탕
+  HIBANA: 히바나
+  JACKAL: 자칼
+  YING: 잉
+  ZOFIA: 조피아
+  DOKKAEBI: 도깨비
+  LION: 라이온
+  FINKA: 핀카
+  MAVERICK: 매버릭
+  NOMAD: 노마드
+  GRIDLOCK: 그리드락
+  NOKK: 뇌크
+  AMARU: 아마루
+  KALI: 칼리
+  IANA: 야나
+  ACE: 에이스
+  ZERO: 제로
+  FLORES: 플로레스
+  OSA: 오사
+  SENS: 센스
+
+defense_operator:
+  Title: 오퍼레이터 아이콘 생성
+  SMOKE: 스모크
+  MUTE: 뮤트
+  CASTLE: 캐슬
+  PULSE: 펄스
+  DOC: 닥
+  ROOK: 룩
+  KAPKAN: 캅칸
+  TACHANKA: 타찬카
+  JAGER: 예거
+  BANDIT: 밴딧
+  FROST: 프로스트
+  VALKYRIE: 발키리
+  CAVEIRA: 카베이라
+  ECHO: 에코
+  MIRA: 미라
+  LESION: 리전
+  ELA: 엘라
+  VIGIL: 비질
+  MAESTRO: 마에스트로
+  ALIBI: 알리바이
+  CLASH: 클래쉬
+  KAID: 카이드
+  MOZZIE: 모지
+  WARDEN: 워든
+  GOYO: 고요
+  WAMAI: 와마이
+  ORYX: 오릭스
+  MELUSI: 멜루시
+  ARUNI: 아루니
+  THUNDERBIRD: 썬더버드
+  THORN: 쏜
+  AZAMI: 아자미
+
+map:
+  Title: 맵 선택
+  BANK: 은행
+  BORDER: 국경
+  CHALET: 별장
+  CLUB_HOUSE: 클럽하우스
+  COASTLINE: 해안선
+  CONSULATE: 영사관
+  FAVELA: 빈민가
+  FORTRESS: 요새
+  HEREFORD: 해리퍼드 기지
+  HOUSE: 저택
+  KAFE: 도스토예프스키 카페
+  KANAL: 운하
+  OREGON: 오리건
+  OUTBACK: 오지
+  PLANE: 대통령 전용
+  SKYSCRAPER: 마천루
+  THEME_PARK: 테마파크
+  TOWER: 타워
+  VILLA: 빌라
+  YACHT: 요트
+
+public_gadget:
+  Title: 공용 가젯 아이콘 생성
+  Drone: 정찰 드론
+  Barricade: 바리게이트
+  Claymore: 대인지뢰
+  BreachCharge: 접착폭약
+  HardBreachCharge: 강력접착폭약
+  FragGrenade: 수류탄
+  SmokeGrenade: 연막탄
+  StunGrenade: 섬광탄
+  Barb: 철조망
+  ProximityMine: 근접 알람
+  BulletProofCamera: 방탄 카메라
+  Shield: 이동식 방패
+  C4: C4
+  ImpactGrenade: 충격 수류탄

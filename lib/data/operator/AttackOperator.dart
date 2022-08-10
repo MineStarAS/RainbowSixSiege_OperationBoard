@@ -3,57 +3,55 @@
 import 'package:r6soperationboard/data/gadget/OperatorGadget.dart';
 import 'package:r6soperationboard/data/gadget/PublicGadget.dart';
 import 'package:r6soperationboard/data/operator/Operator.dart';
+import 'package:r6soperationboard/main.dart';
 
 import '../gadget/Gadget.dart';
 
 enum AttackOperator implements Operator {
-  SLEDGE("슬레지", [PublicGadget.FragGrenade, PublicGadget.StunGrenade]),
-  THATCHER("대처", [PublicGadget.BreachCharge, PublicGadget.Claymore]),
-  ASH("애쉬", [PublicGadget.BreachCharge, PublicGadget.Claymore]),
-  THERMITE("써마이트", [PublicGadget.SmokeGrenade, PublicGadget.StunGrenade]),
-  TWITCH("트위치", [PublicGadget.Claymore, PublicGadget.SmokeGrenade]),
-  MONTAGNE("몽타뉴", [PublicGadget.HardBreachCharge, PublicGadget.SmokeGrenade]),
-  GLAZ("글라즈", [PublicGadget.SmokeGrenade, PublicGadget.FragGrenade]),
-  FUZE("퓨즈", [PublicGadget.BreachCharge, PublicGadget.HardBreachCharge]),
-  BLITZ("블리츠", [PublicGadget.SmokeGrenade, PublicGadget.BreachCharge]),
-  IQ("아이큐", [PublicGadget.BreachCharge, PublicGadget.Claymore]),
-  BUCK("벅", [PublicGadget.StunGrenade, PublicGadget.HardBreachCharge]),
-  BLACKBEARD("블랙비어드", [PublicGadget.Claymore, PublicGadget.StunGrenade]),
-  CAPITAO("카피탕", [PublicGadget.Claymore, PublicGadget.HardBreachCharge]),
-  HIBANA("히바나", [PublicGadget.StunGrenade, PublicGadget.BreachCharge]),
-  JACKAL("자칼", [PublicGadget.Claymore, PublicGadget.SmokeGrenade]),
-  YING("잉", [PublicGadget.HardBreachCharge, PublicGadget.SmokeGrenade]),
-  ZOFIA("조피아", [PublicGadget.BreachCharge, PublicGadget.Claymore]),
-  DOKKAEBI("도깨비", [PublicGadget.SmokeGrenade, PublicGadget.StunGrenade]),
-  LION("라이온", [PublicGadget.StunGrenade, PublicGadget.Claymore]),
-  FINKA("핀카", [PublicGadget.FragGrenade, PublicGadget.StunGrenade]),
-  MAVERICK("매버릭", [PublicGadget.FragGrenade, PublicGadget.Claymore]),
-  NOMAD("노마드", [OperatorGadget.Airjab, PublicGadget.StunGrenade, PublicGadget.BreachCharge]),
-  GRIDLOCK("그리드락", [OperatorGadget.TraxStingers,PublicGadget.SmokeGrenade, PublicGadget.BreachCharge]),
-  NOKK("뇌크", [PublicGadget.FragGrenade, PublicGadget.HardBreachCharge]),
-  AMARU("아마루", [PublicGadget.HardBreachCharge, PublicGadget.StunGrenade]),
-  KALI("칼리", [PublicGadget.Claymore, PublicGadget.BreachCharge]),
-  IANA("야나", [PublicGadget.FragGrenade, PublicGadget.SmokeGrenade]),
-  ACE("에이스", [PublicGadget.BreachCharge, PublicGadget.Claymore]),
-  ZERO("제로", [OperatorGadget.ARGUS,PublicGadget.HardBreachCharge, PublicGadget.Claymore]),
-  FLORES("플로레스", [PublicGadget.StunGrenade, PublicGadget.Claymore]),
-  OSA("오사", [OperatorGadget.Talon8Shield,PublicGadget.SmokeGrenade, PublicGadget.Claymore]),
-  SENS("센스", [PublicGadget.HardBreachCharge, PublicGadget.Claymore]),
+  SLEDGE([PublicGadget.FragGrenade, PublicGadget.StunGrenade]),
+  THATCHER([PublicGadget.BreachCharge, PublicGadget.Claymore]),
+  ASH([PublicGadget.BreachCharge, PublicGadget.Claymore]),
+  THERMITE([PublicGadget.SmokeGrenade, PublicGadget.StunGrenade]),
+  TWITCH([PublicGadget.Claymore, PublicGadget.SmokeGrenade]),
+  MONTAGNE([PublicGadget.HardBreachCharge, PublicGadget.SmokeGrenade]),
+  GLAZ([PublicGadget.SmokeGrenade, PublicGadget.FragGrenade]),
+  FUZE([PublicGadget.BreachCharge, PublicGadget.HardBreachCharge]),
+  BLITZ([PublicGadget.SmokeGrenade, PublicGadget.BreachCharge]),
+  IQ([PublicGadget.BreachCharge, PublicGadget.Claymore]),
+  BUCK([PublicGadget.StunGrenade, PublicGadget.HardBreachCharge]),
+  BLACKBEARD([PublicGadget.Claymore, PublicGadget.StunGrenade]),
+  CAPITAO([PublicGadget.Claymore, PublicGadget.HardBreachCharge]),
+  HIBANA([PublicGadget.StunGrenade, PublicGadget.BreachCharge]),
+  JACKAL([PublicGadget.Claymore, PublicGadget.SmokeGrenade]),
+  YING([PublicGadget.HardBreachCharge, PublicGadget.SmokeGrenade]),
+  ZOFIA([PublicGadget.BreachCharge, PublicGadget.Claymore]),
+  DOKKAEBI([PublicGadget.SmokeGrenade, PublicGadget.StunGrenade]),
+  LION([PublicGadget.StunGrenade, PublicGadget.Claymore]),
+  FINKA([PublicGadget.FragGrenade, PublicGadget.StunGrenade]),
+  MAVERICK([PublicGadget.FragGrenade, PublicGadget.Claymore]),
+  NOMAD([OperatorGadget.Airjab, PublicGadget.StunGrenade, PublicGadget.BreachCharge]),
+  GRIDLOCK([OperatorGadget.TraxStingers,PublicGadget.SmokeGrenade, PublicGadget.BreachCharge]),
+  NOKK([PublicGadget.FragGrenade, PublicGadget.HardBreachCharge]),
+  AMARU([PublicGadget.HardBreachCharge, PublicGadget.StunGrenade]),
+  KALI([PublicGadget.Claymore, PublicGadget.BreachCharge]),
+  IANA([PublicGadget.FragGrenade, PublicGadget.SmokeGrenade]),
+  ACE([PublicGadget.BreachCharge, PublicGadget.Claymore]),
+  ZERO([OperatorGadget.ARGUS,PublicGadget.HardBreachCharge, PublicGadget.Claymore]),
+  FLORES([PublicGadget.StunGrenade, PublicGadget.Claymore]),
+  OSA([OperatorGadget.Talon8Shield,PublicGadget.SmokeGrenade, PublicGadget.Claymore]),
+  SENS([PublicGadget.HardBreachCharge, PublicGadget.Claymore]),
   ;
 
-  const AttackOperator(this.korean, this.gadgets);
-
-  @override
-  final String korean;
+  const AttackOperator(this.gadgets);
 
   @override
   final TeamType teamType = TeamType.attack;
 
   @override
-  String get enumName => name;
+  String path() => "assets/operator/${teamType.name}/$name.png";
 
   @override
-  String path() => "assets/operator/${teamType.name}/$enumName.png";
+  String translationString() => Static.state.language.attackOperator(name);
 
   @override
   final List<Gadget> gadgets;

@@ -73,7 +73,7 @@ class SketchButtonPanel extends Panel {
     }
 
     return Column(children: [
-      _textBox("스케치 색상"),
+      _textBox(state.language.main('sketch_color')),
       offsetBox,
       Row(children: [widgetList[0], offsetBox, widgetList[1], offsetBox, widgetList[2]]),
       offsetBox,
@@ -85,7 +85,7 @@ class SketchButtonPanel extends Panel {
 
   _selectSketchButtons() => Column(
         children: [
-          _textBox("스케치 모드"),
+          _textBox(state.language.main('sketch_mode')),
           offsetBox,
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             _SelectArrowSketchButton(state, Colors.lightBlueAccent, const Size(50, 50)).button(),
@@ -107,7 +107,7 @@ class SketchButtonPanel extends Panel {
 
   _editValueButtons() => Column(
         children: [
-          _textBox("변수 설정"),
+          _textBox(state.language.main('sketch_value')),
           offsetBox,
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             _RemoveThicknessButton(state, Colors.lightBlueAccent, const Size(50, 50)).button(),
@@ -434,7 +434,7 @@ class _SketchUndoButton extends Button {
           state.undoSketch();
         },
         style: ElevatedButton.styleFrom(fixedSize: size, primary: color),
-        child: const Text("스케치 되돌리기", style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600)),
+        child: Text(state.language.main('sketch_undo'), style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600)),
       );
 }
 
@@ -456,6 +456,6 @@ class _SketchClearButton extends Button {
           state.clearSketch();
         },
         style: ElevatedButton.styleFrom(fixedSize: size, primary: color),
-        child: const Text("스케치 모두지우기", style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600)),
+        child: Text(state.language.main('sketch_clear'), style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600)),
       );
 }

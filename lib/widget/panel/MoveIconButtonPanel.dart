@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:r6soperationboard/main.dart';
+import 'package:r6soperationboard/widget/drawer/DrawerType.dart';
 import 'package:r6soperationboard/widget/panel/interface/Panel.dart';
 import 'package:unicons/unicons.dart';
 
@@ -49,7 +50,7 @@ class MoveIconButtonPanel extends Panel {
   }
 
   _editValueButtons() => Column(children: [
-        _textBox("아이콘 기본 크기"),
+        _textBox(state.language.main('icon_default_size')),
         offsetBox,
         Row(mainAxisAlignment: MainAxisAlignment.center, children: [
           _RemoveIconSizeButton(state, Colors.lightBlueAccent, const Size(50, 50)).button(),
@@ -74,7 +75,9 @@ class MoveIconButtonPanel extends Panel {
           customOffsetBox(100),
           _editValueButtons(),
           customOffsetBox(100),
-          _IconClearButton(state, Colors.lightBlueAccent, const Size(200, 50)).button()
+          _IconClearButton(state, Colors.lightBlueAccent, const Size(200, 50)).button(),
+          customOffsetBox(10),
+          _LanguageButton(state, Colors.blue, const Size(50, 50)).button()
         ]),
       ));
 }
@@ -95,10 +98,10 @@ class _AttackOperatorDrawerOpenButton extends Button {
   @override
   button() => ElevatedButton(
         onPressed: () {
-          state.openAttackOpDrawer();
+          state.openDrawer(DrawerType.attackOperator);
         },
         style: ElevatedButton.styleFrom(fixedSize: size, primary: state.attackTeamColor),
-        child: const Text("공격팀 오퍼레이터", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
+        child: Text(state.language.main('attack'), style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
       );
 }
 
@@ -117,10 +120,10 @@ class _DefenseOperatorDrawerOpenButton extends Button {
   @override
   button() => ElevatedButton(
         onPressed: () {
-          state.openDefenseOpDrawer();
+          state.openDrawer(DrawerType.defenseOperator);
         },
         style: ElevatedButton.styleFrom(fixedSize: size, primary: state.defenseTeamColor),
-        child: const Text("방어팀 오퍼레이터", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
+        child: Text(state.language.main('defense'), style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
       );
 }
 
@@ -139,10 +142,10 @@ class _PublicGadgetDrawerOpenButton extends Button {
   @override
   button() => ElevatedButton(
         onPressed: () {
-          state.openPublicGadgetDrawer();
+          state.openDrawer(DrawerType.publicGadget);
         },
         style: ElevatedButton.styleFrom(fixedSize: size, primary: const Color(0xFFE8C515)),
-        child: const Text("공용 가젯", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
+        child: Text(state.language.main('public_gadget'), style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
       );
 }
 
@@ -214,6 +217,30 @@ class _IconClearButton extends Button {
           });
         },
         style: ElevatedButton.styleFrom(fixedSize: size, primary: color),
-        child: const Text("아이콘 모두지우기", style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600)),
+        child: Text(state.language.main('icon_clear'), style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600)),
+      );
+}
+
+class _LanguageButton extends Button {
+  _LanguageButton(this.state, this.color, this.size);
+
+  @override
+  final MyStatefulWidgetState state;
+
+  @override
+  final Color color;
+
+  @override
+  final Size size;
+
+  @override
+  button() => ElevatedButton(
+        onPressed: () {
+          state.setState(() {
+            state.openDrawer(DrawerType.language);
+          });
+        },
+        style: ElevatedButton.styleFrom(fixedSize: size, primary: color),
+        child: const Icon(Icons.language),
       );
 }

@@ -16,7 +16,7 @@ class AttackOpDrawer {
   final _brightColor = const Color(0xFF7BB3E0);
 
   /// Operator Drawer
-  Drawer getDrawer() => Drawer(width: 200, backgroundColor: _brightColor, child: ListView(padding: EdgeInsets.zero, children: _opIconButtonList()));
+  Drawer getDrawer() => Drawer(width: 225, backgroundColor: _brightColor, child: ListView(padding: EdgeInsets.zero, children: _opIconButtonList()));
 
   /// Operator Drawer List
   List<Widget> _opIconButtonList() {
@@ -33,10 +33,10 @@ class AttackOpDrawer {
       height: 60,
       child: DrawerHeader(
         decoration: BoxDecoration(color: _color),
-        child: const Center(
+        child: Center(
           child: Text(
-            '오퍼레이터 아이콘 생성',
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+            state.language.attackOperator('Title'),
+            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
           ),
         ),
       ));
@@ -48,7 +48,7 @@ class AttackOpDrawer {
       title: Row(
         children: [
           SizedBox(width: 45, height: 45, child: Image.asset(operator.path())),
-          Text(operator.korean),
+          Text(operator.translationString()),
         ],
       ),
       onTap: () {

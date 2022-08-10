@@ -1,12 +1,16 @@
-// ignore_for_file: must_call_super
+// ignore_for_file: must_call_super, no_logic_in_create_state
+
+import 'dart:io';
 
 import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:r6soperationboard/Language.dart';
 import 'package:r6soperationboard/data/map/PlayMap.dart';
 import 'package:r6soperationboard/widget/drawer/AttackOperatorDrawer.dart';
 import 'package:r6soperationboard/widget/drawer/DefenseOperatorDrawer.dart';
 import 'package:r6soperationboard/widget/drawer/DrawerType.dart';
+import 'package:r6soperationboard/widget/drawer/LanguageDrawer.dart';
 import 'package:r6soperationboard/widget/drawer/PlayMapDrawer.dart';
 import 'package:r6soperationboard/widget/drawer/PublicGadgetDrawer.dart';
 import 'package:r6soperationboard/widget/moveicon/MoveIcon.dart';
@@ -24,6 +28,10 @@ import 'data/map/Floor.dart';
 
 void main() {
   runApp(const MyApp());
+}
+
+class Static {
+  static MyStatefulWidgetState state = MyStatefulWidgetState();
 }
 
 class MyApp extends StatelessWidget {
@@ -45,13 +53,14 @@ class MyStatefulWidget extends StatefulWidget {
   const MyStatefulWidget({Key? key}) : super(key: key);
 
   @override
-  State<MyStatefulWidget> createState() => MyStatefulWidgetState();
+  State<MyStatefulWidget> createState() => Static.state;
 }
 
 ///##### Build Class #####
 class MyStatefulWidgetState extends State<MyStatefulWidget> {
   @override
   initState() {
+    print(Directory.current.path);
     DesktopWindow.setMinWindowSize(const Size(1686, 1026));
     DesktopWindow.setFullScreen(true);
 
@@ -171,6 +180,9 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
     SketchMode.CIRCLE: 10,
     SketchMode.CROSS_MARK: 10,
   };
+
+  //Language
+  final language = Language();
 
   //Debug
   String? _debug;
@@ -321,29 +333,15 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
         return DefenseOpDrawer(this).getDrawer();
       case DrawerType.publicGadget:
         return PublicGadgetDrawer(this).getDrawer();
+      case DrawerType.language:
+        return LanguageDrawer(this).getDrawer();
     }
   }
 
-  void openAttackOpDrawer() {
+  openDrawer(DrawerType drawerType) {
     setState(() {
       closeOptionPanel();
-      _drawerType = DrawerType.attackOperator;
-    });
-    _scaffoldKey.currentState!.openDrawer();
-  }
-
-  void openDefenseOpDrawer() {
-    setState(() {
-      closeOptionPanel();
-      _drawerType = DrawerType.defenseOperator;
-    });
-    _scaffoldKey.currentState!.openDrawer();
-  }
-
-  void openPublicGadgetDrawer() {
-    setState(() {
-      closeOptionPanel();
-      _drawerType = DrawerType.publicGadget;
+      _drawerType = drawerType;
     });
     _scaffoldKey.currentState!.openDrawer();
   }
@@ -391,7 +389,7 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
                   Scaffold.of(context).openEndDrawer();
                 });
               },
-              tooltip: "맵 선택",
+              tooltip: language.playMap('Title'),
             )));
 
     return list;
@@ -549,6 +547,7 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
         break;
       //Clone MoveIcon
       case "C":
+      case "V":
         if (!event.isControlPressed) return;
         final moveIcon = getSelectMoveIcon();
         if (moveIcon == null) return;

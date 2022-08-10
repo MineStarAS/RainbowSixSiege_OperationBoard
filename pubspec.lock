@@ -259,6 +259,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.1"
+  utility_yaml:
+    dependency: "direct main"
+    description:
+      name: utility_yaml
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.4"
   vector_math:
     dependency: transitive
     description:
@@ -267,7 +274,7 @@ packages:
     source: hosted
     version: "2.1.2"
   yaml:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: yaml
       url: "https://pub.dartlang.org"
