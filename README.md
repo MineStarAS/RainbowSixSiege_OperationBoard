@@ -46,7 +46,7 @@
 
 ## | License
 
-* [License] [GNU General Public License v3.0](license)
+[GNU General Public License v3.0](license)
 
 ## | Used API
 
@@ -60,6 +60,7 @@ dependencies:
   url_launcher: ^6.1.5
   desktop_window: ^0.4.0
   photo_view: ^0.14.0
+  yaml: ^3.1.1
 ```
 
 ## | Source Link

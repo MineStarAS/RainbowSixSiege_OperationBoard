@@ -1,0 +1,16 @@
+FreeRoute: 고슈진사마
+MineStar: 헨나야로
+Project_TL: 바카야로
+string: string
+boolean: true
+int: 123
+double: 1234.0
+list:
+  - a
+  - b
+  - c
+  - d
+key:
+  a: aaa
+  b: bbb
+  c: ccc
