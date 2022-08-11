@@ -1,0 +1,121 @@
+main:
+  attack: 攻撃側 オペレーター
+  defense: 防御側 オペレーター
+  public_gadget: パブリックガジェット
+  icon_default_size: アイコンデフォルトサイズ
+  icon_clear: アイコンクリア
+  sketch_color: スケッチカラー
+  sketch_mode: スケッチモード
+  sketch_value: スケッチ変数
+  sketch_undo: スケッチアンドゥ
+  sketch_clear: スケッチクリア
+
+attack_operator:
+  Title: オペレーターアイコン生成
+  SLEDGE: 슬레지
+  THATCHER: 대처
+  ASH: 애쉬
+  THERMITE: 써마이트
+  TWITCH: 트위치
+  MONTAGNE: 몽타뉴
+  GLAZ: 글라즈
+  FUZE: 퓨즈
+  BLITZ: 블리츠
+  IQ: 아이큐
+  BUCK: 벅
+  BLACKBEARD: 블랙비어드
+  CAPITAO: 카피탕
+  HIBANA: 히바나
+  JACKAL: 자칼
+  YING: 잉
+  ZOFIA: 조피아
+  DOKKAEBI: 도깨비
+  LION: 라이온
+  FINKA: 핀카
+  MAVERICK: 매버릭
+  NOMAD: 노마드
+  GRIDLOCK: 그리드락
+  NOKK: 뇌크
+  AMARU: 아마루
+  KALI: 칼리
+  IANA: 야나
+  ACE: 에이스
+  ZERO: 제로
+  FLORES: 플로레스
+  OSA: 오사
+  SENS: 센스
+
+defense_operator:
+  Title: オペレーターアイコン生成
+  SMOKE: 스모크
+  MUTE: 뮤트
+  CASTLE: 캐슬
+  PULSE: 펄스
+  DOC: 닥
+  ROOK: 룩
+  KAPKAN: 캅칸
+  TACHANKA: 타찬카
+  JAGER: 예거
+  BANDIT: 밴딧
+  FROST: 프로스트
+  VALKYRIE: 발키리
+  CAVEIRA: 카베이라
+  ECHO: 에코
+  MIRA: 미라
+  LESION: 리전
+  ELA: 엘라
+  VIGIL: 비질
+  MAESTRO: 마에스트로
+  ALIBI: 알리바이
+  CLASH: 클래쉬
+  KAID: 카이드
+  MOZZIE: 모지
+  WARDEN: 워든
+  GOYO: 고요
+  WAMAI: 와마이
+  ORYX: 오릭스
+  MELUSI: 멜루시
+  ARUNI: 아루니
+  THUNDERBIRD: 썬더버드
+  THORN: 쏜
+  AZAMI: 아자미
+
+map:
+  Title: マップ選択
+  BANK: 銀行
+  BORDER: 国境
+  CHALET: 山荘
+  CLUB_HOUSE: クラブハウス
+  COASTLINE: 海岸線
+  CONSULATE: 領事館
+  FAVELA: ファベーラ
+  FORTRESS: 要塞
+  HEREFORD: ヘレフォード基地
+  HOUSE: 民家
+  KAFE: カフェ・ドフトエスキー
+  KANAL: 運河
+  OREGON: オレゴン
+  OUTBACK: アウトバック
+  PLANE: 大統領専用機
+  SKYSCRAPER: 高層ビル
+  THEME_PARK: テーマパーク
+  TOWER: タワー
+  VILLA: ヴィラ
+  YACHT: ヨット
+
+public_gadget:
+  Title: パブリックガジェットアイコン作成
+  Drone: 偵察ドローン
+  Barricade: バリケード
+  Claymore: クレイモア
+  BreachCharge: ブリーチングチャージ
+  HardBreachCharge: ハードブリーチングチャージ
+  FragGrenade: フラググレネード
+  SmokeGrenade: スモークグレネード
+  StunGrenade: スタングレネード
+  Barb: 有刺鉄線
+  ProximityMine: 感知アラーム
+  BulletProofCamera: 防弾カメラ
+  Shield: 展開型シールド
+  C4: ニトロセル
+  ImpactGrenade: インパクトグレネード

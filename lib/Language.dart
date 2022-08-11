@@ -1,17 +1,19 @@
 // ignore_for_file: file_names
 
 import 'dart:io';
+import 'package:r6soperationboard/main.dart';
 import 'package:utility_yaml/utility_yaml.dart';
 
 class Language {
 
   Language() {
     const debugPath = 'assets';
-    final buildPath = '${Directory.current.path}/data/flutter_assets/assets';
-    if (File(buildPath).existsSync()) {
-      _assetsPath = buildPath;
-    } else {
+    final buildPath = '${Directory.current.path.replaceAll('\\', '/')}/data/flutter_assets/assets';
+
+    if (Directory(debugPath).existsSync()) {
       _assetsPath = debugPath;
+    } else {
+      _assetsPath = buildPath;
     }
 
     final config = YamlConfiguration.loadPath('$_assetsPath/config.yml');
@@ -44,11 +46,10 @@ class Language {
 
     if (languageFile.existsSync()) {
       _yaml = YamlConfiguration.loadFile(languageFile);
-      _setMaps();
     } else {
       _yaml = YamlConfiguration.loadFile(File('$_assetsPath/language/english.yml'));
-      _setMaps();
     }
+    _setMaps();
   }
 
   _setMaps() {

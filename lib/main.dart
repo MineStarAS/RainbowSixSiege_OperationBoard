@@ -60,7 +60,6 @@ class MyStatefulWidget extends StatefulWidget {
 class MyStatefulWidgetState extends State<MyStatefulWidget> {
   @override
   initState() {
-    print(Directory.current.path);
     DesktopWindow.setMinWindowSize(const Size(1686, 1026));
     DesktopWindow.setFullScreen(true);
 

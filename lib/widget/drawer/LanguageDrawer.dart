@@ -21,7 +21,19 @@ class LanguageDrawer {
   List<Widget> _buttonList() {
     final List<Widget> list = [_drawerHeader()];
 
-    Directory('assets/language').listSync().forEach((file) {
+    const debugPath = 'assets/language/';
+    final buildPath = '${Directory.current.path.replaceAll('\\', '/')}/data/flutter_assets/assets/language/';
+
+    final Directory dir;
+
+    if (Directory(debugPath).existsSync()) {
+      dir = Directory(debugPath);
+    } else {
+      dir = Directory(buildPath);
+    }
+
+
+    dir.listSync().forEach((file) {
       list.add(_createButton(file));
     });
 
