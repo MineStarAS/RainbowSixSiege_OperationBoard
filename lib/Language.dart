@@ -1,11 +1,10 @@
 // ignore_for_file: file_names
 
 import 'dart:io';
-import 'package:r6soperationboard/main.dart';
+
 import 'package:utility_yaml/utility_yaml.dart';
 
 class Language {
-
   Language() {
     const debugPath = 'assets';
     final buildPath = '${Directory.current.path.replaceAll('\\', '/')}/data/flutter_assets/assets';

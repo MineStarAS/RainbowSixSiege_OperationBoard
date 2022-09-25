@@ -9,10 +9,7 @@ import 'package:unicons/unicons.dart';
 import '../button/Button.dart';
 
 class MoveIconButtonPanel extends Panel {
-  MoveIconButtonPanel(this.state);
-
-  @override
-  final MyStatefulWidgetState state;
+  MoveIconButtonPanel();
 
   @override
   final double offsetX = 5;
@@ -50,14 +47,14 @@ class MoveIconButtonPanel extends Panel {
   }
 
   _editValueButtons() => Column(children: [
-        _textBox(state.language.main('icon_default_size')),
+        _textBox(Static.state.language.main('icon_default_size')),
         offsetBox,
         Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-          _RemoveIconSizeButton(state, Colors.lightBlueAccent, const Size(50, 50)).button(),
+          _RemoveIconSizeButton(Static.state, Colors.lightBlueAccent, const Size(50, 50)).button(),
           offsetBox,
-          _valueIconBox(const Icon(UniconsLine.expand_arrows_alt, color: Colors.white), "[ ${state.defaultMoveIconSize.toInt()} ]"),
+          _valueIconBox(const Icon(UniconsLine.expand_arrows_alt, color: Colors.white), "[ ${Static.state.defaultMoveIconSize.toInt()} ]"),
           offsetBox,
-          _AddIconSizeButton(state, Colors.lightBlueAccent, const Size(50, 50)).button(),
+          _AddIconSizeButton(Static.state, Colors.lightBlueAccent, const Size(50, 50)).button(),
         ])
       ]);
 
@@ -67,17 +64,17 @@ class MoveIconButtonPanel extends Panel {
       child: Container(
         padding: const EdgeInsets.only(left: 10, right: 10),
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          _AttackOperatorDrawerOpenButton(state, state.attackTeamColor, const Size(200, 50)).button(),
+          _AttackOperatorDrawerOpenButton(Static.state, Static.attackTeamColor, const Size(200, 50)).button(),
           customOffsetBox(10),
-          _DefenseOperatorDrawerOpenButton(state, state.defenseTeamColor, const Size(200, 50)).button(),
+          _DefenseOperatorDrawerOpenButton(Static.state, Static.defenseTeamColor, const Size(200, 50)).button(),
           customOffsetBox(10),
-          _PublicGadgetDrawerOpenButton(state, state.defenseTeamColor, const Size(200, 50)).button(),
+          _PublicGadgetDrawerOpenButton(Static.state, Static.defenseTeamColor, const Size(200, 50)).button(),
           customOffsetBox(100),
           _editValueButtons(),
           customOffsetBox(100),
-          _IconClearButton(state, Colors.lightBlueAccent, const Size(200, 50)).button(),
+          _IconClearButton(Static.state, Colors.lightBlueAccent, const Size(200, 50)).button(),
           customOffsetBox(10),
-          _LanguageButton(state, Colors.blue, const Size(50, 50)).button()
+          _LanguageButton(Static.state, Colors.blue, const Size(50, 50)).button()
         ]),
       ));
 }
@@ -100,7 +97,7 @@ class _AttackOperatorDrawerOpenButton extends Button {
         onPressed: () {
           state.openDrawer(DrawerType.attackOperator);
         },
-        style: ElevatedButton.styleFrom(fixedSize: size, primary: state.attackTeamColor),
+        style: ElevatedButton.styleFrom(fixedSize: size, primary: Static.attackTeamColor),
         child: Text(state.language.main('attack'), style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
       );
 }
@@ -122,7 +119,7 @@ class _DefenseOperatorDrawerOpenButton extends Button {
         onPressed: () {
           state.openDrawer(DrawerType.defenseOperator);
         },
-        style: ElevatedButton.styleFrom(fixedSize: size, primary: state.defenseTeamColor),
+        style: ElevatedButton.styleFrom(fixedSize: size, primary: Static.defenseTeamColor),
         child: Text(state.language.main('defense'), style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
       );
 }

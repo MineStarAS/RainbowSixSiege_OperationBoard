@@ -12,7 +12,7 @@ class DefenseOpDrawer {
 
   final MyStatefulWidgetState state;
 
-  late final _color = state.defenseTeamColor;
+  late final _color = Static.defenseTeamColor;
   final _brightColor = const Color(0xFFE8B58B);
 
   /// Operator Drawer

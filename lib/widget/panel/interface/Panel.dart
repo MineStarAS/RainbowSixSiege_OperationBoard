@@ -5,8 +5,6 @@ import 'package:flutter/cupertino.dart';
 import '../../../main.dart';
 
 abstract class Panel {
-  late final MyStatefulWidgetState state;
-
   late final double offsetX;
   late final double offsetY;
 

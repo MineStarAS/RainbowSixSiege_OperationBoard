@@ -32,6 +32,10 @@ void main() {
 
 class Static {
   static MyStatefulWidgetState state = MyStatefulWidgetState();
+
+  //TeamColor
+  static const attackTeamColor = Color(0xFF1184E1);
+  static const defenseTeamColor = Color(0xFFE97015);
 }
 
 class MyApp extends StatelessWidget {
@@ -110,10 +114,6 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
   final double _zoomStep = 0.1;
 
   bool moveImageBoolean = false;
-
-  //TeamColor
-  final attackTeamColor = const Color(0xFF1184E1);
-  final defenseTeamColor = const Color(0xFFE97015);
 
   //Drawer TeamType
   DrawerType _drawerType = DrawerType.attackOperator;
@@ -604,9 +604,9 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
             child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            MoveIconButtonPanel(this).widget(),
+            MoveIconButtonPanel().widget(),
             Center(child: SizedBox(width: mapWidth, height: mapHeight, child: ClipRect(child: Stack(children: _displayList())))),
-            SketchButtonPanel(this).widget(),
+            SketchButtonPanel().widget(),
           ],
         )),
       ),

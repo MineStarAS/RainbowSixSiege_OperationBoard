@@ -193,7 +193,7 @@ class GadgetIcon extends MoveIcon {
   }
 
   @override
-  optionPanel() {
+    optionPanel() {
     const double width = 180;
     const double height = 163;
 

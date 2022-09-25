@@ -11,10 +11,7 @@ import '../button/Button.dart';
 
 ///Panel Class
 class SketchButtonPanel extends Panel {
-  SketchButtonPanel(this.state);
-
-  @override
-  final MyStatefulWidgetState state;
+  SketchButtonPanel();
 
   @override
   final double offsetX = 5;
@@ -69,11 +66,11 @@ class SketchButtonPanel extends Panel {
     final widgetList = <Widget>[];
 
     for (final color in colorList) {
-      widgetList.add(_SelectColorButton(state, Colors.lightBlueAccent, const Size(50, 50), color).button());
+      widgetList.add(_SelectColorButton(Colors.lightBlueAccent, const Size(50, 50), color).button());
     }
 
     return Column(children: [
-      _textBox(state.language.main('sketch_color')),
+      _textBox(Static.state.language.main('sketch_color')),
       offsetBox,
       Row(children: [widgetList[0], offsetBox, widgetList[1], offsetBox, widgetList[2]]),
       offsetBox,
@@ -85,44 +82,44 @@ class SketchButtonPanel extends Panel {
 
   _selectSketchButtons() => Column(
         children: [
-          _textBox(state.language.main('sketch_mode')),
+          _textBox(Static.state.language.main('sketch_mode')),
           offsetBox,
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            _SelectArrowSketchButton(state, Colors.lightBlueAccent, const Size(50, 50)).button(),
+            _SelectArrowSketchButton(Colors.lightBlueAccent, const Size(50, 50)).button(),
             offsetBox,
-            _SelectSquareSketchButton(state, Colors.lightBlueAccent, const Size(50, 50)).button(),
+            _SelectSquareSketchButton(Colors.lightBlueAccent, const Size(50, 50)).button(),
             offsetBox,
-            _SelectSquareBorderSketchButton(state, Colors.lightBlueAccent, const Size(50, 50)).button(),
+            _SelectSquareBorderSketchButton(Colors.lightBlueAccent, const Size(50, 50)).button(),
           ]),
           offsetBox,
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            _SelectLineSketchButton(state, Colors.lightBlueAccent, const Size(50, 50)).button(),
+            _SelectLineSketchButton(Colors.lightBlueAccent, const Size(50, 50)).button(),
             offsetBox,
-            _SelectCircleSketchButton(state, Colors.lightBlueAccent, const Size(50, 50)).button(),
+            _SelectCircleSketchButton(Colors.lightBlueAccent, const Size(50, 50)).button(),
             offsetBox,
-            _SelectCrossMarkSketchButton(state, Colors.lightBlueAccent, const Size(50, 50)).button(),
+            _SelectCrossMarkSketchButton(Colors.lightBlueAccent, const Size(50, 50)).button(),
           ]),
         ],
       );
 
   _editValueButtons() => Column(
         children: [
-          _textBox(state.language.main('sketch_value')),
+          _textBox(Static.state.language.main('sketch_value')),
           offsetBox,
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            _RemoveThicknessButton(state, Colors.lightBlueAccent, const Size(50, 50)).button(),
+            _RemoveThicknessButton(Colors.lightBlueAccent, const Size(50, 50)).button(),
             offsetBox,
-            _valueIconBox(const Icon(UniconsLine.arrows_resize, color: Colors.white), "[ ${state.getSketchThickness(state.sketchMode).toInt()} ]"),
+            _valueIconBox(const Icon(UniconsLine.arrows_resize, color: Colors.white), "[ ${Static.state.getSketchThickness(Static.state.sketchMode).toInt()} ]"),
             offsetBox,
-            _AddThicknessButton(state, Colors.lightBlueAccent, const Size(50, 50)).button(),
+            _AddThicknessButton(Colors.lightBlueAccent, const Size(50, 50)).button(),
           ]),
           offsetBox,
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            _RemoveOpacityButton(state, Colors.lightBlueAccent, const Size(50, 50)).button(),
+            _RemoveOpacityButton(Colors.lightBlueAccent, const Size(50, 50)).button(),
             offsetBox,
-            _valueIconBox(const Icon(UniconsLine.border_clear, color: Colors.white), "[ ${(state.getSketchOpacity(state.sketchMode) * 10).toInt()} ]"),
+            _valueIconBox(const Icon(UniconsLine.border_clear, color: Colors.white), "[ ${(Static.state.getSketchOpacity(Static.state.sketchMode) * 10).toInt()} ]"),
             offsetBox,
-            _AddOpacityButton(state, Colors.lightBlueAccent, const Size(50, 50)).button(),
+            _AddOpacityButton(Colors.lightBlueAccent, const Size(50, 50)).button(),
           ]),
         ],
       );
@@ -142,19 +139,16 @@ class SketchButtonPanel extends Panel {
             _editValueButtons(),
             customOffsetBox(30),
             Column(children: [
-              _SketchUndoButton(state, Colors.lightBlueAccent, const Size(180, 50)).button(),
+              _SketchUndoButton(Colors.lightBlueAccent, const Size(180, 50)).button(),
               offsetBox,
-              _SketchClearButton(state, Colors.lightBlueAccent, const Size(180, 50)).button(),
+              _SketchClearButton(Colors.lightBlueAccent, const Size(180, 50)).button(),
             ])
           ])));
 }
 
 ///Button Classes
 class _SelectColorButton extends Button {
-  _SelectColorButton(this.state, this.color, this.size, this.sketchColor);
-
-  @override
-  final MyStatefulWidgetState state;
+  _SelectColorButton(this.color, this.size, this.sketchColor);
 
   @override
   final Color color;
@@ -167,20 +161,17 @@ class _SelectColorButton extends Button {
   @override
   button() => ElevatedButton(
         onPressed: () {
-          state.setState(() {
-            state.sketchColor = sketchColor;
+          Static.state.setState(() {
+            Static.state.sketchColor = sketchColor;
           });
         },
-        style: ElevatedButton.styleFrom(fixedSize: size, primary: disableColor(state.sketchColor == sketchColor)),
+        style: ElevatedButton.styleFrom(fixedSize: size, primary: disableColor(Static.state.sketchColor == sketchColor)),
         child: Icon(Icons.square, color: sketchColor),
       );
 }
 
 class _SelectArrowSketchButton extends Button {
-  _SelectArrowSketchButton(this.state, this.color, this.size);
-
-  @override
-  final MyStatefulWidgetState state;
+  _SelectArrowSketchButton(this.color, this.size);
 
   @override
   final Color color;
@@ -191,20 +182,17 @@ class _SelectArrowSketchButton extends Button {
   @override
   button() => ElevatedButton(
         onPressed: () {
-          state.setState(() {
-            state.sketchMode = SketchMode.ARROW;
+          Static.state.setState(() {
+            Static.state.sketchMode = SketchMode.ARROW;
           });
         },
-        style: ElevatedButton.styleFrom(fixedSize: size, primary: disableColor(state.sketchMode == SketchMode.ARROW)),
+        style: ElevatedButton.styleFrom(fixedSize: size, primary: disableColor(Static.state.sketchMode == SketchMode.ARROW)),
         child: const Icon(UniconsSolid.arrow_up_right),
       );
 }
 
 class _SelectSquareSketchButton extends Button {
-  _SelectSquareSketchButton(this.state, this.color, this.size);
-
-  @override
-  final MyStatefulWidgetState state;
+  _SelectSquareSketchButton(this.color, this.size);
 
   @override
   final Color color;
@@ -215,20 +203,17 @@ class _SelectSquareSketchButton extends Button {
   @override
   button() => ElevatedButton(
         onPressed: () {
-          state.setState(() {
-            state.sketchMode = SketchMode.SQUARE;
+          Static.state.setState(() {
+            Static.state.sketchMode = SketchMode.SQUARE;
           });
         },
-        style: ElevatedButton.styleFrom(fixedSize: size, primary: disableColor(state.sketchMode == SketchMode.SQUARE)),
+        style: ElevatedButton.styleFrom(fixedSize: size, primary: disableColor(Static.state.sketchMode == SketchMode.SQUARE)),
         child: const Icon(Icons.square),
       );
 }
 
 class _SelectSquareBorderSketchButton extends Button {
-  _SelectSquareBorderSketchButton(this.state, this.color, this.size);
-
-  @override
-  final MyStatefulWidgetState state;
+  _SelectSquareBorderSketchButton(this.color, this.size);
 
   @override
   final Color color;
@@ -239,20 +224,17 @@ class _SelectSquareBorderSketchButton extends Button {
   @override
   button() => ElevatedButton(
         onPressed: () {
-          state.setState(() {
-            state.sketchMode = SketchMode.SQUARE_BORDER;
+          Static.state.setState(() {
+            Static.state.sketchMode = SketchMode.SQUARE_BORDER;
           });
         },
-        style: ElevatedButton.styleFrom(fixedSize: size, primary: disableColor(state.sketchMode == SketchMode.SQUARE_BORDER)),
+        style: ElevatedButton.styleFrom(fixedSize: size, primary: disableColor(Static.state.sketchMode == SketchMode.SQUARE_BORDER)),
         child: const Icon(Icons.square_outlined),
       );
 }
 
 class _SelectLineSketchButton extends Button {
-  _SelectLineSketchButton(this.state, this.color, this.size);
-
-  @override
-  final MyStatefulWidgetState state;
+  _SelectLineSketchButton(this.color, this.size);
 
   @override
   final Color color;
@@ -263,20 +245,17 @@ class _SelectLineSketchButton extends Button {
   @override
   button() => ElevatedButton(
         onPressed: () {
-          state.setState(() {
-            state.sketchMode = SketchMode.LINE;
+          Static.state.setState(() {
+            Static.state.sketchMode = SketchMode.LINE;
           });
         },
-        style: ElevatedButton.styleFrom(fixedSize: size, primary: disableColor(state.sketchMode == SketchMode.LINE)),
+        style: ElevatedButton.styleFrom(fixedSize: size, primary: disableColor(Static.state.sketchMode == SketchMode.LINE)),
         child: const Icon(UniconsLine.line_alt),
       );
 }
 
 class _SelectCircleSketchButton extends Button {
-  _SelectCircleSketchButton(this.state, this.color, this.size);
-
-  @override
-  final MyStatefulWidgetState state;
+  _SelectCircleSketchButton(this.color, this.size);
 
   @override
   final Color color;
@@ -287,20 +266,17 @@ class _SelectCircleSketchButton extends Button {
   @override
   button() => ElevatedButton(
         onPressed: () {
-          state.setState(() {
-            state.sketchMode = SketchMode.CIRCLE;
+          Static.state.setState(() {
+            Static.state.sketchMode = SketchMode.CIRCLE;
           });
         },
-        style: ElevatedButton.styleFrom(fixedSize: size, primary: disableColor(state.sketchMode == SketchMode.CIRCLE)),
+        style: ElevatedButton.styleFrom(fixedSize: size, primary: disableColor(Static.state.sketchMode == SketchMode.CIRCLE)),
         child: const Icon(Icons.circle_outlined),
       );
 }
 
 class _SelectCrossMarkSketchButton extends Button {
-  _SelectCrossMarkSketchButton(this.state, this.color, this.size);
-
-  @override
-  final MyStatefulWidgetState state;
+  _SelectCrossMarkSketchButton(this.color, this.size);
 
   @override
   final Color color;
@@ -311,20 +287,17 @@ class _SelectCrossMarkSketchButton extends Button {
   @override
   button() => ElevatedButton(
         onPressed: () {
-          state.setState(() {
-            state.sketchMode = SketchMode.CROSS_MARK;
+          Static.state.setState(() {
+            Static.state.sketchMode = SketchMode.CROSS_MARK;
           });
         },
-        style: ElevatedButton.styleFrom(fixedSize: size, primary: disableColor(state.sketchMode == SketchMode.CROSS_MARK)),
+        style: ElevatedButton.styleFrom(fixedSize: size, primary: disableColor(Static.state.sketchMode == SketchMode.CROSS_MARK)),
         child: const Icon(Icons.close),
       );
 }
 
 class _AddThicknessButton extends Button {
-  _AddThicknessButton(this.state, this.color, this.size);
-
-  @override
-  final MyStatefulWidgetState state;
+  _AddThicknessButton(this.color, this.size);
 
   @override
   final Color color;
@@ -335,20 +308,17 @@ class _AddThicknessButton extends Button {
   @override
   button() => ElevatedButton(
         onPressed: () {
-          state.setState(() {
-            state.addSketchThickness(state.sketchMode);
+          Static.state.setState(() {
+            Static.state.addSketchThickness(Static.state.sketchMode);
           });
         },
-        style: ElevatedButton.styleFrom(fixedSize: size, primary: disableColor(state.sketchMode == SketchMode.SQUARE)),
+        style: ElevatedButton.styleFrom(fixedSize: size, primary: disableColor(Static.state.sketchMode == SketchMode.SQUARE)),
         child: const Icon(Icons.add),
       );
 }
 
 class _RemoveThicknessButton extends Button {
-  _RemoveThicknessButton(this.state, this.color, this.size);
-
-  @override
-  final MyStatefulWidgetState state;
+  _RemoveThicknessButton( this.color, this.size);
 
   @override
   final Color color;
@@ -359,20 +329,17 @@ class _RemoveThicknessButton extends Button {
   @override
   button() => ElevatedButton(
         onPressed: () {
-          state.setState(() {
-            state.removeSketchThickness(state.sketchMode);
+          Static.state.setState(() {
+            Static.state.removeSketchThickness(Static.state.sketchMode);
           });
         },
-        style: ElevatedButton.styleFrom(fixedSize: size, primary: disableColor(state.sketchMode == SketchMode.SQUARE)),
+        style: ElevatedButton.styleFrom(fixedSize: size, primary: disableColor(Static.state.sketchMode == SketchMode.SQUARE)),
         child: const Icon(Icons.remove),
       );
 }
 
 class _AddOpacityButton extends Button {
-  _AddOpacityButton(this.state, this.color, this.size);
-
-  @override
-  final MyStatefulWidgetState state;
+  _AddOpacityButton(this.color, this.size);
 
   @override
   final Color color;
@@ -383,8 +350,8 @@ class _AddOpacityButton extends Button {
   @override
   button() => ElevatedButton(
         onPressed: () {
-          state.setState(() {
-            state.addSketchOpacity(state.sketchMode);
+          Static.state.setState(() {
+            Static.state.addSketchOpacity(Static.state.sketchMode);
           });
         },
         style: ElevatedButton.styleFrom(fixedSize: size, primary: color),
@@ -393,10 +360,7 @@ class _AddOpacityButton extends Button {
 }
 
 class _RemoveOpacityButton extends Button {
-  _RemoveOpacityButton(this.state, this.color, this.size);
-
-  @override
-  final MyStatefulWidgetState state;
+  _RemoveOpacityButton(this.color, this.size);
 
   @override
   final Color color;
@@ -407,8 +371,8 @@ class _RemoveOpacityButton extends Button {
   @override
   button() => ElevatedButton(
         onPressed: () {
-          state.setState(() {
-            state.removeSketchOpacity(state.sketchMode);
+          Static.state.setState(() {
+            Static.state.removeSketchOpacity(Static.state.sketchMode);
           });
         },
         style: ElevatedButton.styleFrom(fixedSize: size, primary: color),
@@ -417,10 +381,7 @@ class _RemoveOpacityButton extends Button {
 }
 
 class _SketchUndoButton extends Button {
-  _SketchUndoButton(this.state, this.color, this.size);
-
-  @override
-  final MyStatefulWidgetState state;
+  _SketchUndoButton(this.color, this.size);
 
   @override
   final Color color;
@@ -431,18 +392,15 @@ class _SketchUndoButton extends Button {
   @override
   button() => ElevatedButton(
         onPressed: () {
-          state.undoSketch();
+          Static.state.undoSketch();
         },
         style: ElevatedButton.styleFrom(fixedSize: size, primary: color),
-        child: Text(state.language.main('sketch_undo'), style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600)),
+        child: Text(Static.state.language.main('sketch_undo'), style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600)),
       );
 }
 
 class _SketchClearButton extends Button {
-  _SketchClearButton(this.state, this.color, this.size);
-
-  @override
-  final MyStatefulWidgetState state;
+  _SketchClearButton(this.color, this.size);
 
   @override
   final Color color;
@@ -453,9 +411,9 @@ class _SketchClearButton extends Button {
   @override
   button() => ElevatedButton(
         onPressed: () {
-          state.clearSketch();
+          Static.state.clearSketch();
         },
         style: ElevatedButton.styleFrom(fixedSize: size, primary: color),
-        child: Text(state.language.main('sketch_clear'), style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600)),
+        child: Text(Static.state.language.main('sketch_clear'), style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600)),
       );
 }

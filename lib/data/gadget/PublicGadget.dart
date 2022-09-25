@@ -18,6 +18,7 @@ enum PublicGadget implements Gadget {
   Shield(10, GadgetOtherImage.Null),
   C4(45, GadgetOtherImage.Null),
   ImpactGrenade(45, GadgetOtherImage.Null),
+  ImpactEMPGrenade(45, GadgetOtherImage.Null),
   ;
 
   const PublicGadget(this.angleStep, this.hasOtherImage);
