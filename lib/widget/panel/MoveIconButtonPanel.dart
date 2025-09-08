@@ -97,7 +97,7 @@ class _AttackOperatorDrawerOpenButton extends Button {
         onPressed: () {
           state.openDrawer(DrawerType.attackOperator);
         },
-        style: ElevatedButton.styleFrom(fixedSize: size, primary: Static.attackTeamColor),
+        style: ElevatedButton.styleFrom(fixedSize: size, backgroundColor: Static.attackTeamColor),
         child: Text(state.language.main('attack'), style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
       );
 }
@@ -119,7 +119,7 @@ class _DefenseOperatorDrawerOpenButton extends Button {
         onPressed: () {
           state.openDrawer(DrawerType.defenseOperator);
         },
-        style: ElevatedButton.styleFrom(fixedSize: size, primary: Static.defenseTeamColor),
+        style: ElevatedButton.styleFrom(fixedSize: size, backgroundColor: Static.defenseTeamColor),
         child: Text(state.language.main('defense'), style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
       );
 }
@@ -141,7 +141,7 @@ class _PublicGadgetDrawerOpenButton extends Button {
         onPressed: () {
           state.openDrawer(DrawerType.publicGadget);
         },
-        style: ElevatedButton.styleFrom(fixedSize: size, primary: const Color(0xFFE8C515)),
+        style: ElevatedButton.styleFrom(fixedSize: size, backgroundColor: const Color(0xFFE8C515)),
         child: Text(state.language.main('public_gadget'), style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600)),
       );
 }
@@ -165,7 +165,7 @@ class _AddIconSizeButton extends Button {
             state.addDefaultMoveIconSize(5);
           });
         },
-        style: ElevatedButton.styleFrom(fixedSize: size, primary: color),
+        style: ElevatedButton.styleFrom(fixedSize: size, backgroundColor: color),
         child: const Icon(Icons.add),
       );
 }
@@ -189,7 +189,7 @@ class _RemoveIconSizeButton extends Button {
             state.addDefaultMoveIconSize(-5);
           });
         },
-        style: ElevatedButton.styleFrom(fixedSize: size, primary: color),
+        style: ElevatedButton.styleFrom(fixedSize: size, backgroundColor: color),
         child: const Icon(Icons.remove),
       );
 }
@@ -213,7 +213,7 @@ class _IconClearButton extends Button {
             state.clearMoveIcon();
           });
         },
-        style: ElevatedButton.styleFrom(fixedSize: size, primary: color),
+        style: ElevatedButton.styleFrom(fixedSize: size, backgroundColor: color),
         child: Text(state.language.main('icon_clear'), style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600)),
       );
 }
@@ -237,7 +237,7 @@ class _LanguageButton extends Button {
             state.openDrawer(DrawerType.language);
           });
         },
-        style: ElevatedButton.styleFrom(fixedSize: size, primary: color),
+        style: ElevatedButton.styleFrom(fixedSize: size, backgroundColor: color),
         child: const Icon(Icons.language),
       );
 }

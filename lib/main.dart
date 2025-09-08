@@ -1,7 +1,5 @@
 // ignore_for_file: must_call_super, no_logic_in_create_state
 
-import 'dart:io';
-
 import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

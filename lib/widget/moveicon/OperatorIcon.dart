@@ -255,7 +255,7 @@ class _SizeAddButton extends Button {
           operatorIcon.setSize(operatorIcon.currentSize + 5);
         });
       },
-      style: ElevatedButton.styleFrom(fixedSize: size, primary: color),
+      style: ElevatedButton.styleFrom(fixedSize: size, backgroundColor: color),
       child: const Icon(Icons.add),
     );
   }
@@ -283,7 +283,7 @@ class _SizeRemoveButton extends Button {
           operatorIcon.setSize(operatorIcon.currentSize - 5);
         });
       },
-      style: ElevatedButton.styleFrom(fixedSize: size, primary: color),
+      style: ElevatedButton.styleFrom(fixedSize: size, backgroundColor: color),
       child: const Icon(Icons.remove),
     );
   }
@@ -312,7 +312,7 @@ class _DeleteIconButton extends Button {
           state.removeMoveIcon(operatorIcon);
         });
       },
-      style: ElevatedButton.styleFrom(fixedSize: size, primary: color),
+      style: ElevatedButton.styleFrom(fixedSize: size, backgroundColor: color),
       child: const Center(child: Icon(Icons.delete_forever, size: 20)),
     );
   }
@@ -344,7 +344,7 @@ class _CloneIconButton extends Button {
           OperatorIcon.clone(state, operatorIcon, x, y);
         });
       },
-      style: ElevatedButton.styleFrom(fixedSize: size, primary: color),
+      style: ElevatedButton.styleFrom(fixedSize: size, backgroundColor: color),
       child: const Center(child: Icon(Icons.copy, size: 20)),
     );
   }
@@ -390,7 +390,7 @@ class _GadgetButton extends Button {
           GadgetIcon(state, gadget()!, x, y);
         });
       },
-      style: ElevatedButton.styleFrom(fixedSize: size, primary: disableColor(gadgetNumber >= operator.gadgets.length)),
+      style: ElevatedButton.styleFrom(fixedSize: size, backgroundColor: disableColor(gadgetNumber >= operator.gadgets.length)),
       child: child,
     );
   }

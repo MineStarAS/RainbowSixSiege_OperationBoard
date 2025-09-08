@@ -29,17 +29,17 @@ class Language {
 
   late YamlConfiguration _yaml;
 
-  late YamlConfiguration _main;
-  late YamlConfiguration _attackOperator;
-  late YamlConfiguration _defenceOperator;
-  late YamlConfiguration _playMap;
-  late YamlConfiguration _publicGadget;
+  late Map<String, dynamic> _main;
+  late Map<String, dynamic> _attackOperator;
+  late Map<String, dynamic> _defenceOperator;
+  late Map<String, dynamic> _playMap;
+  late Map<String, dynamic> _publicGadget;
 
   changeLanguage(String language) {
     final configFile = File('$_assetsPath/config.yml');
     final config = YamlConfiguration.loadFile(configFile);
     config.put('language', language);
-    config.save(configFile);
+    config.saveToFile(configFile);
 
     final languageFile = File('$_assetsPath/language/$language.yml');
 
@@ -52,30 +52,30 @@ class Language {
   }
 
   _setMaps() {
-    _main = YamlConfiguration.fromYamlMap(_yaml.getMap('main'));
-    _attackOperator = YamlConfiguration.fromYamlMap(_yaml.getMap('attack_operator'));
-    _defenceOperator = YamlConfiguration.fromYamlMap(_yaml.getMap('defense_operator'));
-    _playMap = YamlConfiguration.fromYamlMap(_yaml.getMap('map'));
-    _publicGadget = YamlConfiguration.fromYamlMap(_yaml.getMap('public_gadget'));
+    _main = _yaml.getMap('main')!;
+    _attackOperator = _yaml.getMap('attack_operator')!;
+    _defenceOperator = _yaml.getMap('defense_operator')!;
+    _playMap = _yaml.getMap('map')!;
+    _publicGadget = _yaml.getMap('public_gadget')!;
   }
 
   String main(String key) {
-    return _main.getString(key).toString();
+    return _main[key].toString();
   }
 
   String attackOperator(String key) {
-    return _attackOperator.getString(key).toString();
+    return _attackOperator[key].toString();
   }
 
   String defenceOperator(String key) {
-    return _defenceOperator.getString(key).toString();
+    return _defenceOperator[key].toString();
   }
 
   String playMap(String key) {
-    return _playMap.getString(key).toString();
+    return _playMap[key].toString();
   }
 
   String publicGadget(String key) {
-    return _publicGadget.getString(key).toString();
+    return _publicGadget[key].toString();
   }
 }

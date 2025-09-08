@@ -18,7 +18,7 @@ class SketchButtonPanel extends Panel {
   @override
   final double offsetY = 5;
 
-  _textBox(String text) {
+  Container _textBox(String text) {
     return Container(
       width: 180,
       height: 50,
@@ -165,7 +165,7 @@ class _SelectColorButton extends Button {
             Static.state.sketchColor = sketchColor;
           });
         },
-        style: ElevatedButton.styleFrom(fixedSize: size, primary: disableColor(Static.state.sketchColor == sketchColor)),
+        style: ElevatedButton.styleFrom(fixedSize: size, backgroundColor: disableColor(Static.state.sketchColor == sketchColor)),
         child: Icon(Icons.square, color: sketchColor),
       );
 }
@@ -186,7 +186,7 @@ class _SelectArrowSketchButton extends Button {
             Static.state.sketchMode = SketchMode.ARROW;
           });
         },
-        style: ElevatedButton.styleFrom(fixedSize: size, primary: disableColor(Static.state.sketchMode == SketchMode.ARROW)),
+        style: ElevatedButton.styleFrom(fixedSize: size, backgroundColor: disableColor(Static.state.sketchMode == SketchMode.ARROW)),
         child: const Icon(UniconsSolid.arrow_up_right),
       );
 }
@@ -207,7 +207,7 @@ class _SelectSquareSketchButton extends Button {
             Static.state.sketchMode = SketchMode.SQUARE;
           });
         },
-        style: ElevatedButton.styleFrom(fixedSize: size, primary: disableColor(Static.state.sketchMode == SketchMode.SQUARE)),
+        style: ElevatedButton.styleFrom(fixedSize: size, backgroundColor: disableColor(Static.state.sketchMode == SketchMode.SQUARE)),
         child: const Icon(Icons.square),
       );
 }
@@ -228,7 +228,7 @@ class _SelectSquareBorderSketchButton extends Button {
             Static.state.sketchMode = SketchMode.SQUARE_BORDER;
           });
         },
-        style: ElevatedButton.styleFrom(fixedSize: size, primary: disableColor(Static.state.sketchMode == SketchMode.SQUARE_BORDER)),
+        style: ElevatedButton.styleFrom(fixedSize: size, backgroundColor: disableColor(Static.state.sketchMode == SketchMode.SQUARE_BORDER)),
         child: const Icon(Icons.square_outlined),
       );
 }
@@ -249,7 +249,7 @@ class _SelectLineSketchButton extends Button {
             Static.state.sketchMode = SketchMode.LINE;
           });
         },
-        style: ElevatedButton.styleFrom(fixedSize: size, primary: disableColor(Static.state.sketchMode == SketchMode.LINE)),
+        style: ElevatedButton.styleFrom(fixedSize: size, backgroundColor: disableColor(Static.state.sketchMode == SketchMode.LINE)),
         child: const Icon(UniconsLine.line_alt),
       );
 }
@@ -270,7 +270,7 @@ class _SelectCircleSketchButton extends Button {
             Static.state.sketchMode = SketchMode.CIRCLE;
           });
         },
-        style: ElevatedButton.styleFrom(fixedSize: size, primary: disableColor(Static.state.sketchMode == SketchMode.CIRCLE)),
+        style: ElevatedButton.styleFrom(fixedSize: size, backgroundColor: disableColor(Static.state.sketchMode == SketchMode.CIRCLE)),
         child: const Icon(Icons.circle_outlined),
       );
 }
@@ -291,7 +291,7 @@ class _SelectCrossMarkSketchButton extends Button {
             Static.state.sketchMode = SketchMode.CROSS_MARK;
           });
         },
-        style: ElevatedButton.styleFrom(fixedSize: size, primary: disableColor(Static.state.sketchMode == SketchMode.CROSS_MARK)),
+        style: ElevatedButton.styleFrom(fixedSize: size, backgroundColor: disableColor(Static.state.sketchMode == SketchMode.CROSS_MARK)),
         child: const Icon(Icons.close),
       );
 }
@@ -312,7 +312,7 @@ class _AddThicknessButton extends Button {
             Static.state.addSketchThickness(Static.state.sketchMode);
           });
         },
-        style: ElevatedButton.styleFrom(fixedSize: size, primary: disableColor(Static.state.sketchMode == SketchMode.SQUARE)),
+        style: ElevatedButton.styleFrom(fixedSize: size, backgroundColor: disableColor(Static.state.sketchMode == SketchMode.SQUARE)),
         child: const Icon(Icons.add),
       );
 }
@@ -333,7 +333,7 @@ class _RemoveThicknessButton extends Button {
             Static.state.removeSketchThickness(Static.state.sketchMode);
           });
         },
-        style: ElevatedButton.styleFrom(fixedSize: size, primary: disableColor(Static.state.sketchMode == SketchMode.SQUARE)),
+        style: ElevatedButton.styleFrom(fixedSize: size, backgroundColor: disableColor(Static.state.sketchMode == SketchMode.SQUARE)),
         child: const Icon(Icons.remove),
       );
 }
@@ -354,7 +354,7 @@ class _AddOpacityButton extends Button {
             Static.state.addSketchOpacity(Static.state.sketchMode);
           });
         },
-        style: ElevatedButton.styleFrom(fixedSize: size, primary: color),
+        style: ElevatedButton.styleFrom(fixedSize: size, backgroundColor: color),
         child: const Icon(Icons.add),
       );
 }
@@ -375,7 +375,7 @@ class _RemoveOpacityButton extends Button {
             Static.state.removeSketchOpacity(Static.state.sketchMode);
           });
         },
-        style: ElevatedButton.styleFrom(fixedSize: size, primary: color),
+        style: ElevatedButton.styleFrom(fixedSize: size, backgroundColor: color),
         child: const Icon(Icons.remove),
       );
 }
@@ -394,7 +394,7 @@ class _SketchUndoButton extends Button {
         onPressed: () {
           Static.state.undoSketch();
         },
-        style: ElevatedButton.styleFrom(fixedSize: size, primary: color),
+        style: ElevatedButton.styleFrom(fixedSize: size, backgroundColor: color),
         child: Text(Static.state.language.main('sketch_undo'), style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600)),
       );
 }
@@ -413,7 +413,7 @@ class _SketchClearButton extends Button {
         onPressed: () {
           Static.state.clearSketch();
         },
-        style: ElevatedButton.styleFrom(fixedSize: size, primary: color),
+        style: ElevatedButton.styleFrom(fixedSize: size, backgroundColor: color),
         child: Text(Static.state.language.main('sketch_clear'), style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600)),
       );
 }

@@ -254,7 +254,6 @@ class GadgetIcon extends MoveIcon {
 class _SizeAddButton extends Button {
   _SizeAddButton(this.state, this.color, this.size, this.gadgetIcon);
 
-  @override
   final MyStatefulWidgetState state;
 
   @override
@@ -275,7 +274,7 @@ class _SizeAddButton extends Button {
           });
         }
       },
-      style: ElevatedButton.styleFrom(fixedSize: size, primary: color),
+      style: ElevatedButton.styleFrom(fixedSize: size, backgroundColor: color),
       child: const Icon(Icons.add),
     );
   }
@@ -284,7 +283,6 @@ class _SizeAddButton extends Button {
 class _SizeRemoveButton extends Button {
   _SizeRemoveButton(this.state, this.color, this.size, this.gadgetIcon);
 
-  @override
   final MyStatefulWidgetState state;
 
   @override
@@ -305,7 +303,7 @@ class _SizeRemoveButton extends Button {
           });
         }
       },
-      style: ElevatedButton.styleFrom(fixedSize: size, primary: color),
+      style: ElevatedButton.styleFrom(fixedSize: size, backgroundColor: color),
       child: const Icon(Icons.remove),
     );
   }
@@ -314,7 +312,6 @@ class _SizeRemoveButton extends Button {
 class _DeleteIconButton extends Button {
   _DeleteIconButton(this.state, this.color, this.size, this.gadgetIcon);
 
-  @override
   final MyStatefulWidgetState state;
 
   @override
@@ -334,7 +331,7 @@ class _DeleteIconButton extends Button {
           state.removeMoveIcon(gadgetIcon);
         });
       },
-      style: ElevatedButton.styleFrom(fixedSize: size, primary: color),
+      style: ElevatedButton.styleFrom(fixedSize: size, backgroundColor: color),
       child: const Center(child: Icon(Icons.delete_forever, size: 20)),
     );
   }
@@ -366,7 +363,7 @@ class _CloneIconButton extends Button {
           GadgetIcon.clone(state, gadgetIcon, x, y);
         });
       },
-      style: ElevatedButton.styleFrom(fixedSize: size, primary: color),
+      style: ElevatedButton.styleFrom(fixedSize: size, backgroundColor: color),
       child: const Center(child: Icon(Icons.copy, size: 20)),
     );
   }
@@ -375,7 +372,6 @@ class _CloneIconButton extends Button {
 class _RotateAddButton extends Button {
   _RotateAddButton(this.state, this.color, this.size, this.gadgetIcon);
 
-  @override
   final MyStatefulWidgetState state;
 
   @override
@@ -394,7 +390,7 @@ class _RotateAddButton extends Button {
           if (gadgetIcon.rotate >= 360) gadgetIcon.rotate = gadgetIcon.rotate % 360;
         });
       },
-      style: ElevatedButton.styleFrom(fixedSize: size, primary: color),
+      style: ElevatedButton.styleFrom(fixedSize: size, backgroundColor: color),
       child: const Icon(Icons.rotate_right),
     );
   }
@@ -403,7 +399,6 @@ class _RotateAddButton extends Button {
 class _RotateRemoveButton extends Button {
   _RotateRemoveButton(this.state, this.color, this.size, this.gadgetIcon);
 
-  @override
   final MyStatefulWidgetState state;
 
   @override
@@ -423,7 +418,7 @@ class _RotateRemoveButton extends Button {
           if (gadgetIcon.rotate < 0) gadgetIcon.rotate = gadgetIcon.rotate % -360;
         });
       },
-      style: ElevatedButton.styleFrom(fixedSize: size, primary: color),
+      style: ElevatedButton.styleFrom(fixedSize: size, backgroundColor: color),
       child: const Icon(Icons.rotate_left),
     );
   }

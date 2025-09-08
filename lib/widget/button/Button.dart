@@ -25,7 +25,7 @@ abstract class Button {
 
   Widget button() => ElevatedButton(
     onPressed: onClick,
-    style: ElevatedButton.styleFrom(fixedSize: size, primary: color),
+    style: ElevatedButton.styleFrom(fixedSize: size, backgroundColor: color),
     child: textureWidget(),
   );
 }
