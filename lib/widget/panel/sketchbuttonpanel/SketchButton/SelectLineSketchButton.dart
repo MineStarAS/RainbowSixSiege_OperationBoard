@@ -4,8 +4,9 @@ import 'package:unicons/unicons.dart';
 import '../../../../main.dart';
 import '../../../button/Button.dart';
 import '../../../sketch/SketchMode.dart';
+import 'SketchButton.dart';
 
-class SelectLineSketchButton extends Button {
+class SelectLineSketchButton extends SketchButton {
   SelectLineSketchButton();
 
   @override

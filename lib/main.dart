@@ -64,7 +64,7 @@ class MyStatefulWidget extends StatefulWidget {
 class MyStatefulWidgetState extends State<MyStatefulWidget> {
   @override
   initState() {
-    DesktopWindow.setMinWindowSize(const Size(1686, 1026));
+    DesktopWindow.setMinWindowSize(const Size(1280, 850));
     DesktopWindow.setFullScreen(true);
 
     for (PlayMap playMap in PlayMap.values) {
@@ -88,8 +88,8 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
       _selectMoveIconMap[playMap] = selectMoveIconMap;
       _sketchMap[playMap] = sketchMap;
       _sketchUndoMap[playMap] = sketchUndoMap;
-      _playMapOffsetX[playMap] = playMapOffsetYMap;
-      _playMapOffsetY[playMap] = playMapOffsetXMap;
+      _playMapOffsetX[playMap] = playMapOffsetXMap;
+      _playMapOffsetY[playMap] = playMapOffsetYMap;
       _playMapScale[playMap] = playMapScaleMap;
     }
   }
@@ -104,8 +104,11 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
   PlayMap playMap = PlayMap.BANK;
   Floor floor = Floor.F1;
 
-  final double mapWidth = 1250;
-  final double mapHeight = 938;
+  double mapWidth = 1250;
+  double mapHeight = 938;
+
+  final double _leftPanelWidth = 220;
+  final double _rightPanelWidth = 200;
 
   final Map<PlayMap, Map<Floor, double>> _playMapOffsetX = {};
   final Map<PlayMap, Map<Floor, double>> _playMapOffsetY = {};
@@ -420,7 +423,7 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
               });
             },
             tooltip: "Open browser",
-            icon: const Icon(UniconsLine.github),
+            icon: const Icon(UniconsLine.github, size: 40, color: Colors.white),
           ));
 
   ///##### KeyBoard Event Function #####
@@ -588,7 +591,7 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
 
       ///AppBar
       appBar: AppBar(
-        title: const Text('Rainbow Six Siege Operation Board', style: TextStyle(fontWeight: FontWeight.bold)),
+        title: const Text('Rainbow Six Siege Operation Board', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
         automaticallyImplyLeading: false,
         leading: _leading(),
         actions: _playMapActions(),
@@ -602,17 +605,22 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
         onKey: (event) {
           _keyEvent(event);
         },
-        child: Center(
-            child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+        child: Row(
           children: [
-            MoveIconButtonPanel().widget(),
-            Center(child: SizedBox(width: mapWidth, height: mapHeight, child: ClipRect(child: Stack(children: _displayList())))),
-            SketchButtonPanel().widget(),
+            SizedBox(width: _leftPanelWidth, child: MoveIconButtonPanel().widget()),
+            Expanded(
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  mapWidth = constraints.maxWidth;
+                  mapHeight = constraints.maxHeight;
+                  return ClipRect(child: Stack(children: _displayList()));
+                },
+              ),
+            ),
+            SizedBox(width: _rightPanelWidth, child: SketchButtonPanel().widget()),
           ],
-        )),
+        ),
       ),
-
       ///Drawer
       drawer: _loadOpDrawer(),
       endDrawer: PlayMapDrawer(this).getDrawer(),

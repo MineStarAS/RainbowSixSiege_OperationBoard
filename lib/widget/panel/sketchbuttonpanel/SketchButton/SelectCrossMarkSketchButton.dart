@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 import '../../../button/Button.dart';
 import '../../../sketch/SketchMode.dart';
+import 'SketchButton.dart';
 
-class SelectCrossMarkSketchButton extends Button {
+class SelectCrossMarkSketchButton extends SketchButton {
   SelectCrossMarkSketchButton();
 
   @override

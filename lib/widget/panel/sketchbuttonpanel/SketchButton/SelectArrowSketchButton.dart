@@ -4,12 +4,13 @@ import 'package:unicons/unicons.dart';
 import '../../../../main.dart';
 import '../../../button/Button.dart';
 import '../../../sketch/SketchMode.dart';
+import 'SketchButton.dart';
 
-class SelectArrowSketchButton extends Button {
+class SelectArrowSketchButton extends SketchButton {
   SelectArrowSketchButton();
 
   @override
-  final SketchMode sketchMode = SketchMode.CIRCLE;
+  final SketchMode sketchMode = SketchMode.ARROW;
 
   @override
   final Icon icon = Icon(UniconsSolid.arrow_up_right, color: Colors.white);

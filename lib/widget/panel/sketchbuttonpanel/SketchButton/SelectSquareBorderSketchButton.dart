@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import '../../../../main.dart';
 import '../../../button/Button.dart';
 import '../../../sketch/SketchMode.dart';
+import 'SketchButton.dart';
 
-class SelectSquareBorderSketchButton extends Button {
+class SelectSquareBorderSketchButton extends SketchButton {
   SelectSquareBorderSketchButton();
 
   @override
