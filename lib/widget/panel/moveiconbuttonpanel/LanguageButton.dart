@@ -22,7 +22,7 @@ class LanguageButton extends Button {
             state.openDrawer(DrawerType.language);
           });
         },
-        style: ElevatedButton.styleFrom(fixedSize: size, backgroundColor: color, padding: EdgeInsets.zero),
-        child: const Icon(Icons.language),
+        style: buttonStyleDefault(),
+        child: const Icon(Icons.language, color: Colors.white),
       );
 }

@@ -13,7 +13,7 @@ import 'package:r6soperationboard/widget/drawer/PlayMapDrawer.dart';
 import 'package:r6soperationboard/widget/drawer/PublicGadgetDrawer.dart';
 import 'package:r6soperationboard/widget/moveicon/MoveIcon.dart';
 import 'package:r6soperationboard/widget/panel/MoveIconButtonPanel.dart';
-import 'package:r6soperationboard/widget/panel/SketchButtonPanel.dart';
+import 'package:r6soperationboard/widget/panel/sketchbuttonpanel/SketchButtonPanel.dart';
 import 'package:r6soperationboard/widget/panel/interface/OptionPanel.dart';
 import 'package:r6soperationboard/widget/playmap/PlayMapGesture.dart';
 import 'package:r6soperationboard/widget/playmap/PlayMapImage.dart';
@@ -34,6 +34,8 @@ class Static {
   //TeamColor
   static const attackTeamColor = Color(0xFF1184E1);
   static const defenseTeamColor = Color(0xFFE97015);
+  //PublicColor
+  static const publicColor = Color(0xFFE8C515);
 }
 
 class MyApp extends StatelessWidget {
