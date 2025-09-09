@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 
 abstract class Button {
-
   late final Color color;
 
   late final Size size;
@@ -12,8 +11,8 @@ abstract class Button {
 
   late final VoidCallback onClick;
 
-  disableColor(bool isSelected) {
-    if (isSelected) return color.withOpacity(0.4);
+  Future<Color> disableColor(bool isSelected) async {
+    if (isSelected) return color.withValues(alpha: 0.4);
     return color;
   }
 
@@ -24,8 +23,8 @@ abstract class Button {
   }
 
   Widget button() => ElevatedButton(
-    onPressed: onClick,
-    style: ElevatedButton.styleFrom(fixedSize: size, backgroundColor: color),
-    child: textureWidget(),
-  );
+        onPressed: onClick,
+        style: ElevatedButton.styleFrom(fixedSize: size, backgroundColor: color),
+        child: textureWidget(),
+      );
 }

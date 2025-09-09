@@ -159,13 +159,13 @@ class _SelectColorButton extends Button {
   final Color sketchColor;
 
   @override
-  button() => ElevatedButton(
+  button() async => ElevatedButton(
         onPressed: () {
           Static.state.setState(() {
             Static.state.sketchColor = sketchColor;
           });
         },
-        style: ElevatedButton.styleFrom(fixedSize: size, backgroundColor: disableColor(Static.state.sketchColor == sketchColor)),
+        style: ElevatedButton.styleFrom(fixedSize: size, backgroundColor: await disableColor(Static.state.sketchColor == sketchColor)),
         child: Icon(Icons.square, color: sketchColor),
       );
 }
@@ -180,13 +180,13 @@ class _SelectArrowSketchButton extends Button {
   final Size size;
 
   @override
-  button() => ElevatedButton(
+  button() async => ElevatedButton(
         onPressed: () {
           Static.state.setState(() {
             Static.state.sketchMode = SketchMode.ARROW;
           });
         },
-        style: ElevatedButton.styleFrom(fixedSize: size, backgroundColor: disableColor(Static.state.sketchMode == SketchMode.ARROW)),
+        style: ElevatedButton.styleFrom(fixedSize: size, backgroundColor: await disableColor(Static.state.sketchMode == SketchMode.ARROW)),
         child: const Icon(UniconsSolid.arrow_up_right),
       );
 }
@@ -201,13 +201,13 @@ class _SelectSquareSketchButton extends Button {
   final Size size;
 
   @override
-  button() => ElevatedButton(
+  button() async => ElevatedButton(
         onPressed: () {
           Static.state.setState(() {
             Static.state.sketchMode = SketchMode.SQUARE;
           });
         },
-        style: ElevatedButton.styleFrom(fixedSize: size, backgroundColor: disableColor(Static.state.sketchMode == SketchMode.SQUARE)),
+        style: ElevatedButton.styleFrom(fixedSize: size, backgroundColor: await disableColor(Static.state.sketchMode == SketchMode.SQUARE)),
         child: const Icon(Icons.square),
       );
 }
@@ -222,13 +222,13 @@ class _SelectSquareBorderSketchButton extends Button {
   final Size size;
 
   @override
-  button() => ElevatedButton(
+  button() async => ElevatedButton(
         onPressed: () {
           Static.state.setState(() {
             Static.state.sketchMode = SketchMode.SQUARE_BORDER;
           });
         },
-        style: ElevatedButton.styleFrom(fixedSize: size, backgroundColor: disableColor(Static.state.sketchMode == SketchMode.SQUARE_BORDER)),
+        style: ElevatedButton.styleFrom(fixedSize: size, backgroundColor: await disableColor(Static.state.sketchMode == SketchMode.SQUARE_BORDER)),
         child: const Icon(Icons.square_outlined),
       );
 }
@@ -243,13 +243,13 @@ class _SelectLineSketchButton extends Button {
   final Size size;
 
   @override
-  button() => ElevatedButton(
+  button() async => ElevatedButton(
         onPressed: () {
           Static.state.setState(() {
             Static.state.sketchMode = SketchMode.LINE;
           });
         },
-        style: ElevatedButton.styleFrom(fixedSize: size, backgroundColor: disableColor(Static.state.sketchMode == SketchMode.LINE)),
+        style: ElevatedButton.styleFrom(fixedSize: size, backgroundColor: await disableColor(Static.state.sketchMode == SketchMode.LINE)),
         child: const Icon(UniconsLine.line_alt),
       );
 }
@@ -264,13 +264,13 @@ class _SelectCircleSketchButton extends Button {
   final Size size;
 
   @override
-  button() => ElevatedButton(
+  button() async => ElevatedButton(
         onPressed: () {
           Static.state.setState(() {
             Static.state.sketchMode = SketchMode.CIRCLE;
           });
         },
-        style: ElevatedButton.styleFrom(fixedSize: size, backgroundColor: disableColor(Static.state.sketchMode == SketchMode.CIRCLE)),
+        style: ElevatedButton.styleFrom(fixedSize: size, backgroundColor: await disableColor(Static.state.sketchMode == SketchMode.CIRCLE)),
         child: const Icon(Icons.circle_outlined),
       );
 }
@@ -285,13 +285,13 @@ class _SelectCrossMarkSketchButton extends Button {
   final Size size;
 
   @override
-  button() => ElevatedButton(
+  button() async => ElevatedButton(
         onPressed: () {
           Static.state.setState(() {
             Static.state.sketchMode = SketchMode.CROSS_MARK;
           });
         },
-        style: ElevatedButton.styleFrom(fixedSize: size, backgroundColor: disableColor(Static.state.sketchMode == SketchMode.CROSS_MARK)),
+        style: ElevatedButton.styleFrom(fixedSize: size, backgroundColor: await disableColor(Static.state.sketchMode == SketchMode.CROSS_MARK)),
         child: const Icon(Icons.close),
       );
 }
@@ -306,13 +306,13 @@ class _AddThicknessButton extends Button {
   final Size size;
 
   @override
-  button() => ElevatedButton(
+  button() async => ElevatedButton(
         onPressed: () {
           Static.state.setState(() {
             Static.state.addSketchThickness(Static.state.sketchMode);
           });
         },
-        style: ElevatedButton.styleFrom(fixedSize: size, backgroundColor: disableColor(Static.state.sketchMode == SketchMode.SQUARE)),
+        style: ElevatedButton.styleFrom(fixedSize: size, backgroundColor: await disableColor(Static.state.sketchMode == SketchMode.SQUARE)),
         child: const Icon(Icons.add),
       );
 }
@@ -327,13 +327,13 @@ class _RemoveThicknessButton extends Button {
   final Size size;
 
   @override
-  button() => ElevatedButton(
+  button() async => ElevatedButton(
         onPressed: () {
           Static.state.setState(() {
             Static.state.removeSketchThickness(Static.state.sketchMode);
           });
         },
-        style: ElevatedButton.styleFrom(fixedSize: size, backgroundColor: disableColor(Static.state.sketchMode == SketchMode.SQUARE)),
+        style: ElevatedButton.styleFrom(fixedSize: size, backgroundColor: await disableColor(Static.state.sketchMode == SketchMode.SQUARE)),
         child: const Icon(Icons.remove),
       );
 }

@@ -303,7 +303,7 @@ class _SizeRemoveButton extends Button {
           });
         }
       },
-      style: ElevatedButton.styleFrom(fixedSize: size, backgroundColor: color),
+      style: ElevatedButton.styleFrom(fixedSize: size, backgroundColor: color, padding: EdgeInsets.zero),
       child: const Icon(Icons.remove),
     );
   }

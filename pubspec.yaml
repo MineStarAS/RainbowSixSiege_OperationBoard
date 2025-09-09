@@ -14,7 +14,7 @@ dependencies:
   url_launcher: ^6.3.2
   desktop_window: ^0.4.2
   photo_view: ^0.15.0
-  utility_yaml: ^1.1.4
+  utility_yaml: ^1.1.5
 
 dev_dependencies:
   flutter_test:

@@ -7,6 +7,7 @@ import 'package:r6soperationboard/widget/panel/interface/Panel.dart';
 import 'package:unicons/unicons.dart';
 
 import '../button/Button.dart';
+import 'moveiconbuttonpanel/LanguageButton.dart';
 
 class MoveIconButtonPanel extends Panel {
   MoveIconButtonPanel();
@@ -74,7 +75,7 @@ class MoveIconButtonPanel extends Panel {
           customOffsetBox(100),
           _IconClearButton(Static.state, Colors.lightBlueAccent, const Size(200, 50)).button(),
           customOffsetBox(10),
-          _LanguageButton(Static.state, Colors.blue, const Size(50, 50)).button()
+          LanguageButton(Static.state, Colors.blue, const Size(50, 50)).button()
         ]),
       ));
 }
@@ -83,7 +84,6 @@ class MoveIconButtonPanel extends Panel {
 class _AttackOperatorDrawerOpenButton extends Button {
   _AttackOperatorDrawerOpenButton(this.state, this.color, this.size);
 
-  @override
   final MyStatefulWidgetState state;
 
   @override
@@ -105,7 +105,6 @@ class _AttackOperatorDrawerOpenButton extends Button {
 class _DefenseOperatorDrawerOpenButton extends Button {
   _DefenseOperatorDrawerOpenButton(this.state, this.color, this.size);
 
-  @override
   final MyStatefulWidgetState state;
 
   @override
@@ -127,7 +126,6 @@ class _DefenseOperatorDrawerOpenButton extends Button {
 class _PublicGadgetDrawerOpenButton extends Button {
   _PublicGadgetDrawerOpenButton(this.state, this.color, this.size);
 
-  @override
   final MyStatefulWidgetState state;
 
   @override
@@ -149,7 +147,6 @@ class _PublicGadgetDrawerOpenButton extends Button {
 class _AddIconSizeButton extends Button {
   _AddIconSizeButton(this.state, this.color, this.size);
 
-  @override
   final MyStatefulWidgetState state;
 
   @override
@@ -173,7 +170,6 @@ class _AddIconSizeButton extends Button {
 class _RemoveIconSizeButton extends Button {
   _RemoveIconSizeButton(this.state, this.color, this.size);
 
-  @override
   final MyStatefulWidgetState state;
 
   @override
@@ -197,7 +193,6 @@ class _RemoveIconSizeButton extends Button {
 class _IconClearButton extends Button {
   _IconClearButton(this.state, this.color, this.size);
 
-  @override
   final MyStatefulWidgetState state;
 
   @override
@@ -218,26 +213,4 @@ class _IconClearButton extends Button {
       );
 }
 
-class _LanguageButton extends Button {
-  _LanguageButton(this.state, this.color, this.size);
 
-  @override
-  final MyStatefulWidgetState state;
-
-  @override
-  final Color color;
-
-  @override
-  final Size size;
-
-  @override
-  button() => ElevatedButton(
-        onPressed: () {
-          state.setState(() {
-            state.openDrawer(DrawerType.language);
-          });
-        },
-        style: ElevatedButton.styleFrom(fixedSize: size, backgroundColor: color),
-        child: const Icon(Icons.language),
-      );
-}

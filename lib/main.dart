@@ -97,6 +97,7 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
   ///##### Field #####
   //Link
   final github = "https://github.com/MineStarAS/RainbowSixSiege_OperationBoard";
+
   //PlayMap
   PlayMap playMap = PlayMap.BANK;
   Floor floor = Floor.F1;
@@ -585,10 +586,11 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
 
       ///AppBar
       appBar: AppBar(
-        title: const Text('Rainbow Six Siege Operation Board'),
+        title: const Text('Rainbow Six Siege Operation Board', style: TextStyle(fontWeight: FontWeight.bold)),
         automaticallyImplyLeading: false,
         leading: _leading(),
         actions: _playMapActions(),
+        backgroundColor: Colors.blueAccent,
       ),
 
       ///Display

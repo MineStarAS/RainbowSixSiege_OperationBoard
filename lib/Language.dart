@@ -38,7 +38,6 @@ class Language {
   changeLanguage(String language) {
     final configFile = File('$_assetsPath/config.yml');
     final config = YamlConfiguration.loadFile(configFile);
-    config.put('language', language);
     config.saveToFile(configFile);
 
     final languageFile = File('$_assetsPath/language/$language.yml');

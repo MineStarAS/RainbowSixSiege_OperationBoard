@@ -375,7 +375,7 @@ class _GadgetButton extends Button {
   }
 
   @override
-  button() {
+  button() async {
     Widget child;
     if (gadget() == null) {
       child = const Icon(UniconsLine.times_circle);
@@ -390,7 +390,7 @@ class _GadgetButton extends Button {
           GadgetIcon(state, gadget()!, x, y);
         });
       },
-      style: ElevatedButton.styleFrom(fixedSize: size, backgroundColor: disableColor(gadgetNumber >= operator.gadgets.length)),
+      style: ElevatedButton.styleFrom(fixedSize: size, backgroundColor: await disableColor(gadgetNumber >= operator.gadgets.length)),
       child: child,
     );
   }
