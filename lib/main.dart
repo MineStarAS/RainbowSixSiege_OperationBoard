@@ -114,10 +114,8 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
   final Map<PlayMap, Map<Floor, double>> _playMapOffsetY = {};
   final Map<PlayMap, Map<Floor, double>> _playMapScale = {};
 
-  final double zoomInLimit = 3;
+  final double zoomInLimit = 5;
   final double _zoomStep = 0.1;
-
-  bool moveImageBoolean = false;
 
   //Drawer TeamType
   DrawerType _drawerType = DrawerType.attackOperator;
@@ -155,7 +153,7 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
   OptionPanel? _optionPanel;
 
   //Sketch
-  SketchMode sketchMode = SketchMode.ARROW;
+  SketchMode sketchMode = SketchMode.NONE;
   Color sketchColor = Colors.red;
 
   final Map<PlayMap, Map<Floor, Set<Sketch>>> _sketchMap = {};
@@ -168,6 +166,7 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
   Sketch? sketchTarget;
 
   final Map<SketchMode, int> _sketchThicknessMap = {
+    SketchMode.NONE: 0,
     SketchMode.ARROW: 5,
     SketchMode.SQUARE: 0,
     SketchMode.SQUARE_BORDER: 5,
@@ -176,6 +175,7 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
     SketchMode.CROSS_MARK: 5,
   };
   final Map<SketchMode, int> _sketchOpacityMap = {
+    SketchMode.NONE: 0,
     SketchMode.ARROW: 10,
     SketchMode.SQUARE: 5,
     SketchMode.SQUARE_BORDER: 10,

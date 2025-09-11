@@ -42,7 +42,7 @@ class PlayMapGesture {
           },
           onPanStart: (event) {
             state.setSelectMoveIcon(null);
-            if (state.moveImageBoolean) {
+            if (state.sketchMode == SketchMode.NONE) {
               _originX = event.localPosition.dx;
               _originY = event.localPosition.dy;
               return;
@@ -79,7 +79,7 @@ class PlayMapGesture {
           },
           onPanUpdate: (event) {
             ///Move PlayMap Image
-            if (state.moveImageBoolean) {
+            if (state.sketchMode == SketchMode.NONE) {
               state.setState(() {
                 final scale = 2.0 + state.zoomInLimit - state.getPlayMapScale();
 
@@ -102,7 +102,6 @@ class PlayMapGesture {
             state.setState(() {
               state.closeOptionPanel();
               state.removeSketchTarget();
-              state.moveImageBoolean = false;
             });
           },
           onDoubleTap: () {
@@ -115,7 +114,6 @@ class PlayMapGesture {
             state.setState(() {
               state.closeOptionPanel();
               state.setSelectMoveIcon(null);
-              state.moveImageBoolean = true;
             });
           },
           child: Center(child: Image.asset("assets/map/BLANK.png")),

@@ -22,6 +22,6 @@ class IconClearButton extends Button {
           });
         },
         style: ElevatedButton.styleFrom(fixedSize: size, backgroundColor: color),
-        child: Text(state.language.main('icon_clear'), style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600)),
+        child: Text(state.language.main('icon_clear'), style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.white)),
       );
 }

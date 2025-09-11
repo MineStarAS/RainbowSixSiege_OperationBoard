@@ -20,9 +20,7 @@ class RemoveThicknessButton extends Button {
         Static.state.removeSketchThickness(Static.state.sketchMode);
       });
     },
-    style: ElevatedButton.styleFrom(
-        fixedSize: size,
-        backgroundColor: disableColor(Static.state.sketchMode == SketchMode.SQUARE)),
-    child: const Icon(Icons.remove),
+    style: buttonStyleBackgroundColor(disableColor(Static.state.sketchMode == SketchMode.SQUARE)),
+    child: const Icon(Icons.remove, color: Colors.white),
   );
 }

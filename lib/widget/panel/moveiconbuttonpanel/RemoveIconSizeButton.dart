@@ -21,7 +21,7 @@ class RemoveIconSizeButton extends Button {
             state.addDefaultMoveIconSize(-5);
           });
         },
-        style: ElevatedButton.styleFrom(fixedSize: size, backgroundColor: color),
-        child: const Icon(Icons.remove),
+        style: buttonStyleDefault(),
+        child: const Icon(Icons.remove, color: Colors.white),
       );
 }

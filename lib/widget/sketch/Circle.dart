@@ -1,5 +1,3 @@
-// ignore_for_file: file_names, overridden_fields
-
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -50,15 +48,44 @@ class Circle extends Sketch {
     }
 
     return Positioned(
-        left: min(getStartX(), getFinishX()),
-        top: min(getStartY(), getFinishY()),
-        child: Container(
-          width: width,
-          height: height,
-          decoration: BoxDecoration(
-            border: Border.all(color: color.withOpacity(opacity), width: thickness),
-            shape: BoxShape.circle,
-          ),
-        ));
+      left: min(getStartX(), getFinishX()),
+      top: min(getStartY(), getFinishY()),
+      child: CustomPaint(
+        size: Size(width, height),
+        painter: EllipsePainter(
+          color: color,
+          thickness: thickness,
+          opacity: opacity,
+        ),
+      ),
+    );
   }
+}
+
+class EllipsePainter extends CustomPainter {
+  final Color color;
+  final double thickness;
+  final double opacity;
+
+  EllipsePainter({
+    required this.color,
+    required this.thickness,
+    required this.opacity,
+  });
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final Paint paint = Paint()
+      ..color = color.withOpacity(opacity)
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = thickness;
+
+    canvas.drawOval(
+      Rect.fromLTWH(0, 0, size.width, size.height),
+      paint,
+    );
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) => true;
 }

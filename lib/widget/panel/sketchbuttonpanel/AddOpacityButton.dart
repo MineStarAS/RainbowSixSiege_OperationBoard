@@ -19,7 +19,7 @@ class AddOpacityButton extends Button {
         Static.state.addSketchOpacity(Static.state.sketchMode);
       });
     },
-    style: ElevatedButton.styleFrom(fixedSize: size, backgroundColor: color),
-    child: const Icon(Icons.add),
+    style: buttonStyleDefault(),
+    child: const Icon(Icons.add, color: Colors.white),
   );
 }

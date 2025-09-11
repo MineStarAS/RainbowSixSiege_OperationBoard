@@ -20,7 +20,12 @@ class SketchButton extends Button {
   Widget button() => ElevatedButton(
         onPressed: () {
           Static.state.setState(() {
-            Static.state.sketchMode = sketchMode;
+            if (Static.state.sketchMode == sketchMode) {
+              Static.state.sketchMode = SketchMode.NONE;
+              return;
+            } else {
+              Static.state.sketchMode = sketchMode;
+            }
           });
         },
         style: buttonStyleBackgroundColor(disableColor(Static.state.sketchMode == sketchMode)),

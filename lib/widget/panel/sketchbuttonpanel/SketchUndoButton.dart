@@ -18,6 +18,6 @@ class SketchUndoButton extends Button {
           Static.state.undoSketch();
         },
         style: ElevatedButton.styleFrom(fixedSize: size, backgroundColor: color),
-        child: Text(Static.state.language.main('sketch_undo'), style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600)),
+        child: Text(Static.state.language.main('sketch_undo'), style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.white)),
       );
 }

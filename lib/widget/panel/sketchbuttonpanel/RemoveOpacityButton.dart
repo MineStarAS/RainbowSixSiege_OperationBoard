@@ -19,7 +19,7 @@ class RemoveOpacityButton extends Button {
         Static.state.removeSketchOpacity(Static.state.sketchMode);
       });
     },
-    style: ElevatedButton.styleFrom(fixedSize: size, backgroundColor: color),
-    child: const Icon(Icons.remove),
+    style: buttonStyleDefault(),
+    child: const Icon(Icons.remove, color: Colors.white),
   );
 }

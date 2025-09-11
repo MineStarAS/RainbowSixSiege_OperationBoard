@@ -18,6 +18,6 @@ class SketchClearButton extends Button {
           Static.state.clearSketch();
         },
         style: ElevatedButton.styleFrom(fixedSize: size, backgroundColor: color),
-        child: Text(Static.state.language.main('sketch_clear'), style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600)),
+        child: Text(Static.state.language.main('sketch_clear'), style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.white)),
       );
 }

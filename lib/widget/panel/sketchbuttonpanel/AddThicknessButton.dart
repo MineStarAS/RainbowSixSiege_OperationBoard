@@ -14,15 +14,17 @@ class AddThicknessButton extends Button {
   final Size size;
 
   @override
-  Widget button() => ElevatedButton(
-    onPressed: () {
-      Static.state.setState(() {
-        Static.state.addSketchThickness(Static.state.sketchMode);
-      });
-    },
-    style: ElevatedButton.styleFrom(
-        fixedSize: size,
-        backgroundColor: disableColor(Static.state.sketchMode == SketchMode.SQUARE)),
-    child: const Icon(Icons.add),
+  Widget button() =>
+      ElevatedButton(
+          onPressed: () {
+            Static.state.setState(() {
+              Static.state.addSketchThickness(Static.state.sketchMode);
+            });
+          },
+          style: buttonStyleBackgroundColor(disableColor(Static.state.sketchMode == SketchMode.SQUARE)),
+          child: const Icon(Icons.add, color: Colors.white)
+
+  ,
+
   );
 }

@@ -21,7 +21,7 @@ class AddIconSizeButton extends Button {
             state.addDefaultMoveIconSize(5);
           });
         },
-        style: ElevatedButton.styleFrom(fixedSize: size, backgroundColor: color),
-        child: const Icon(Icons.add),
+        style: buttonStyleDefault(),
+        child: const Icon(Icons.add, color: Colors.white),
       );
 }
