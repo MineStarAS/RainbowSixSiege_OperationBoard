@@ -1,0 +1,138 @@
+
+BANK:
+    IS_RANKED: true
+    HAS_FLOOR:
+        - B1
+        - F1
+        - F2
+
+BORDER:
+    IS_RANKED: true
+    HAS_FLOOR:
+        - F1
+        - F2
+
+CHALET:
+    IS_RANKED: true
+    HAS_FLOOR:
+        - B1
+        - F1
+        - F2
+
+CLUB_HOUSE:
+    IS_RANKED: true
+    HAS_FLOOR:
+        - B1
+        - F1
+        - F2
+
+COASTLINE:
+    IS_RANKED: true
+    HAS_FLOOR:
+        - F1
+        - F2
+
+CONSULATE:
+    IS_RANKED: true
+    HAS_FLOOR:
+        - B1
+        - F1
+        - F2
+
+FAVELA:
+    IS_RANKED: false
+    HAS_FLOOR:
+        - B1
+        - F1
+        - F2
+        - F3
+
+FORTRESS:
+    IS_RANKED: false
+    HAS_FLOOR:
+        - F1
+        - F2
+
+HEREFORD:
+    IS_RANKED: false
+    HAS_FLOOR:
+        - B1
+        - F1
+        - F2
+        - F3
+
+HOUSE:
+    IS_RANKED: false
+    HAS_FLOOR:
+        - B1
+        - F1
+        - F2
+
+KAFE:
+    IS_RANKED: true
+    HAS_FLOOR:
+        - F1
+        - F2
+        - F3
+
+KANAL:
+    IS_RANKED: true
+    HAS_FLOOR:
+        - B2
+        - B1
+        - F1
+        - F2
+
+OREGON:
+    IS_RANKED: true
+    HAS_FLOOR:
+        - B1
+        - F1
+        - F2
+        - F3
+
+OUTBACK:
+    IS_RANKED: true
+    HAS_FLOOR:
+        - F1
+        - F2
+
+PLANE:
+    IS_RANKED: false
+    HAS_FLOOR:
+        - F1
+        - F2
+        - F3
+
+SKYSCRAPER:
+    IS_RANKED: true
+    HAS_FLOOR:
+        - F1
+        - F2
+
+THEME_PARK:
+    IS_RANKED: true
+    HAS_FLOOR:
+        - F1
+        - F2
+
+TOWER:
+    IS_RANKED: false
+    HAS_FLOOR:
+        - F1
+        - F2
+
+VILLA:
+    IS_RANKED: true
+    HAS_FLOOR:
+        - B1
+        - F1
+        - F2
+
+YACHT:
+    IS_RANKED: false
+    HAS_FLOOR:
+        - F1
+        - F2
+        - F3
+        - F4
