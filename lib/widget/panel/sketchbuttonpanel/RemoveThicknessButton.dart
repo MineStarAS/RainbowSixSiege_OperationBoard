@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 
 import '../../../main.dart';
 import '../../button/Button.dart';
-import '../../sketch/SketchMode.dart';
 
 class RemoveThicknessButton extends Button {
-  RemoveThicknessButton( this.color, this.size);
+  RemoveThicknessButton(this.color, this.size);
 
   @override
   final Color color;
@@ -15,12 +14,12 @@ class RemoveThicknessButton extends Button {
 
   @override
   Widget button() => ElevatedButton(
-    onPressed: () {
-      Static.state.setState(() {
-        Static.state.removeSketchThickness(Static.state.sketchMode);
-      });
-    },
-    style: buttonStyleBackgroundColor(disableColor(Static.state.sketchMode == SketchMode.SQUARE)),
-    child: const Icon(Icons.remove, color: Colors.white),
-  );
+        onPressed: () {
+          Static.state.setState(() {
+            Static.state.removeSketchThickness(Static.state.sketchMode);
+          });
+        },
+        style: buttonStyleBackgroundColor(disableColor(disableCheckSketchMode())),
+        child: const Icon(Icons.remove, color: Colors.white),
+      );
 }

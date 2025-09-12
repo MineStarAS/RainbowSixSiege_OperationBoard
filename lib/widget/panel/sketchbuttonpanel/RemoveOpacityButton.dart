@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../main.dart';
 import '../../button/Button.dart';
+import '../../sketch/SketchMode.dart';
 
 class RemoveOpacityButton extends Button {
   RemoveOpacityButton(this.color, this.size);
@@ -19,7 +20,7 @@ class RemoveOpacityButton extends Button {
         Static.state.removeSketchOpacity(Static.state.sketchMode);
       });
     },
-    style: buttonStyleDefault(),
+    style: buttonStyleBackgroundColor(disableColor(Static.state.sketchMode == SketchMode.NONE)),
     child: const Icon(Icons.remove, color: Colors.white),
   );
 }

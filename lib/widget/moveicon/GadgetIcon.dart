@@ -12,41 +12,41 @@ class GadgetIcon extends MoveIcon {
   GadgetIcon(this.state, this.gadget, double x, double y) {
     if (x <= 0) {
       x = 1;
-    } else if (state.mapWidth <= x + size) {
-      x = state.mapWidth - size - 1;
+    } else if (state.mapWidth() <= x + size) {
+      x = state.mapWidth() - size - 1;
     }
 
     if (y <= 0) {
       y = 1;
-    } else if (state.mapHeight <= y + size) {
-      y = state.mapHeight - size - 1;
+    } else if (state.mapHeight() <= y + size) {
+      y = state.mapHeight() - size - 1;
     }
 
-    final centerX = state.mapWidth / 2;
-    final centerY = state.mapHeight / 2;
+    final centerX = state.mapWidth() / 2;
+    final centerY = state.mapHeight() / 2;
     final offsetX = state.getPlayMapOffsetX();
     final offsetY = state.getPlayMapOffsetY();
     final scale = state.getPlayMapScale();
 
-    posX = (((x - centerX) + (offsetX / 2 * (scale - 1))) / centerX / scale * state.mapWidth) + centerX;
-    posY = (((y - centerY) + (offsetY / 2 * (scale - 1))) / centerY / scale * state.mapHeight) + centerY;
+    posX = (((x - centerX) + (offsetX / 2 * (scale - 1))) / centerX / scale * state.mapWidth()) + centerX;
+    posY = (((y - centerY) + (offsetY / 2 * (scale - 1))) / centerY / scale * state.mapHeight()) + centerY;
 
     state.addMoveIcon(this);
     state.setSelectMoveIcon(this);
   }
 
   GadgetIcon.center(this.state, this.gadget) {
-    final centerX = state.mapWidth / 2;
-    final centerY = state.mapHeight / 2;
+    final centerX = state.mapWidth() / 2;
+    final centerY = state.mapHeight() / 2;
     final offsetX = state.getPlayMapOffsetX();
     final offsetY = state.getPlayMapOffsetY();
     final scale = state.getPlayMapScale();
 
-    var x = state.mapWidth / 2;
-    var y = state.mapHeight / 2;
+    var x = state.mapWidth() / 2;
+    var y = state.mapHeight() / 2;
 
-    posX = (((x - centerX) + (offsetX / 2 * (scale - 1))) / centerX / scale * state.mapWidth) + centerX;
-    posY = (((y - centerY) + (offsetY / 2 * (scale - 1))) / centerY / scale * state.mapHeight) + centerY;
+    posX = (((x - centerX) + (offsetX / 2 * (scale - 1))) / centerX / scale * state.mapWidth()) + centerX;
+    posY = (((y - centerY) + (offsetY / 2 * (scale - 1))) / centerY / scale * state.mapHeight()) + centerY;
 
     state.addMoveIcon(this);
     state.setSelectMoveIcon(this);
@@ -55,24 +55,24 @@ class GadgetIcon extends MoveIcon {
   GadgetIcon.clone(this.state, GadgetIcon gadgetIcon, double x, double y) {
     if (x <= 0) {
       x = 1;
-    } else if (state.mapWidth <= x + size) {
-      x = state.mapWidth - size - 1;
+    } else if (state.mapWidth() <= x + size) {
+      x = state.mapWidth() - size - 1;
     }
 
     if (y <= 0) {
       y = 1;
-    } else if (state.mapHeight <= y + size) {
-      y = state.mapHeight - size - 1;
+    } else if (state.mapHeight() <= y + size) {
+      y = state.mapHeight() - size - 1;
     }
 
-    final centerX = state.mapWidth / 2;
-    final centerY = state.mapHeight / 2;
+    final centerX = state.mapWidth() / 2;
+    final centerY = state.mapHeight() / 2;
     final offsetX = state.getPlayMapOffsetX();
     final offsetY = state.getPlayMapOffsetY();
     final scale = state.getPlayMapScale();
 
-    posX = (((x - centerX) + (offsetX / 2 * (scale - 1))) / centerX / scale * state.mapWidth) + centerX;
-    posY = (((y - centerY) + (offsetY / 2 * (scale - 1))) / centerY / scale * state.mapHeight) + centerY;
+    posX = (((x - centerX) + (offsetX / 2 * (scale - 1))) / centerX / scale * state.mapWidth()) + centerX;
+    posY = (((y - centerY) + (offsetY / 2 * (scale - 1))) / centerY / scale * state.mapHeight()) + centerY;
 
     gadget = gadgetIcon.gadget;
     currentSize = gadgetIcon.currentSize;
@@ -118,13 +118,13 @@ class GadgetIcon extends MoveIcon {
     final double x;
     final double y;
 
-    if (state.mapWidth < posX + width) {
+    if (state.mapWidth() < posX + width) {
       x = posX - width;
     } else {
       x = posX;
     }
 
-    if (state.mapHeight < posY + height + maxSize * state.getPlayMapScale()) {
+    if (state.mapHeight() < posY + height + maxSize * state.getPlayMapScale()) {
       y = posY - height;
     } else {
       y = posY + maxSize * state.getPlayMapScale();
@@ -203,13 +203,13 @@ class GadgetIcon extends MoveIcon {
     final double x;
     final double y;
 
-    if (state.mapWidth < posX + width) {
+    if (state.mapWidth() < posX + width) {
       x = posX - width;
     } else {
       x = posX;
     }
 
-    if (state.mapHeight < posY + height + maxSize * state.getPlayMapScale()) {
+    if (state.mapHeight() < posY + height + maxSize * state.getPlayMapScale()) {
       y = posY - height;
     } else {
       y = posY + maxSize * state.getPlayMapScale();

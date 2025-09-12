@@ -12,21 +12,21 @@ abstract class MoveIcon extends OptionPanel {
   late double currentSize = state.defaultMoveIconSize;
 
   getPosX() {
-    final center = state.mapWidth / 2;
+    final center = state.mapWidth() / 2;
     final scale = state.getPlayMapScale();
     final offset = state.getPlayMapOffsetX();
 
-    final v1 = center + (((posX - center) / state.mapWidth) * center * scale);
+    final v1 = center + (((posX - center) / state.mapWidth()) * center * scale);
     final v2 = v1 - (offset / 2 * (scale - 1));
     return v2;
   }
 
   getPosY() {
-    final center = state.mapHeight / 2;
+    final center = state.mapHeight() / 2;
     final scale = state.getPlayMapScale();
     final offset = state.getPlayMapOffsetY();
 
-    final v1 = center + (((posY - center) / state.mapHeight) * center * scale);
+    final v1 = center + (((posY - center) / state.mapHeight()) * center * scale);
     final v2 = v1 - (offset / 2 * (scale - 1));
     return v2;
   }
@@ -34,29 +34,29 @@ abstract class MoveIcon extends OptionPanel {
   setPosX(double x) {
     if (x <= 0) {
       x = 1;
-    } else if (state.mapWidth <= x + size) {
-      x = state.mapWidth - size - 1;
+    } else if (state.mapWidth() <= x + size) {
+      x = state.mapWidth() - size - 1;
     }
 
-    final center = state.mapWidth / 2;
+    final center = state.mapWidth() / 2;
     final scale = state.getPlayMapScale();
     final offset = state.getPlayMapOffsetX();
 
-    posX = (((x - center) + (offset / 2 * (scale - 1))) / center / scale * state.mapWidth) + center;
+    posX = (((x - center) + (offset / 2 * (scale - 1))) / center / scale * state.mapWidth()) + center;
   }
 
   setPosY(double y) {
     if (y <= 0) {
       y = 1;
-    } else if (state.mapHeight <= y + size) {
-      y = state.mapHeight - size - 1;
+    } else if (state.mapHeight() <= y + size) {
+      y = state.mapHeight() - size - 1;
     }
 
-    final center = state.mapHeight / 2;
+    final center = state.mapHeight() / 2;
     final scale = state.getPlayMapScale();
     final offset = state.getPlayMapOffsetY();
 
-    posY = (((y - center) + (offset / 2 * (scale - 1))) / center / scale * state.mapHeight) + center;
+    posY = (((y - center) + (offset / 2 * (scale - 1))) / center / scale * state.mapHeight()) + center;
   }
 
   setSize(double size) {

@@ -21,7 +21,7 @@ class SelectColorButton extends Button {
         Static.state.sketchColor = sketchColor;
       });
     },
-    style: buttonStyleBackgroundColor(sketchColor),
+    style: buttonStyleBackgroundColor(disableColor(Static.state.sketchColor == sketchColor)),
     child: Icon(Icons.square, color: sketchColor),
   );
 }

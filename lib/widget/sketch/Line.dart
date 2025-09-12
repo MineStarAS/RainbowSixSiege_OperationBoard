@@ -9,14 +9,14 @@ import 'SketchMode.dart';
 
 class Line extends Sketch {
   Line(this.state, double x, double y) {
-    final centerX = state.mapWidth / 2;
-    final centerY = state.mapHeight / 2;
+    final centerX = state.mapWidth() / 2;
+    final centerY = state.mapHeight() / 2;
     final offsetX = state.getPlayMapOffsetX();
     final offsetY = state.getPlayMapOffsetY();
     final scale = state.getPlayMapScale();
 
-    startX = (((x - centerX) + (offsetX / 2 * (scale - 1))) / state.mapWidth / scale * state.mapWidth) + centerX;
-    startY = (((y - centerY) + (offsetY / 2 * (scale - 1))) / state.mapHeight / scale * state.mapHeight) + centerY;
+    startX = (((x - centerX) + (offsetX / 2 * (scale - 1))) / state.mapWidth() / scale * state.mapWidth()) + centerX;
+    startY = (((y - centerY) + (offsetY / 2 * (scale - 1))) / state.mapHeight() / scale * state.mapHeight()) + centerY;
   }
 
   @override

@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:r6soperationboard/main.dart';
 
+import '../sketch/SketchMode.dart';
+
 abstract class Button {
   late final Color color;
 
@@ -30,7 +32,16 @@ abstract class Button {
       );
 
   ButtonStyle buttonStyleDefault() => ElevatedButton.styleFrom(fixedSize: size, backgroundColor: color, padding: EdgeInsets.zero);
-  ButtonStyle buttonStyleBackgroundColor(Color color) => ElevatedButton.styleFrom(fixedSize: size, backgroundColor: disableColor(Static.state.sketchColor == color), padding: EdgeInsets.zero);
-    Text getLocalData(String key) => Text(Static.state.language.main(key), style: defaultTextStyle());
+
+  ButtonStyle buttonStyleBackgroundColor(Color color) => ElevatedButton.styleFrom(fixedSize: size, backgroundColor: color, padding: EdgeInsets.zero);
+
+  Text getLocalData(String key) => Text(Static.state.language.main(key), style: defaultTextStyle());
+
   TextStyle defaultTextStyle() => TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white);
+
+  bool disableCheckSketchMode() {
+    if (Static.state.sketchMode == SketchMode.NONE) return true;
+    if (Static.state.sketchMode == SketchMode.SQUARE) return true;
+    return false;
+  }
 }

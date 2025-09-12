@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../main.dart';
 import '../../button/Button.dart';
+import '../../sketch/SketchMode.dart';
 
 class AddOpacityButton extends Button {
   AddOpacityButton(this.color, this.size);
@@ -19,7 +20,7 @@ class AddOpacityButton extends Button {
         Static.state.addSketchOpacity(Static.state.sketchMode);
       });
     },
-    style: buttonStyleDefault(),
+    style: buttonStyleBackgroundColor(disableColor(Static.state.sketchMode == SketchMode.NONE)),
     child: const Icon(Icons.add, color: Colors.white),
   );
 }

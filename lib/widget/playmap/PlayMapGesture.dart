@@ -1,7 +1,7 @@
 // ignore_for_file: file_names, invalid_use_of_protected_member
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
 import 'package:r6soperationboard/main.dart';
 import 'package:r6soperationboard/widget/sketch/Arrow.dart';
 import 'package:r6soperationboard/widget/sketch/Circle.dart';
@@ -17,9 +17,6 @@ class PlayMapGesture {
 
   late final MyStatefulWidgetState state;
 
-  double? _originX;
-  double? _originY;
-
   widget() => Listener(
         ///Mouse Wheel Scroll
         onPointerSignal: (event) {
@@ -31,6 +28,7 @@ class PlayMapGesture {
             } else {
               state.removePlayMapScale(); //ZoomOut
             }
+            state.debug("${state.getPlayMapOffsetX()}, ${state.getPlayMapOffsetY()}, ${state.getPlayMapScale()}");
           });
         },
         child: GestureDetector(
@@ -43,13 +41,14 @@ class PlayMapGesture {
           onPanStart: (event) {
             state.setSelectMoveIcon(null);
             if (state.sketchMode == SketchMode.NONE) {
-              _originX = event.localPosition.dx;
-              _originY = event.localPosition.dy;
               return;
             }
             state.setState(() {
               final Sketch? sketch;
               switch (state.sketchMode) {
+                case SketchMode.NONE:
+                  return;
+
                 case SketchMode.ARROW:
                   sketch = Arrow(state, event.localPosition.dx, event.localPosition.dy);
                   break;
@@ -81,13 +80,11 @@ class PlayMapGesture {
             ///Move PlayMap Image
             if (state.sketchMode == SketchMode.NONE) {
               state.setState(() {
-                final scale = 2.0 + state.zoomInLimit - state.getPlayMapScale();
-
-                if (_originX != null) state.addPlayMapOffsetX((_originX! - event.localPosition.dx) * scale);
-                if (_originY != null) state.addPlayMapOffsetY((_originY! - event.localPosition.dy) * scale);
-
-                _originX = event.localPosition.dx;
-                _originY = event.localPosition.dy;
+                double x = event.delta.dx * 5 * state.getPlayMapScale();
+                double y = event.delta.dy * 5 * state.getPlayMapScale();
+                state.debug("${state.getPlayMapOffsetX()}, ${state.getPlayMapOffsetY()}, ${state.getPlayMapScale()}");
+                state.addPlayMapOffsetX(x);
+                state.addPlayMapOffsetY(y);
               });
               return;
             }
@@ -116,7 +113,7 @@ class PlayMapGesture {
               state.setSelectMoveIcon(null);
             });
           },
-          child: Center(child: Image.asset("assets/map/BLANK.png")),
+          child: Center(child: SizedBox(width: 9999, height: 9999, child: ColoredBox(color: Colors.transparent))),
         ),
       );
 }

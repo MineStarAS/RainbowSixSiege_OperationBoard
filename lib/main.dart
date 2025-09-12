@@ -13,8 +13,8 @@ import 'package:r6soperationboard/widget/drawer/PlayMapDrawer.dart';
 import 'package:r6soperationboard/widget/drawer/PublicGadgetDrawer.dart';
 import 'package:r6soperationboard/widget/moveicon/MoveIcon.dart';
 import 'package:r6soperationboard/widget/panel/MoveIconButtonPanel.dart';
-import 'package:r6soperationboard/widget/panel/sketchbuttonpanel/SketchButtonPanel.dart';
 import 'package:r6soperationboard/widget/panel/interface/OptionPanel.dart';
+import 'package:r6soperationboard/widget/panel/sketchbuttonpanel/SketchButtonPanel.dart';
 import 'package:r6soperationboard/widget/playmap/PlayMapGesture.dart';
 import 'package:r6soperationboard/widget/playmap/PlayMapImage.dart';
 import 'package:r6soperationboard/widget/sketch/SketchMode.dart';
@@ -34,6 +34,7 @@ class Static {
   //TeamColor
   static const attackTeamColor = Color(0xFF1184E1);
   static const defenseTeamColor = Color(0xFFE97015);
+
   //PublicColor
   static const publicColor = Color(0xFFE8C515);
 }
@@ -64,8 +65,8 @@ class MyStatefulWidget extends StatefulWidget {
 class MyStatefulWidgetState extends State<MyStatefulWidget> {
   @override
   initState() {
-    DesktopWindow.setMinWindowSize(const Size(1280, 850));
-    DesktopWindow.setFullScreen(true);
+    DesktopWindow.setMinWindowSize(const Size(1686, 1030));
+    DesktopWindow.setFullScreen(false);
 
     for (PlayMap playMap in PlayMap.values) {
       final Map<Floor, Set<MoveIcon>> moveIconMap = {};
@@ -104,8 +105,9 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
   PlayMap playMap = PlayMap.BANK;
   Floor floor = Floor.F1;
 
-  double mapWidth = 1250;
-  double mapHeight = 938;
+  double mapWidth() => MediaQuery.of(context).size.width;
+
+  double mapHeight() => MediaQuery.of(context).size.height;
 
   final double _leftPanelWidth = 220;
   final double _rightPanelWidth = 200;
@@ -114,7 +116,7 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
   final Map<PlayMap, Map<Floor, double>> _playMapOffsetY = {};
   final Map<PlayMap, Map<Floor, double>> _playMapScale = {};
 
-  final double zoomInLimit = 5;
+  final double zoomInLimit = 3;
   final double _zoomStep = 0.1;
 
   //Drawer TeamType
@@ -201,7 +203,9 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
   ///##### Display List #####
   _displayList() {
     //Create List and Add PlayMapWidget Image
-    final List<Widget> list = [PlayMapImage(this).widget()];
+    final List<Widget> list = [];
+
+    list.add(PlayMapImage(this).widget());
 
     //Add Sketch
     for (final sketch in _sketchSet()) {
@@ -212,8 +216,8 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
 
     //Add MoveIcon
     for (final moveIcon in _moveIconSet()) {
-      if (0 > moveIcon.getPosX() || moveIcon.getPosX() + moveIcon.size > mapWidth) continue;
-      if (0 > moveIcon.getPosY() || moveIcon.getPosY() + moveIcon.size > mapHeight) continue;
+      if (0 > moveIcon.getPosX() || moveIcon.getPosX() + moveIcon.size > mapWidth()) continue;
+      if (0 > moveIcon.getPosY() || moveIcon.getPosY() + moveIcon.size > mapHeight()) continue;
       list.add(moveIcon.widget());
     }
 
@@ -232,15 +236,13 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
 
   addPlayMapOffsetX(double offsetX) {
     var newValue = _playMapOffsetX[playMap]![floor]! + offsetX;
-    if (mapWidth < newValue.abs()) return;
-    if (getPlayMapScale() == 1.0) return;
+    if (mapWidth() < newValue.abs()) newValue = newValue.sign * mapWidth();
     _playMapOffsetX[playMap]![floor] = newValue;
   }
 
   addPlayMapOffsetY(double offsetY) {
     var newValue = _playMapOffsetY[playMap]![floor]! + offsetY;
-    if (mapHeight < newValue.abs()) return;
-    if (getPlayMapScale() == 1.0) return;
+    if (mapHeight() < newValue.abs()) newValue = newValue.sign * mapHeight();
     _playMapOffsetY[playMap]![floor] = newValue;
   }
 
@@ -300,12 +302,14 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
 
   addSketchThickness(SketchMode sketchMode) {
     if (sketchMode == SketchMode.SQUARE) return;
+    if (sketchMode == SketchMode.NONE) return;
     if (_sketchThicknessMap[sketchMode] == 10) return;
     _sketchThicknessMap[sketchMode] = _sketchThicknessMap[sketchMode]! + 1;
   }
 
   removeSketchThickness(SketchMode sketchMode) {
     if (sketchMode == SketchMode.SQUARE) return;
+    if (sketchMode == SketchMode.NONE) return;
     if (_sketchThicknessMap[sketchMode] == 1) return;
     _sketchThicknessMap[sketchMode] = _sketchThicknessMap[sketchMode]! - 1;
   }
@@ -313,11 +317,13 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
   getSketchOpacity(SketchMode sketchMode) => _sketchOpacityMap[sketchMode]!.toDouble() / 10;
 
   addSketchOpacity(SketchMode sketchMode) {
+    if (sketchMode == SketchMode.NONE) return;
     if (_sketchOpacityMap[sketchMode] == 10) return;
     _sketchOpacityMap[sketchMode] = _sketchOpacityMap[sketchMode]! + 1;
   }
 
   removeSketchOpacity(SketchMode sketchMode) {
+    if (sketchMode == SketchMode.NONE) return;
     if (_sketchOpacityMap[sketchMode] == 1) return;
     _sketchOpacityMap[sketchMode] = _sketchOpacityMap[sketchMode]! - 1;
   }
@@ -558,20 +564,16 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
         break;
       //Move Map Image
       case "Arrow Right":
-        if (!event.isControlPressed) return;
-        addPlayMapOffsetX(100);
-        break;
-      case "Arrow Left":
-        if (!event.isControlPressed) return;
         addPlayMapOffsetX(-100);
         break;
+      case "Arrow Left":
+        addPlayMapOffsetX(100);
+        break;
       case "Arrow Up":
-        if (!event.isControlPressed) return;
-        addPlayMapOffsetY(-100);
+        addPlayMapOffsetY(100);
         break;
       case "Arrow Down":
-        if (!event.isControlPressed) return;
-        addPlayMapOffsetY(100);
+        addPlayMapOffsetY(-100);
         break;
       //Esc
       case "Escape":
@@ -611,8 +613,6 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
             Expanded(
               child: LayoutBuilder(
                 builder: (context, constraints) {
-                  mapWidth = constraints.maxWidth;
-                  mapHeight = constraints.maxHeight;
                   return ClipRect(child: Stack(children: _displayList()));
                 },
               ),
@@ -621,6 +621,7 @@ class MyStatefulWidgetState extends State<MyStatefulWidget> {
           ],
         ),
       ),
+
       ///Drawer
       drawer: _loadOpDrawer(),
       endDrawer: PlayMapDrawer(this).getDrawer(),

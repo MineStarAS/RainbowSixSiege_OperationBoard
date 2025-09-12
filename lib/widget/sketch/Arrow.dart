@@ -9,14 +9,14 @@ import 'SketchMode.dart';
 
 class Arrow extends Sketch {
   Arrow(this.state, double x, double y) {
-    final centerX = state.mapWidth / 2;
-    final centerY = state.mapHeight / 2;
+    final centerX = state.mapWidth() / 2;
+    final centerY = state.mapHeight() / 2;
     final offsetX = state.getPlayMapOffsetX();
     final offsetY = state.getPlayMapOffsetY();
     final scale = state.getPlayMapScale();
 
-    startX = (((x - centerX) + (offsetX / 2 * (scale - 1))) / state.mapWidth / scale * state.mapWidth) + centerX;
-    startY = (((y - centerY) + (offsetY / 2 * (scale - 1))) / state.mapHeight / scale * state.mapHeight) + centerY;
+    startX = (((x - centerX) + (offsetX / 2 * (scale - 1))) / state.mapWidth() / scale * state.mapWidth()) + centerX;
+    startY = (((y - centerY) + (offsetY / 2 * (scale - 1))) / state.mapHeight() / scale * state.mapHeight()) + centerY;
   }
 
   @override
@@ -36,8 +36,8 @@ class Arrow extends Sketch {
   widget() => Positioned(
       left: getStartX(),
       top: getStartY(),
-      width: state.mapWidth,
-      height: state.mapHeight,
+      width: state.mapWidth(),
+      height: state.mapHeight(),
         child: CustomPaint(painter: _ArrowSketcher(getStartX(), getStartY(), getFinishX(), getFinishY(), color.withOpacity(opacity), thickness)),
       );
 }
